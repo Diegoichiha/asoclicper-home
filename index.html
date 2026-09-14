@@ -1,0 +1,1595 @@
+<meta charset="utf-8">
+<title>Asoclicper Premium Home</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root{
+    --bg:#f4f8f6;
+    --bg-alt:#ffffff;
+    --ink:#12131a;
+    --ink-dim:#5b6072;
+    --line:#e6e8f0;
+    --surface:#ffffff;
+    --surface-2:#eef3f8;
+    --blue:#0b77bd;
+    --teal:#4abab7;
+    --lime:#c1d226;
+    --indigo:#2e53a1;
+    --purple:#674696;
+    --magenta:#b767a6;
+    --grad-a: linear-gradient(120deg, var(--blue), var(--teal) 55%, var(--lime));
+    --grad-b: linear-gradient(120deg, var(--indigo), var(--purple) 55%, var(--magenta));
+    --bf-purple-1: color-mix(in srgb, var(--indigo) 55%, #0a0714);
+    --bf-purple-2: color-mix(in srgb, var(--magenta) 48%, #0a0714);
+    --dark:#0a0e17;
+    --dark-line: rgba(255,255,255,.1);
+    --radius: 22px;
+    --shadow: 0 24px 60px -20px rgba(20,40,60,.18);
+  }
+
+  *{box-sizing:border-box;}
+  /* overflow-x va en html: en body convierte al body en contenedor de scroll y rompe el pin de ScrollTrigger */
+  html{scroll-behavior:smooth;overflow-x:hidden;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.font-display{font-family:'Poppins',system-ui,sans-serif;}
+  img{display:block;max-width:100%;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 28px;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--blue);
+  }
+  .eyebrow::before{content:"";width:18px;height:2px;background:var(--grad-a);border-radius:2px;}
+  .eyebrow.on-dark{color:#9fd7ff;}
+  .grad-text{background:var(--grad-a);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .grad-text-b{background:var(--grad-b);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:15px 26px;border-radius:100px;font-weight:600;font-size:15px;
+    border:1px solid transparent;cursor:pointer;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s;
+  }
+  /* border:none en los botones de relleno solido: un borde transparente sobre un fondo en
+     degradado deja una linea/seam visible en los lados por como el navegador antialiasa el
+     border-radius del borde por separado del fondo. Tambien se recorta el spread de la sombra
+     para que no se note como una franja de color a los costados del pill. */
+  .btn-primary{background:var(--grad-a);color:#fff;border:none;box-shadow:0 14px 24px -14px rgba(11,119,189,.5);}
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 18px 30px -14px rgba(11,119,189,.55);color:#fff;}
+  .btn-ghost-dark{background:#fff;color:var(--ink);border-color:var(--line);}
+  .btn-ghost-dark:hover{transform:translateY(-3px);box-shadow:var(--shadow);}
+  .btn-ghost{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.28);backdrop-filter:blur(6px);}
+  .btn-ghost:hover{background:rgba(255,255,255,.16);transform:translateY(-3px);}
+  .btn-dark{background:var(--ink);color:#fff;border:none;}
+  .btn-dark:hover{transform:translateY(-3px);box-shadow:0 16px 32px -14px rgba(0,0,0,.4);}
+
+  #progress{position:fixed;top:0;left:0;height:3px;background:var(--grad-a);z-index:999;width:0%;}
+
+  header{position:fixed;top:0;left:0;right:0;z-index:90;padding:22px 0;transition:padding .4s ease,background .4s ease,box-shadow .4s ease;}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;}
+  header.scrolled{padding:12px 0;background:rgba(255,255,255,.92);border-bottom:1px solid var(--line);box-shadow:0 8px 24px -16px rgba(20,40,60,.25);}
+  .logo{display:flex;align-items:center;gap:10px;}
+  .logo img{height:34px;width:auto;}
+  nav.mainnav{display:flex;align-items:center;gap:28px;}
+  nav.mainnav a{font-size:14.5px;font-weight:600;color:var(--ink);opacity:.78;transition:opacity .25s;}
+  nav.mainnav a:hover{opacity:1;}
+  .navcta{display:flex;align-items:center;gap:12px;}
+  .burger{display:none;width:42px;height:42px;border-radius:12px;background:#fff;border:1px solid var(--line);align-items:center;justify-content:center;cursor:pointer;}
+  .burger span{display:block;width:18px;height:2px;background:var(--ink);position:relative;}
+  .burger span::before,.burger span::after{content:"";position:absolute;left:0;width:18px;height:2px;background:inherit;}
+  .burger span::before{top:-6px;}
+  .burger span::after{top:6px;}
+
+  /* ---------- hero: campo de color vivo + fotografia ---------- */
+  .hero{position:relative;overflow:hidden;height:100vh;min-height:660px;padding:0;background:linear-gradient(180deg,#ffffff 0%,#ffffff 32%,#e6eff8 100%);}
+  .hero-mood{position:absolute;inset:0;pointer-events:none;background:radial-gradient(54% 40% at 50% 44%, var(--blue) 0%, transparent 70%);opacity:.12;}
+
+  .hero-field{position:absolute;inset:-12% -6%;filter:blur(48px);opacity:.95;pointer-events:none;}
+  .hero-blob{position:absolute;display:block;border-radius:50%;mix-blend-mode:multiply;will-change:transform,opacity;}
+  .hb1{width:62%;height:108%;top:-14%;left:-16%;background:radial-gradient(58% 100% at 46% 56%, #0b77bd 0%, transparent 70%);animation:auroraA 9s ease-in-out infinite;}
+  .hb2{width:66%;height:118%;top:-16%;left:20%;background:radial-gradient(100% 66% at 52% 48%, #2e53a1 0%, transparent 68%);animation:auroraB 11.5s ease-in-out infinite;}
+  .hb3{width:64%;height:104%;top:-9%;left:56%;background:radial-gradient(62% 100% at 50% 58%, #4abab7 0%, transparent 66%);animation:auroraC 7.6s ease-in-out infinite;}
+  .hb4{width:96%;height:120%;top:-15%;left:4%;background:radial-gradient(100% 72% at 48% 52%, #9ec9e8 0%, transparent 72%);animation:auroraD 13s ease-in-out infinite;}
+  .hb5{width:52%;height:86%;bottom:-20%;right:-12%;background:radial-gradient(70% 100% at 50% 50%, #c1d226 0%, transparent 66%);animation:auroraC 10.4s ease-in-out infinite reverse;}
+  @keyframes auroraA{0%{transform:rotate(0) scale(.68) translate3d(0,0,0);opacity:.42}35%{transform:rotate(34deg) scale(1.46) translate3d(5%,-4%,0);opacity:1}68%{transform:rotate(-19deg) scale(.94) translate3d(-4%,3%,0);opacity:.74}100%{transform:rotate(0) scale(.68) translate3d(0,0,0);opacity:.42}}
+  @keyframes auroraB{0%{transform:rotate(0) scale(1.28) translate3d(0,0,0);opacity:.9}40%{transform:rotate(-29deg) scale(.7) translate3d(-5%,4%,0);opacity:.4}72%{transform:rotate(16deg) scale(1.38) translate3d(4%,-3%,0);opacity:1}100%{transform:rotate(0) scale(1.28) translate3d(0,0,0);opacity:.9}}
+  @keyframes auroraC{0%{transform:rotate(0) scale(.78) translate3d(0,0,0);opacity:.5}30%{transform:rotate(-24deg) scale(1.52) translate3d(-6%,-4%,0);opacity:.95}65%{transform:rotate(27deg) scale(.86) translate3d(5%,4%,0);opacity:.45}100%{transform:rotate(0) scale(.78) translate3d(0,0,0);opacity:.5}}
+  @keyframes auroraD{0%{transform:rotate(0) scale(1.2) translate3d(0,0,0);opacity:.8}45%{transform:rotate(21deg) scale(.66) translate3d(4%,5%,0);opacity:.34}75%{transform:rotate(-26deg) scale(1.32) translate3d(-5%,-3%,0);opacity:.95}100%{transform:rotate(0) scale(1.2) translate3d(0,0,0);opacity:.8}}
+
+  .hero-ripples{position:absolute;inset:0;filter:blur(26px);mix-blend-mode:multiply;pointer-events:none;z-index:1;}
+  .hero-cursor-glow{position:absolute;width:540px;height:540px;border-radius:50%;left:0;top:0;opacity:0;background:radial-gradient(circle, rgba(11,119,189,.40) 0%, rgba(74,186,183,.22) 44%, transparent 72%);}
+  .hero-ripple{position:absolute;width:460px;height:460px;border-radius:50%;left:0;top:0;opacity:0;background:radial-gradient(circle, transparent 0%, transparent 36%, rgba(74,186,183,.46) 58%, transparent 80%);}
+
+  /* velo de legibilidad: mantiene el texto legible sobre el campo de color */
+  .hero-scrim{position:absolute;inset:0;pointer-events:none;z-index:1;
+    background:linear-gradient(100deg, rgba(255,255,255,.92) 0%, rgba(255,255,255,.78) 26%, rgba(255,255,255,.34) 46%, rgba(255,255,255,0) 62%);}
+  .hero-gridlines{position:absolute;inset:0;pointer-events:none;z-index:1;
+    background-image:linear-gradient(rgba(9,20,40,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(9,20,40,.055) 1px,transparent 1px);
+    background-size:64px 64px;
+    -webkit-mask-image:radial-gradient(72% 62% at 50% 45%,#000 0%,transparent 85%);
+    mask-image:radial-gradient(72% 62% at 50% 45%,#000 0%,transparent 85%);}
+
+  .hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;transform-style:preserve-3d;}
+
+  /* ---------- profundidad 3D: las escenas llegan desde el fondo ---------- */
+  #specialistsSection .tag-row{perspective:1400px;}
+  .spec-grid{perspective:1700px;transform-style:preserve-3d;}
+  .about-grid{perspective:1600px;transform-style:preserve-3d;}
+  .hero-copy .eyebrow{margin-bottom:16px;color:var(--indigo);}
+  .hero h1{font-size:clamp(32px,4.6vw,52px);line-height:1.1;margin:0 0 20px;font-weight:700;letter-spacing:-.5px;color:var(--ink);}
+  .hero p.lead{font-size:17px;line-height:1.65;color:#2b3346;max-width:480px;margin:0 0 32px;}
+  .hero-ctas{display:flex;flex-wrap:wrap;gap:14px;}
+  .hero-pill{display:inline-flex;align-items:center;gap:10px;padding:9px 16px;border-radius:100px;background:#fff;border:1px solid var(--line);font-size:12.5px;font-weight:600;color:var(--ink-dim);margin-bottom:20px;box-shadow:0 8px 20px -10px rgba(20,40,60,.15);}
+  .hero-pill .dot{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 4px rgba(193,210,38,.22);}
+
+  .hero-visual{position:relative;}
+  .hero-photo-wrap{position:relative;border-radius:34px;overflow:hidden;box-shadow:0 40px 80px -30px rgba(20,40,70,.35);aspect-ratio:4/4.6;}
+  .hero-photo-wrap img{width:100%;height:100%;object-fit:cover;}
+  .hero-photo-wrap::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg, rgba(10,20,30,.28), transparent 40%);}
+
+  .scroll-cue{display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--ink-dim);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-top:60px;}
+  .scroll-cue .line{width:1px;height:34px;background:linear-gradient(var(--ink-dim),transparent);animation:scrolldown 1.8s ease-in-out infinite;}
+  @keyframes scrolldown{0%{transform:scaleY(.3);opacity:0;}40%{opacity:1;}100%{transform:scaleY(1);opacity:0;}}
+
+  /* ---------- hero fijo con 3 slides en profundidad ---------- */
+  /* ojo: nada en la cadena stage > slide > hero-inner puede llevar opacity/filter/overflow,
+     porque eso aplana el 3D; la opacidad y el blur se animan en las hojas (copy, visual) */
+  .hero-stage{position:absolute;inset:0;z-index:2;perspective:1100px;perspective-origin:50% 48%;transform-style:preserve-3d;}
+  .hero-slide{position:absolute;inset:0;display:flex;align-items:center;padding:84px 0 86px;transform-style:preserve-3d;pointer-events:none;}
+  .hero-slide.is-active{pointer-events:auto;}
+  .hero-slide + .hero-slide{visibility:hidden;}
+  .hero-slide .hero-inner{width:100%;}
+  .hero-slide .hero-copy{will-change:transform,opacity,filter;}
+  .hero-slide .hero-visual{transform-style:preserve-3d;will-change:transform,opacity;}
+  .hero-slide .hero-photo-wrap{aspect-ratio:auto;height:min(62vh,560px);}
+
+  .hero-portal{position:absolute;left:50%;top:48%;width:74vmin;height:74vmin;margin:-37vmin 0 0 -37vmin;border-radius:50%;
+    z-index:1;pointer-events:none;opacity:0;filter:blur(7px);mix-blend-mode:multiply;
+    background:radial-gradient(circle, transparent 34%, rgba(74,186,183,.6) 49%, rgba(11,119,189,.34) 59%, rgba(193,210,38,.18) 66%, transparent 74%);}
+
+  .hero-hud{position:absolute;left:0;right:0;bottom:26px;z-index:3;pointer-events:none;}
+  .hero-hud-inner{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;}
+  .hero-count{font-family:'Poppins';font-weight:600;font-size:13px;letter-spacing:.1em;color:var(--ink-dim);min-width:84px;}
+  .hero-count b{font-size:24px;color:var(--ink);font-weight:700;}
+  .hero-count .sep{margin:0 6px;}
+  .hero-steps{display:flex;gap:20px;pointer-events:auto;}
+  .hero-step{background:none;border:0;padding:0;display:flex;flex-direction:column;gap:9px;align-items:flex-start;cursor:pointer;
+    font:600 11px 'Inter',system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-dim);transition:color .3s;}
+  .hero-step i{display:block;width:96px;height:2px;border-radius:2px;overflow:hidden;background:rgba(9,20,40,.12);}
+  .hero-step i b{display:block;width:100%;height:100%;background:var(--grad-a);transform-origin:left center;transform:scaleX(0);}
+  .hero-step.is-active{color:var(--ink);}
+  .hero-hud .scroll-cue{margin:0;min-width:84px;}
+
+  .hero--static{height:auto;min-height:0;}
+  .hero--static .hero-stage{position:relative;}
+  .hero--static .hero-slide{position:relative;visibility:visible;pointer-events:auto;padding:130px 0 40px;}
+  .hero--static .hero-hud,.hero--static .hero-portal{display:none;}
+
+  section{position:relative;padding:110px 0;}
+  .tag-row{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:52px;flex-wrap:wrap;}
+  .tag-row h2{font-size:clamp(26px,3.2vw,38px);margin:14px 0 0;line-height:1.15;max-width:640px;}
+  .tag-row p{max-width:420px;color:var(--ink-dim);font-size:15.5px;line-height:1.6;}
+
+  /* ---------- specialists photo row ---------- */
+  .spec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .spec-card{border-radius:22px;overflow:hidden;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);transition:box-shadow .4s;will-change:transform,opacity,filter;}
+  .spec-card:hover{box-shadow:0 40px 80px -24px rgba(20,40,70,.34);}
+  .spec-card .ph{aspect-ratio:4/4.4;overflow:hidden;position:relative;}
+  .spec-card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .6s;}
+  .spec-card:hover .ph img{transform:scale(1.05);}
+  .spec-card .ph .badge{position:absolute;top:14px;left:14px;padding:6px 12px;border-radius:100px;background:rgba(255,255,255,.92);font-size:11px;font-weight:700;color:var(--blue);}
+  .spec-card .body{padding:18px 20px 22px;}
+  .spec-card .body b{font-size:15px;display:block;margin-bottom:4px;}
+  .spec-card .body span{font-size:13px;color:var(--ink-dim);}
+
+  /* ---------- about (photographic) ---------- */
+  .about-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:70px;align-items:center;}
+  .about-media{position:relative;}
+  .about-media .frame{border-radius:26px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow);aspect-ratio:4/5;background:var(--surface-2);}
+  .about-media img{width:100%;height:100%;object-fit:cover;}
+  .play-btn{position:absolute;inset:0;margin:auto;width:76px;height:76px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;box-shadow:0 20px 40px -12px rgba(0,0,0,.35);transition:transform .3s;}
+  .play-btn:hover{transform:scale(1.08);}
+  .play-btn svg{width:22px;height:22px;fill:var(--blue);margin-left:3px;}
+  .about-badge{position:absolute;bottom:-24px;right:-24px;background:var(--dark);color:#fff;border-radius:18px;padding:20px 22px;box-shadow:var(--shadow);width:190px;}
+  .about-badge .n{font-family:'Poppins';font-weight:700;font-size:26px;background:var(--grad-a);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .about-badge .l{font-size:12px;color:rgba(255,255,255,.65);margin-top:4px;}
+  .about-copy p{font-size:16.5px;line-height:1.75;color:var(--ink-dim);margin-bottom:24px;}
+  .about-points{display:grid;gap:14px;margin-top:30px;}
+  .about-points .pt{display:flex;gap:14px;align-items:flex-start;}
+  .about-points .ic{width:38px;height:38px;border-radius:11px;background:var(--surface-2);display:flex;align-items:center;justify-content:center;flex:none;}
+  .about-points .ic svg{width:18px;height:18px;stroke:var(--blue);}
+  .about-points b{display:block;font-size:14.5px;}
+  .about-points span{font-size:13.5px;color:var(--ink-dim);}
+
+  /* ---------- stats panel (scroll-driven light -> violet -> dark) ---------- */
+  .stats-section{
+    --panel-bg:#0a0e17; --panel-fg:#f4f8f6; --panel-accent:#4abab7;
+    background:var(--panel-bg);color:var(--panel-fg);overflow:hidden;transition:background .05s linear;
+  }
+  .stats-section h2{color:var(--panel-fg);}
+  .stats-section .eyebrow{color:var(--panel-accent);}
+  .stats-section .eyebrow::before{background:var(--panel-accent);opacity:.8;}
+  .stats-section .tag-row p{color:var(--panel-fg);opacity:.6;}
+  .big-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:64px;}
+  .big-stat{padding:38px 30px;border-radius:22px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);text-align:center;position:relative;overflow:hidden;transition:background .05s linear,border-color .05s linear;}
+  .stats-section.is-light-panel .big-stat{background:rgba(10,14,23,.045);border-color:rgba(10,14,23,.12);}
+  .big-stat::before{content:"";position:absolute;inset:0;background:var(--grad-a);opacity:0;transition:opacity .4s;}
+  .big-stat:hover::before{opacity:.08;}
+  .big-stat .num{font-family:'Poppins';font-weight:700;font-size:clamp(34px,4.4vw,52px);position:relative;color:var(--panel-fg);}
+  .big-stat .lbl{margin-top:10px;font-size:14px;color:var(--panel-fg);opacity:.65;letter-spacing:.02em;position:relative;}
+  .mini-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  .mini-stat{padding:22px;border-radius:16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);text-align:center;position:relative;transition:background .05s linear,border-color .05s linear;}
+  .stats-section.is-light-panel .mini-stat{background:rgba(10,14,23,.035);border-color:rgba(10,14,23,.1);}
+  .mini-stat .num{font-family:'Poppins';font-weight:700;font-size:26px;color:var(--panel-fg);}
+  .mini-stat .lbl{font-size:11.5px;color:var(--panel-fg);opacity:.6;margin-top:4px;text-transform:uppercase;letter-spacing:.06em;}
+
+  /* ---------- spotlight de borde: el borde de cada card se ilumina con un halo de color que
+     sigue al cursor, mas brillante mientras mas cerca este (--sx/--sy los actualiza JS con la
+     posicion del mouse relativa a cada card). No depende de :hover -- por eso las cards vecinas
+     a la que se esta mirando tambien se iluminan un poco, como una luz que pasa por el grid. */
+  .big-stat::after, .mini-stat::after{
+    content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;
+    background:radial-gradient(240px circle at var(--sx,-999px) var(--sy,-999px),
+      var(--teal) 0%, var(--blue) 45%, var(--magenta) 75%, transparent 100%);
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;mask-composite:exclude;
+  }
+
+  /* ---------- surgeries (photo + list) ---------- */
+  .cx-layout{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center;}
+  .cx-photo{position:relative;border-radius:28px;overflow:hidden;aspect-ratio:4/5;box-shadow:var(--shadow);}
+  .cx-photo img{width:100%;height:100%;object-fit:cover;}
+  .cx-list{display:grid;gap:14px;}
+  .cx-row{display:flex;gap:18px;align-items:flex-start;padding:20px 22px;border-radius:18px;background:var(--surface);border:1px solid var(--line);transition:transform .3s,box-shadow .3s;}
+  .cx-row:hover{transform:translateX(6px);box-shadow:var(--shadow);}
+  .cx-row .ico{width:42px;height:42px;border-radius:12px;background:var(--grad-a);display:flex;align-items:center;justify-content:center;flex:none;}
+  .cx-row .ico svg{width:19px;height:19px;stroke:#06202b;}
+  .cx-row p{font-size:14.5px;line-height:1.5;color:var(--ink);font-weight:600;margin:0;}
+
+
+  /* ---------- orbit: arco giratorio de clinicas sobre el icono ASOCLICPER ---------- */
+  #asociados{position:relative;overflow:hidden;}
+  #asociados::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+    background:
+      radial-gradient(42% 42% at 2% 0%, rgba(11,119,189,.18) 0%, transparent 72%),
+      radial-gradient(42% 42% at 98% 4%, rgba(103,70,150,.16) 0%, transparent 72%),
+      radial-gradient(46% 46% at 0% 100%, rgba(193,210,38,.16) 0%, transparent 72%),
+      radial-gradient(46% 46% at 100% 100%, rgba(74,186,183,.18) 0%, transparent 72%);}
+  #asociados > *{position:relative;z-index:1;}
+  .orbit-stage{position:relative;height:480px;margin-top:50px;overflow:hidden;}
+  .orbit-hub{position:absolute;left:50%;bottom:24px;width:250px;transform:translateX(-50%);z-index:3;pointer-events:none;
+    display:flex;flex-direction:column;align-items:center;}
+  .orbit-hub img{width:100%;display:block;}
+  .orbit-hub-word{margin-top:16px;font-family:'Poppins',system-ui,sans-serif;font-weight:700;
+    font-size:clamp(20px,2.1vw,27px);letter-spacing:.02em;color:var(--ink);white-space:nowrap;}
+  .orbit-arc{position:absolute;inset:0;z-index:2;pointer-events:none;}
+  .orbit-chip{position:absolute;top:0;left:0;width:130px;height:130px;margin:-65px 0 0 -65px;border-radius:50%;
+    background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);
+    display:flex;align-items:center;justify-content:center;padding:24px;pointer-events:auto;will-change:transform,opacity;}
+  .orbit-chip a{display:flex;width:100%;height:100%;align-items:center;justify-content:center;}
+  .orbit-chip img{max-width:100%;max-height:100%;object-fit:contain;filter:grayscale(.25);transition:filter .3s;}
+  .orbit-chip:hover img{filter:grayscale(0);}
+  @media (max-width:980px){
+    .orbit-stage{height:360px;margin-top:24px;}
+    .orbit-hub{width:180px;bottom:24px;}
+    .orbit-hub-word{font-size:18px;}
+    .orbit-chip{width:96px;height:96px;margin:-48px 0 0 -48px;padding:18px;}
+  }
+
+  /* ---------- benefits ---------- */
+  /* ---------- utilidad: seccion oscura ---------- */
+
+  /* ---------- beneficios: degradado morado de marca (indigo + magenta del logo, oscurecidos
+     lo justo para que el texto blanco siga legible) en vez de un fondo casi negro ---------- */
+  .benefits{background:linear-gradient(165deg, var(--bf-purple-1) 0%, var(--bf-purple-2) 100%);color:#fff;padding:0;overflow:hidden;}
+  .benefits-nebula{position:absolute;inset:0;background:linear-gradient(165deg, var(--bf-purple-1) 0%, var(--bf-purple-2) 100%);}
+  .benefits-nebula canvas{display:block;width:100%;height:100%;mix-blend-mode:screen;opacity:.85;}
+  .benefits-veil{position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(90% 70% at 50% 40%, transparent 0%, rgba(20,14,30,.5) 70%, rgba(14,9,22,.82) 100%);}
+  .benefits-sticky{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;gap:44px;padding:96px 0;z-index:2;}
+  .benefits-head{display:flex;justify-content:space-between;align-items:flex-end;gap:36px;flex-wrap:wrap;}
+  .benefits-head h2{font-size:clamp(28px,3.6vw,44px);margin:14px 0 0;line-height:1.12;max-width:640px;color:#fff;}
+  .benefits-head p{max-width:380px;color:rgba(255,255,255,.6);font-size:15.5px;line-height:1.6;margin:0;}
+  .benefits-viewport{overflow:hidden;perspective:1500px;}
+  /* --bf-inset lo calcula JS midiendo el borde real del texto del titulo (mas fiable que
+     replicar a mano el centrado de .wrap): asi la primera y la ultima card arrancan/terminan
+     alineadas con el texto en vez de pegarse al borde real de la pantalla. */
+  .benefits-track{display:flex;gap:22px;padding:0 var(--bf-inset, 28px);width:max-content;will-change:transform;transform-style:preserve-3d;}
+
+  .bcard{position:relative;width:320px;flex:none;padding:34px 30px 30px;border-radius:26px;overflow:hidden;
+    background:linear-gradient(160deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,.03) 100%);
+    border:1px solid rgba(255,255,255,.12);
+    transition:border-color .4s, transform .5s cubic-bezier(.16,1,.3,1);min-height:330px;
+    display:flex;flex-direction:column;isolation:isolate;}
+  .bcard::before{content:"";position:absolute;inset:0;border-radius:26px;padding:1px;z-index:3;
+    background:var(--grad-a);opacity:0;transition:opacity .4s;
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;}
+  .bcard:hover::before{opacity:.9;}
+  .bcard:hover{transform:translateY(-10px);border-color:rgba(255,255,255,.28);}
+  /* foto representativa de fondo + overlay: cada card trae su propia --bimg/--btint inline */
+  .bcard-media{position:absolute;inset:0;z-index:0;overflow:hidden;border-radius:inherit;}
+  .bcard-bg{position:absolute;inset:-10%;background-image:var(--bimg);background-size:cover;background-position:center;
+    filter:saturate(.85);transform:scale(1.14) rotate(0deg);
+    transition:transform 1.2s cubic-bezier(.16,1,.3,1),filter .6s;}
+  .bcard:hover .bcard-bg{transform:scale(1.3) rotate(3deg);filter:saturate(1.05);}
+  .bcard-overlay{position:absolute;inset:0;z-index:1;
+    background:linear-gradient(195deg, color-mix(in srgb, var(--btint) 50%, #05070c) 0%, rgba(6,8,13,.86) 55%, rgba(6,8,13,.95) 100%);
+    transition:opacity .5s;}
+  .bcard:hover .bcard-overlay{opacity:.88;}
+  .bcard-body{position:relative;z-index:2;display:flex;flex-direction:column;flex:1;}
+  .bcard .bnum{font-family:'Poppins';font-size:12px;font-weight:700;letter-spacing:.18em;color:rgba(255,255,255,.5);
+    transition:transform .4s cubic-bezier(.16,1,.3,1),opacity .4s;}
+  .bcard:hover .bnum{transform:translateX(5px);opacity:.75;}
+  /* los b-*.png ya son iconos a color (circulo degradado + glifo blanco): sin forzarlos a blanco
+     para que se vean tal cual son, solo con una sombra para que resalten sobre la foto de fondo. */
+  .bcard-icon-wrap{width:56px;height:56px;margin:26px 0 auto;flex:none;
+    display:flex;align-items:center;justify-content:center;
+    filter:drop-shadow(0 6px 16px rgba(0,0,0,.4));
+    transition:transform .6s cubic-bezier(.16,1,.3,1);}
+  .bcard:hover .bcard-icon-wrap{transform:rotate(-8deg) scale(1.14) translateY(-4px);}
+  .bcard-icon-wrap img{width:100%;height:100%;object-fit:contain;display:block;
+    transition:transform .6s cubic-bezier(.16,1,.3,1);}
+  .bcard:hover .bcard-icon-wrap img{transform:rotate(10deg) scale(1.06);}
+  .bcard h3{font-size:19px;margin:22px 0 8px;color:#fff;line-height:1.25;transition:transform .35s cubic-bezier(.16,1,.3,1);}
+  .bcard:hover h3{transform:translateX(4px);}
+  .bcard p{font-size:13.5px;line-height:1.6;color:rgba(255,255,255,.62);margin:0;transition:transform .45s cubic-bezier(.16,1,.3,1);}
+  .bcard:hover p{transform:translateX(2px);}
+  .bcard-cta{background:var(--grad-a);border-color:transparent;justify-content:center;}
+  .bcard-cta::before{display:none;}
+  .bcard-cta .bcard-media{display:none;}
+  .bcard-cta h3{color:#06202b;font-size:22px;}
+  .bcard-cta p{color:rgba(6,32,43,.72);margin-bottom:22px;}
+  .bcard-cta .btn-primary{background:#06202b;color:#fff;align-self:flex-start;box-shadow:none;}
+
+  .benefits-progress{height:3px;background:rgba(255,255,255,.12);border-radius:3px;overflow:hidden;max-width:1240px;}
+  .benefits-progress span{display:block;height:100%;width:0%;background:var(--grad-a);border-radius:3px;}
+
+  /* ---------- podcast ---------- */
+  .podcast{border-radius:28px;background:var(--dark);color:#fff;padding:60px;display:grid;grid-template-columns:auto 1fr auto;gap:40px;align-items:center;position:relative;overflow:hidden;}
+  .podcast-play{width:84px;height:84px;border-radius:50%;background:var(--grad-a);display:flex;align-items:center;justify-content:center;flex:none;position:relative;z-index:2;box-shadow:0 20px 50px -14px rgba(11,119,189,.7);}
+  .podcast-play svg{width:24px;height:24px;fill:#06202b;margin-left:3px;}
+  .podcast-body{position:relative;z-index:2;}
+  .podcast-body .eyebrow{color:#cdb7ff;}
+  .podcast-body h3{font-size:27px;margin:12px 0 8px;}
+  .podcast-body p{color:rgba(255,255,255,.6);font-size:14.5px;margin:0;max-width:420px;}
+  .podcast .waves{display:flex;gap:4px;align-items:flex-end;height:38px;position:relative;z-index:2;}
+  .podcast .waves span{width:4px;background:var(--grad-a);border-radius:3px;animation:wave 1.4s ease-in-out infinite;}
+  @keyframes wave{0%,100%{height:8px;}50%{height:36px;}}
+
+  /* ---------- final cta (photographic) ---------- */
+  .cta-final{border-radius:32px;padding:90px 60px;text-align:center;position:relative;overflow:hidden;color:#fff;}
+  .cta-final .bgph{position:absolute;inset:0;}
+  .cta-final .bgph img{width:100%;height:100%;object-fit:cover;}
+  .cta-final .bgph::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg, rgba(11,50,90,.88), rgba(103,70,150,.82));}
+  .cta-final h2{font-size:clamp(28px,4vw,42px);max-width:700px;margin:0 auto 16px;position:relative;z-index:2;}
+  .cta-final p{color:rgba(255,255,255,.85);max-width:560px;margin:0 auto 34px;font-size:16px;position:relative;z-index:2;}
+  .cta-final .row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;z-index:2;}
+  .cta-final .btn-primary{background:#fff;color:var(--purple);box-shadow:0 16px 34px -12px rgba(0,0,0,.35);}
+
+  footer{background:var(--dark);color:rgba(255,255,255,.7);padding:70px 0 30px;}
+  .foot-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:40px;padding-bottom:50px;border-bottom:1px solid var(--dark-line);}
+  .foot-grid img{height:32px;margin-bottom:16px;}
+  .foot-grid p{font-size:13.5px;line-height:1.7;color:rgba(255,255,255,.5);max-width:280px;}
+  .foot-col h4{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:#fff;margin:0 0 18px;}
+  .foot-col a{display:block;font-size:13.5px;color:rgba(255,255,255,.55);margin-bottom:12px;transition:color .2s;}
+  .foot-col a:hover{color:#fff;}
+  .foot-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:26px;font-size:12.5px;color:rgba(255,255,255,.4);flex-wrap:wrap;gap:14px;}
+  .social{display:flex;gap:10px;}
+  .social a{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid var(--dark-line);display:flex;align-items:center;justify-content:center;}
+  .social svg{width:15px;height:15px;fill:#fff;}
+
+  /* ---------- fab flotante de contacto: circulo en reposo, se expande en hover mostrando
+     el label (animando el width del boton entero, no el padding, para poder usar transition
+     normal sin depender de width:auto) y abre una tarjeta de contacto al hacer click ---------- */
+  .fab{
+    position:fixed;right:2rem;bottom:2rem;z-index:80;
+    display:inline-flex;align-items:center;justify-content:center;
+    gap:0;width:3.75rem;height:3.75rem;padding:0;border-radius:999px;overflow:hidden;
+    background:var(--grad-a);color:#fff;border:none;cursor:pointer;
+    box-shadow:0 14px 30px -8px rgba(11,119,189,.4);
+    opacity:0;transform:translateY(16px) scale(.92);pointer-events:none;
+    transition:opacity .4s ease,transform .4s ease,box-shadow .3s ease,width .4s ease,padding .4s ease;
+  }
+  .fab.is-visible{opacity:1;transform:translateY(0) scale(1);pointer-events:auto;}
+  .fab:hover{width:15.5rem;padding:0 1.15rem;gap:.6rem;justify-content:flex-start;box-shadow:0 18px 36px -10px rgba(11,119,189,.5);}
+  .fab.is-hidden{opacity:0;transform:translateY(0) scale(.85);pointer-events:none;}
+  .fab-icon{width:1.7rem;height:1.7rem;flex:none;}
+  .fab-icon svg{width:100%;height:100%;}
+  .fab-label{display:inline-block;max-width:0;overflow:hidden;white-space:nowrap;font-weight:700;font-size:.9rem;opacity:0;transition:max-width .4s ease,opacity .3s ease .05s;}
+  .fab:hover .fab-label{max-width:14rem;opacity:1;}
+
+  .fab-popup{
+    position:fixed;right:2rem;bottom:2rem;z-index:81;width:min(87vw,21rem);
+    padding:1.75rem 1.5rem 1.5rem;border-radius:1.5rem;background:#fff;color:var(--ink);
+    box-shadow:0 24px 60px -12px rgba(10,14,23,.35);
+    opacity:0;visibility:hidden;pointer-events:none;
+  }
+  .fab-popup.is-open{visibility:visible;pointer-events:auto;}
+  .fab-popup-close{position:absolute;top:.85rem;right:.85rem;width:1.75rem;height:1.75rem;border-radius:999px;
+    display:flex;align-items:center;justify-content:center;background:var(--surface-2);border:none;cursor:pointer;color:var(--ink);}
+  .fab-popup-close svg{width:14px;height:14px;}
+  .fab-popup-avatar{display:block;width:52px;height:52px;border-radius:50%;overflow:hidden;margin-bottom:14px;
+    background:var(--surface-2);padding:9px;box-sizing:border-box;}
+  .fab-popup-avatar img{width:100%;height:100%;object-fit:contain;}
+  .fab-popup-title{font-family:'Poppins';font-weight:700;font-size:16px;margin:0 0 6px;color:var(--ink);}
+  .fab-popup-message{font-size:13.5px;line-height:1.55;color:var(--ink-dim);margin:0 0 18px;}
+  .fab-popup-cta{display:flex;align-items:center;justify-content:center;gap:.55rem;width:100%;
+    padding:.85rem 1rem;border-radius:999px;background:var(--blue);color:#fff;font-weight:600;font-size:14px;
+    transition:background-color .3s,transform .3s;}
+  .fab-popup-cta:hover{background:var(--lime);color:#06202b;transform:translateY(-2px);}
+  .fab-popup-cta svg{width:18px;height:18px;flex:none;}
+  @media (max-width:560px){
+    .fab{right:1.1rem;bottom:1.1rem;}
+    .fab:hover{width:13.5rem;}
+    .fab-popup{right:1.1rem;bottom:1.1rem;}
+  }
+
+  /* ---------- custom cursor + mouse interactions ---------- */
+  html.has-cursor,html.has-cursor a,html.has-cursor button{cursor:none;}
+  /* color solido de marca + halo blanco en vez de mix-blend-mode:difference: con un color
+     casi negro, "difference" sobre fondos claros da un resultado casi blanco y el cursor
+     desaparecia justo donde mas se necesitaba verlo. */
+  .cursor-dot{position:fixed;top:0;left:0;width:9px;height:9px;border-radius:50%;
+    background:linear-gradient(135deg,var(--blue),var(--teal));
+    box-shadow:0 0 0 2px rgba(255,255,255,.9),0 2px 10px rgba(11,119,189,.4);
+    z-index:300;pointer-events:none;transform:translate(-50%,-50%);}
+  .cursor-ring{position:fixed;top:0;left:0;width:36px;height:36px;border-radius:50%;
+    border:1.5px solid var(--blue);
+    box-shadow:0 0 0 1px rgba(255,255,255,.85);
+    z-index:300;pointer-events:none;transform:translate(-50%,-50%);
+    transition:width .3s cubic-bezier(.16,1,.3,1),height .3s cubic-bezier(.16,1,.3,1),opacity .3s,border-color .3s,background .3s;}
+  .cursor-ring.is-hover{width:66px;height:66px;border-color:var(--teal);background:rgba(11,119,189,.1);}
+  .cursor-ring.is-down{width:26px;height:26px;}
+
+  .tilt-wrap{perspective:1200px;}
+  .podcast::after{content:"";position:absolute;inset:0;background:var(--grad-b);opacity:.16;}
+  .magnetic{will-change:transform;}
+
+  @media (max-width:980px){
+    nav.mainnav,.navcta .btn-ghost, .navcta .btn-ghost-dark{display:none;}
+    .burger{display:flex;}
+    .hero-inner{grid-template-columns:1fr;}
+    .hero-slide .hero-visual{display:none;}
+    .hero-step span,.hero-hud .scroll-cue{display:none;}
+    .hero-step i{width:46px;}
+    .spec-grid{grid-template-columns:1fr;}
+    .about-grid{grid-template-columns:1fr;gap:50px;}
+    .about-badge{right:0;bottom:-20px;}
+    .big-stats{grid-template-columns:1fr;}
+    .mini-stats{grid-template-columns:repeat(2,1fr);}
+    .cx-layout{grid-template-columns:1fr;}
+    .cx-photo{aspect-ratio:16/9;}
+    .benefits-sticky{min-height:auto;padding:80px 0;gap:30px;}
+    .benefits-viewport{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+    .benefits-track{padding:4px 24px 18px;}
+    .bcard{width:264px;min-height:300px;}
+    .podcast{grid-template-columns:1fr;text-align:center;padding:44px 28px;}
+    .podcast .waves{justify-content:center;}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:560px){
+    section{padding:80px 0;}
+    .foot-grid{grid-template-columns:1fr;}
+    .cta-final{padding:60px 24px;}
+    .podcast-body h3{font-size:22px;}
+  }
+</style>
+
+<div id="progress"></div>
+
+<header id="siteHeader">
+  <div class="wrap">
+    <a class="logo" href="#top">
+      <img src="images/logo-color.svg" alt="Asoclicper">
+    </a>
+    <nav class="mainnav">
+      <a href="#nosotros">Nosotros</a>
+      <a href="#asociados">Clínicas Asociadas</a>
+      <a href="#asociados">Seguridad del Paciente</a>
+      <a href="https://asoclicper.com/turismo-medico-cirugia-plastica/">Turismo Médico</a>
+    </nav>
+    <div class="navcta">
+      <a class="btn btn-ghost-dark" href="https://asoclicper.com/contact-cirujanos-plasticos-en-cali/">Contacto</a>
+      <a class="btn btn-primary" href="https://asoclicper.com/ser-asociado-clinica-de-cirugia-plastica/">Ser Asociado</a>
+    </div>
+    <button class="burger" id="burger" aria-label="Abrir menú"><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero" id="heroSection">
+    <div class="hero-mood"></div>
+    <div class="hero-field">
+      <span class="hero-blob hb1"></span>
+      <span class="hero-blob hb2"></span>
+      <span class="hero-blob hb3"></span>
+      <span class="hero-blob hb4"></span>
+      <span class="hero-blob hb5"></span>
+    </div>
+    <div class="hero-ripples" id="heroRipples">
+      <span class="hero-cursor-glow" id="heroCursorGlow"></span>
+    </div>
+    <div class="hero-scrim"></div>
+    <div class="hero-gridlines"></div>
+    <div class="hero-portal"></div>
+
+    <div class="hero-stage">
+      <!-- SLIDE 1: excelencia -->
+      <div class="hero-slide is-active" data-slide="0">
+        <div class="wrap hero-inner">
+          <div class="hero-copy">
+            <div class="hero-pill"><span class="dot"></span> Organización sin ánimo de lucro</div>
+            <div class="eyebrow">Asociación Colombiana de Cirugía Plástica y Estética</div>
+            <h1>Unidos por la <span class="grad-text">excelencia</span> en cirugía plástica y la seguridad del paciente</h1>
+            <p class="lead">ASOCLICPER agremia a las clínicas de cirugía plástica, estética y reconstructiva de Colombia para trabajar juntas en el fortalecimiento y el constante mejoramiento de sus instituciones.</p>
+            <div class="hero-ctas">
+              <a class="btn btn-primary" href="https://asoclicper.com/quienes-somos-cirujanos-plasticos-medellin/">Conoce más aquí</a>
+              <a class="btn btn-ghost-dark" href="https://asoclicper.com/ser-asociado-clinica-de-cirugia-plastica/">Fortalece nuestra red</a>
+            </div>
+          </div>
+          <div class="hero-visual tilt-wrap">
+            <div class="hero-photo-wrap"><img src="images/doc-hero.jpg" alt="Especialista de una clínica asociada a Asoclicper"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 2: turismo medico -->
+      <div class="hero-slide" data-slide="1" aria-hidden="true">
+        <div class="wrap hero-inner">
+          <div class="hero-copy">
+            <div class="hero-pill"><span class="dot"></span> Turismo médico</div>
+            <div class="eyebrow">Pacientes de 15 países confían en la red</div>
+            <h1>Claves para un <span class="grad-text">turismo</span> de cirugía plástica exitoso</h1>
+            <p class="lead">Entre 2020 y 2025, 30.658 pacientes internacionales fueron atendidos en clínicas asociadas a ASOCLICPER, llegando desde España, Estados Unidos, Canadá, México y otros 11 países.</p>
+            <div class="hero-ctas">
+              <a class="btn btn-primary" href="https://asoclicper.com/turismo-medico-cirugia-plastica/">Ver más</a>
+              <a class="btn btn-ghost-dark" href="https://asoclicper.com/turismo-medico-cirugia-plastica/">Países que nos visitan</a>
+            </div>
+          </div>
+          <div class="hero-visual tilt-wrap">
+            <div class="hero-photo-wrap"><img src="images/patient-glow.jpg" alt="Paciente atendida en una clínica asociada a Asoclicper"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 3: red de clinicas -->
+      <div class="hero-slide" data-slide="2" aria-hidden="true">
+        <div class="wrap hero-inner">
+          <div class="hero-copy">
+            <div class="hero-pill"><span class="dot"></span> Tener voz en el sector es clave</div>
+            <div class="eyebrow">Únete a una comunidad con un claro propósito</div>
+            <h1>Fortaleciendo nuestra <span class="grad-text">red de clínicas</span> asociadas</h1>
+            <p class="lead">En Asoclicper representamos tus intereses. Únete hoy mismo y encuentra apoyo integral para tu clínica, respaldo institucional y conexión con toda la red nacional.</p>
+            <div class="hero-ctas">
+              <a class="btn btn-primary" href="https://asoclicper.com/ser-asociado-clinica-de-cirugia-plastica/">¡Conviértete en asociado!</a>
+              <a class="btn btn-ghost-dark" href="https://asoclicper.com/contact-cirujanos-plasticos-en-cali/">Contáctanos</a>
+            </div>
+          </div>
+          <div class="hero-visual tilt-wrap">
+            <div class="hero-photo-wrap"><img src="images/doc-female1.jpg" alt="Especialista de la red de clínicas Asoclicper"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-hud">
+      <div class="wrap hero-hud-inner">
+        <div class="hero-count"><b id="heroCount">01</b><span class="sep">/</span>03</div>
+        <div class="hero-steps">
+          <button class="hero-step is-active" data-go="0"><i><b></b></i><span>Excelencia</span></button>
+          <button class="hero-step" data-go="1"><i><b></b></i><span>Turismo médico</span></button>
+          <button class="hero-step" data-go="2"><i><b></b></i><span>Red de clínicas</span></button>
+        </div>
+        <div class="scroll-cue"><span>Desliza</span><span class="line"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPECIALTIES -->
+  <section id="specialistsSection">
+    <div class="wrap">
+      <div class="tag-row">
+        <div>
+          <div class="eyebrow reveal">Respaldo experto</div>
+          <h2 class="reveal">Especialidades con la seguridad ASOCLICPER</h2>
+        </div>
+        <p class="reveal">Cada clínica asociada opera bajo los mismos estándares de excelencia y seguridad del paciente.</p>
+      </div>
+      <div class="spec-grid stagger">
+        <div class="spec-card reveal" style="--i:0">
+          <div class="ph"><span class="badge">Cirugía Estética</span><img src="images/doc-male2.jpg" alt="Especialista en cirugía estética"></div>
+          <div class="body"><b>Cirugía Plástica y Estética</b><span>Procedimientos con los más altos estándares de calidad y seguridad.</span></div>
+        </div>
+        <div class="spec-card reveal" style="--i:1">
+          <div class="ph"><span class="badge">Cirugía Reconstructiva</span><img src="images/doc-female1.jpg" alt="Especialista en cirugía reconstructiva"></div>
+          <div class="body"><b>Cirugía Reconstructiva</b><span>Acompañamiento integral antes, durante y después del procedimiento.</span></div>
+        </div>
+        <div class="spec-card reveal" style="--i:2">
+          <div class="ph"><span class="badge">Medicina Estética</span><img src="images/doc-female2.jpg" alt="Especialista en medicina estética"></div>
+          <div class="body"><b>Medicina Estética</b><span>Resultados naturales respaldados por clínicas certificadas.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="nosotros" style="background:var(--bg-alt);">
+    <div class="wrap about-grid">
+      <div class="about-media reveal-l">
+        <div class="frame" id="portalFrame"><img src="images/clinic-interior.jpg" alt="Instalaciones de una clínica asociada a Asoclicper"></div>
+        <a class="play-btn" href="https://asoclicper.com/quienes-somos-cirujanos-plasticos-medellin/" aria-label="Ver video de Asoclicper">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </a>
+        <div class="about-badge">
+          <div class="n">186,653</div>
+          <div class="l">Pacientes atendidos 2020–2025</div>
+        </div>
+      </div>
+      <div class="about-copy reveal-r">
+        <div class="eyebrow">¿Quiénes somos?</div>
+        <h2>Asociación Colombiana de Cirugía Plástica</h2>
+        <p>Bienvenidos a la Asociación Colombiana de Clínicas de Cirugía Plástica, Estética y Reconstructiva, <strong>ASOCLICPER</strong>. Nos enorgullece ser una organización sin ánimo de lucro que surge en el contexto de la emergencia sanitaria. Nuestro objetivo principal es agremiar a las clínicas de Cirugía Plástica de todo el país, con el fin de trabajar juntos en el fortalecimiento y el constante mejoramiento de nuestras instituciones.</p>
+        <div class="about-points">
+          <div class="pt"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 2l3 7 7 .6-5.3 4.6L18 22l-6-3.8L6 22l1.3-7.8L2 9.6 9 9z"/></svg></div><div><b>Tener voz en el sector es clave</b><span>En Asoclicper representamos tus intereses y encuentras apoyo integral.</span></div></div>
+          <div class="pt"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4.5 8-11V5l-8-3-8 3v6c0 6.5 8 11 8 11z"/></svg></div><div><b>Excelencia y seguridad del paciente</b><span>Unidos por la excelencia en cirugía plástica en toda Colombia.</span></div></div>
+          <div class="pt"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div><div><b>Una comunidad con un propósito claro</b><span>Únete a Asoclicper y forma parte de una red comprometida.</span></div></div>
+        </div>
+        <div class="hero-ctas" style="margin-top:34px;">
+          <a class="btn btn-dark" href="https://asoclicper.com/ser-asociado-clinica-de-cirugia-plastica/">¡Conviértete en asociado hoy mismo!</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats-section" id="statsPanel">
+    <div class="wrap">
+      <div class="tag-row">
+        <div>
+          <div class="eyebrow on-dark reveal">2020 — 2025</div>
+          <h2 class="reveal">Pacientes atendidos en clínicas asociadas a ASOCLICPER</h2>
+        </div>
+        <p class="reveal">Cinco años fortaleciendo la seguridad del paciente y la excelencia médica en toda la red de clínicas asociadas.</p>
+      </div>
+      <div class="big-stats stagger">
+        <div class="big-stat reveal" style="--i:0"><div class="num" data-count="155995">0</div><div class="lbl">Pacientes Nacionales</div></div>
+        <div class="big-stat reveal" style="--i:1"><div class="num" data-count="30658">0</div><div class="lbl">Pacientes Internacionales</div></div>
+        <div class="big-stat reveal" style="--i:2"><div class="num" data-count="186653">0</div><div class="lbl">Total Pacientes</div></div>
+      </div>
+      <div class="mini-stats stagger">
+        <div class="mini-stat reveal" style="--i:0"><div class="num" data-count="17">0</div><div class="lbl">Clínicas Asociadas</div></div>
+        <div class="mini-stat reveal" style="--i:1"><div class="num" data-count="8">0</div><div class="lbl">Departamentos del país</div></div>
+        <div class="mini-stat reveal" style="--i:2"><div class="num" data-count="80">0</div><div class="lbl">Quirófanos</div></div>
+        <div class="mini-stat reveal" style="--i:3"><div class="num" data-count="561">0</div><div class="lbl">Cx Plásticos (R)</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SURGERIES -->
+  <section>
+    <div class="wrap">
+      <div class="tag-row">
+        <div>
+          <div class="eyebrow reveal">Procedimientos estéticos</div>
+          <h2 class="reveal">Cirugías más realizadas en la red ASOCLICPER</h2>
+        </div>
+        <p class="reveal">Los procedimientos con mayor demanda entre las clínicas asociadas a nivel nacional.</p>
+      </div>
+      <div class="cx-layout">
+        <div class="cx-photo reveal-l">
+          <img src="images/serum-closeup.jpg" alt="Tratamiento estético en clínica asociada a Asoclicper">
+        </div>
+        <div class="cx-list stagger">
+          <div class="cx-row reveal" style="--i:0"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#06202b" stroke-width="2" stroke-linecap="round"><path d="M12 2v20M2 12h20"/></svg></div><p>Reducción de tejido adiposo en muslos, pelvis, glúteos o brazos por liposucción o lipectomía</p></div>
+          <div class="cx-row reveal" style="--i:1"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#06202b" stroke-width="2" stroke-linecap="round"><path d="M12 21c-4-3-8-6-8-11a5 5 0 019-3 5 5 0 019 3c0 5-4 8-8 11z"/></svg></div><p>Mastopexia</p></div>
+          <div class="cx-row reveal" style="--i:2"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#06202b" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/></svg></div><p>Blefaroplastia superior e inferior</p></div>
+          <div class="cx-row reveal" style="--i:3"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#06202b" stroke-width="2" stroke-linecap="round"><path d="M12 2v6M12 16v6M4.9 4.9l4.2 4.2M14.9 14.9l4.2 4.2M2 12h6M16 12h6M4.9 19.1l4.2-4.2M14.9 9.1l4.2-4.2"/></svg></div><p>Lipoinyección glútea</p></div>
+          <div class="cx-row reveal" style="--i:4"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#06202b" stroke-width="2" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="5"/></svg></div><p>Explantación mamaria</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ASSOCIATES ORBIT: arco giratorio con el mark ASOCLICPER como hub -->
+  <section id="asociados">
+    <div class="wrap">
+      <div class="tag-row" style="margin-bottom:0;">
+        <div>
+          <div class="eyebrow reveal">Red de clínicas</div>
+          <h2 class="reveal">Nuestros Asociados</h2>
+        </div>
+        <p class="reveal">Fortaleciendo nuestra red de clínicas asociadas a ASOCLICPER en todo el país.</p>
+      </div>
+    </div>
+    <div class="orbit-stage reveal-scale" id="orbitStage">
+      <div class="orbit-hub">
+        <img src="images/icon-color.svg" alt="ASOCLICPER">
+        <div class="orbit-hub-word">ASOCLICPER</div>
+      </div>
+      <div class="orbit-arc" id="orbitArc">
+        <div class="orbit-chip"><a href="https://clinicapicassocali.com/" target="_blank" rel="noopener"><img src="images/clinics/picasso.png" alt="Clínica Picasso"></a></div>
+        <div class="orbit-chip"><a href="https://cqbelleza.com/" target="_blank" rel="noopener"><img src="images/clinics/cqb.png" alt="CQB Centro Quirúrgico de la Belleza"></a></div>
+        <div class="orbit-chip"><a href="https://asoclicper.com/clinicas-asociadas/" target="_blank" rel="noopener"><img src="images/clinics/interplastica.png" alt="Clínica Interplástica"></a></div>
+        <div class="orbit-chip"><a href="https://plastikoscirujanos.com.co/" target="_blank" rel="noopener"><img src="images/clinics/plastikos.png" alt="Plastikos Cirujanos"></a></div>
+        <div class="orbit-chip"><a href="https://asoclicper.com/clinicas-asociadas/" target="_blank" rel="noopener"><img src="images/clinics/excellence.png" alt="Clínica Excellence"></a></div>
+        <div class="orbit-chip"><a href="https://asoclicper.com/clinicas-asociadas/" target="_blank" rel="noopener"><img src="images/clinics/fiore.png" alt="Clínica Fiore"></a></div>
+        <div class="orbit-chip"><a href="https://asoclicper.com/clinicas-asociadas/" target="_blank" rel="noopener"><img src="images/clinics/sanfernando.png" alt="Clínica San Fernando"></a></div>
+        <div class="orbit-chip"><a href="http://www.corpusyrostrum.com" target="_blank" rel="noopener"><img src="images/clinics/corpus.png" alt="Corpus y Rostrum"></a></div>
+        <div class="orbit-chip"><a href="http://www.otorrinoscali.com" target="_blank" rel="noopener"><img src="images/clinics/otorrinos.png" alt="Otorrinos Cali"></a></div>
+        <div class="orbit-chip"><a href="https://asoclicper.com/clinicas-asociadas/" target="_blank" rel="noopener"><img src="images/clinics/iq.png" alt="IQ Interquirófanos"></a></div>
+        <div class="orbit-chip"><a href="https://asoclicper.com/clinicas-asociadas/" target="_blank" rel="noopener"><img src="images/clinics/esquirurgico.png" alt="ES Quirúrgico"></a></div>
+        <div class="orbit-chip"><a href="https://asoclicper.com/clinicas-asociadas/" target="_blank" rel="noopener"><img src="images/clinics/mariadelpilar.png" alt="Clínica Integrativa María del Pilar"></a></div>
+        <div class="orbit-chip"><a href="https://asoclicper.com/clinicas-asociadas/" target="_blank" rel="noopener"><img src="images/clinics/alejandria.png" alt="Clínica Alejandría"></a></div>
+        <div class="orbit-chip"><a href="https://bellatriz.com" target="_blank" rel="noopener"><img src="images/clinics/bellatriz.png" alt="Bellatriz"></a></div>
+        <div class="orbit-chip"><a href="https://clinicagomezarbelaez.com/" target="_blank" rel="noopener"><img src="images/clinics/gomezarbelaez.png" alt="Clínica Gómez Arbeláez"></a></div>
+        <div class="orbit-chip"><a href="https://asoclicper.com/clinicas-asociadas/" target="_blank" rel="noopener"><img src="images/clinics/sea.png" alt="Clínica SEA"></a></div>
+        <div class="orbit-chip"><a href="https://asoclicper.com/clinicas-asociadas/" target="_blank" rel="noopener"><img src="images/clinics/pink.png" alt="Clínica Pink"></a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFITS: seccion oscura, nebulosa WebGL + scroll horizontal en sticky -->
+  <section class="benefits" id="benefitsSection">
+    <div class="benefits-nebula"><canvas id="benefitsNebulaShader"></canvas></div>
+    <div class="benefits-veil"></div>
+    <div class="benefits-sticky">
+      <div class="wrap benefits-head">
+        <div>
+          <div class="eyebrow on-dark">Ser Asociado</div>
+          <h2>Beneficios de pertenecer a <span class="grad-text">ASOCLICPER</span></h2>
+        </div>
+        <p>Únete a Asoclicper y forma parte de una comunidad con un claro propósito.</p>
+      </div>
+      <div class="benefits-viewport">
+        <div class="benefits-track" id="benefitsTrack">
+          <article class="bcard" style="--bimg:url('images/clinic-interior.jpg');--btint:var(--blue)">
+            <div class="bcard-media"><div class="bcard-bg"></div><div class="bcard-overlay"></div></div>
+            <div class="bcard-body"><span class="bnum">01</span><div class="bcard-icon-wrap"><img src="images/b-economia.png" alt=""></div><h3>Economía</h3><p>Beneficios económicos para tu clínica.</p></div>
+          </article>
+          <article class="bcard" style="--bimg:url('images/doc-hero.jpg');--btint:var(--teal)">
+            <div class="bcard-media"><div class="bcard-bg"></div><div class="bcard-overlay"></div></div>
+            <div class="bcard-body"><span class="bnum">02</span><div class="bcard-icon-wrap"><img src="images/b-confianza.png" alt=""></div><h3>Confianza</h3><p>Respaldo institucional y credibilidad ante el paciente.</p></div>
+          </article>
+          <article class="bcard" style="--bimg:url('images/doc-female1.jpg');--btint:var(--indigo)">
+            <div class="bcard-media"><div class="bcard-bg"></div><div class="bcard-overlay"></div></div>
+            <div class="bcard-body"><span class="bnum">03</span><div class="bcard-icon-wrap"><img src="images/b-networking.png" alt=""></div><h3>Networking</h3><p>Conexión con la red nacional de clínicas asociadas.</p></div>
+          </article>
+          <article class="bcard" style="--bimg:url('images/doc-male2.jpg');--btint:var(--magenta)">
+            <div class="bcard-media"><div class="bcard-bg"></div><div class="bcard-overlay"></div></div>
+            <div class="bcard-body"><span class="bnum">04</span><div class="bcard-icon-wrap"><img src="images/b-crisis.png" alt=""></div><h3>Manejo de crisis</h3><p>Acompañamiento ante situaciones críticas.</p></div>
+          </article>
+          <article class="bcard" style="--bimg:url('images/doc-female2.jpg');--btint:var(--purple)">
+            <div class="bcard-media"><div class="bcard-bg"></div><div class="bcard-overlay"></div></div>
+            <div class="bcard-body"><span class="bnum">05</span><div class="bcard-icon-wrap"><img src="images/b-gobierno.png" alt=""></div><h3>Relación con el Gobierno</h3><p>Representación ante entidades públicas.</p></div>
+          </article>
+          <article class="bcard" style="--bimg:url('images/patient-glow.jpg');--btint:var(--lime)">
+            <div class="bcard-media"><div class="bcard-bg"></div><div class="bcard-overlay"></div></div>
+            <div class="bcard-body"><span class="bnum">06</span><div class="bcard-icon-wrap"><img src="images/b-asociado.png" alt=""></div><h3>Comunidad de asociados</h3><p>Un gremio con un propósito común.</p></div>
+          </article>
+          <article class="bcard" style="--bimg:url('images/serum-closeup.jpg');--btint:var(--blue)">
+            <div class="bcard-media"><div class="bcard-bg"></div><div class="bcard-overlay"></div></div>
+            <div class="bcard-body"><span class="bnum">07</span><div class="bcard-icon-wrap"><img src="images/b-asesoria.png" alt=""></div><h3>Asesoría</h3><p>Acompañamiento experto permanente.</p></div>
+          </article>
+          <article class="bcard" style="--bimg:url('images/clinic-interior.jpg');--btint:var(--indigo)">
+            <div class="bcard-media"><div class="bcard-bg"></div><div class="bcard-overlay"></div></div>
+            <div class="bcard-body"><span class="bnum">08</span><div class="bcard-icon-wrap"><img src="images/b-juridica.png" alt=""></div><h3>Asesoría Jurídica</h3><p>Soporte legal especializado para tu clínica.</p></div>
+          </article>
+          <article class="bcard" style="--bimg:url('images/doc-hero.jpg');--btint:var(--teal)">
+            <div class="bcard-media"><div class="bcard-bg"></div><div class="bcard-overlay"></div></div>
+            <div class="bcard-body"><span class="bnum">09</span><div class="bcard-icon-wrap"><img src="images/b-comunicaciones.png" alt=""></div><h3>Comunicaciones</h3><p>Visibilidad y posicionamiento de marca.</p></div>
+          </article>
+          <article class="bcard bcard-cta">
+            <h3>Tener voz en el sector es clave</h3>
+            <p>En Asoclicper representamos tus intereses y encuentras apoyo integral.</p>
+            <a class="btn btn-primary" href="https://asoclicper.com/ser-asociado-clinica-de-cirugia-plastica/">Ser Asociado</a>
+          </article>
+        </div>
+      </div>
+      <div class="wrap"><div class="benefits-progress"><span id="benefitsBar"></span></div></div>
+    </div>
+  </section>
+
+  <!-- PODCAST -->
+  <section>
+    <div class="wrap">
+      <div class="podcast reveal-scale">
+        <a class="podcast-play" href="https://asoclicper.com/news/" aria-label="Escuchar Bajo el Bisturí">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </a>
+        <div class="podcast-body">
+          <div class="eyebrow">Conoce nuestro podcast</div>
+          <h3>"Bajo el Bisturí"</h3>
+          <p>Conversaciones sobre seguridad del paciente, excelencia médica y el futuro de la cirugía plástica en Colombia.</p>
+        </div>
+        <div class="waves">
+          <span style="animation-delay:0s"></span><span style="animation-delay:.15s"></span><span style="animation-delay:.3s"></span>
+          <span style="animation-delay:.45s"></span><span style="animation-delay:.6s"></span><span style="animation-delay:.75s"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section>
+    <div class="wrap">
+      <div class="cta-final reveal-scale">
+        <div class="bgph"><img src="images/doc-female1.jpg" alt="Especialista de la red Asoclicper"></div>
+        <div class="eyebrow" style="color:#fff;position:relative;z-index:2;">Únete hoy mismo</div>
+        <h2>Únete a Asoclicper y forma parte de una comunidad con un claro propósito</h2>
+        <p>Tener voz en el sector es clave. En Asoclicper representamos tus intereses y encuentras apoyo integral para tu clínica.</p>
+        <div class="row">
+          <a class="btn btn-primary" href="https://asoclicper.com/ser-asociado-clinica-de-cirugia-plastica/">¡Conviértete en asociado hoy mismo!</a>
+          <a class="btn btn-ghost" href="https://asoclicper.com/contact-cirujanos-plasticos-en-cali/">Contáctanos</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer id="contacto">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <img src="images/logo-blanco.svg" alt="Asoclicper">
+        <p>Unidos por la excelencia en cirugía plástica y la seguridad del paciente. Asociación Colombiana de Clínicas de Cirugía Plástica, Estética y Reconstructiva.</p>
+        <div class="social" style="margin-top:20px;">
+          <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M13.5 21v-7.5H16l.5-3H13.5V8.3c0-.87.24-1.46 1.5-1.46H16.6V4.14C16.3 4.1 15.3 4 14.1 4c-2.4 0-4 1.47-4 4.16V10.5H7.6v3h2.5V21h3.4z"/></svg></a>
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c2.7 0 3 0 4.1.06 2.7.12 3.9 1.36 4.1 4.1.05 1.1.06 1.4.06 4.1s0 3-.06 4.1c-.12 2.7-1.36 3.94-4.1 4.06-1.1.05-1.4.06-4.1.06s-3 0-4.1-.06c-2.74-.12-3.94-1.36-4.06-4.06C3.78 15 3.77 14.7 3.77 12s0-3 .06-4.1C4 5.2 5.2 4 7.9 3.86 9 3.8 9.3 3.8 12 3.8zm0 4.05a5.75 5.75 0 100 11.5 5.75 5.75 0 000-11.5zm0 9.5a3.75 3.75 0 110-7.5 3.75 3.75 0 010 7.5zm5.9-9.7a1.35 1.35 0 11-2.7 0 1.35 1.35 0 012.7 0z"/></svg></a>
+          <a href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21H17v-5.4c0-1.3-.02-2.96-1.8-2.96-1.8 0-2.08 1.4-2.08 2.86V21H9z"/></svg></a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h4>Navegación</h4>
+        <a href="#top">Inicio</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#asociados">Clínicas Asociadas</a>
+        <a href="https://asoclicper.com/news/">Noticias</a>
+      </div>
+      <div class="foot-col">
+        <h4>Asociación</h4>
+        <a href="#asociados">Seguridad del Paciente</a>
+        <a href="https://asoclicper.com/turismo-medico-cirugia-plastica/">Turismo Médico</a>
+        <a href="https://asoclicper.com/ser-asociado-clinica-de-cirugia-plastica/">Ser Asociado</a>
+        <a href="https://asoclicper.com/asoclicper-documental/">Asoclicper Documental</a>
+      </div>
+      <div class="foot-col">
+        <h4>Contacto</h4>
+        <a href="#">Carrera 50 # 9B - 20, Edif. Torres de la 50, Ofic. 216, Santiago de Cali, Colombia</a>
+        <a href="tel:+573153075463">(+57) 315 307 54 63</a>
+        <a href="mailto:info@asoclicper.com.co">info@asoclicper.com.co</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2025 ASOCLICPER — Asociación Colombiana de Clínicas de Cirugía Plástica.</span>
+      <span>Propuesta de rediseño — prototipo de HOME · fotografía de referencia (Unsplash)</span>
+    </div>
+  </div>
+</footer>
+
+<button type="button" class="fab" id="fab" aria-haspopup="dialog" aria-expanded="false" aria-controls="fabPopup" data-magnetic>
+  <span class="fab-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm5.8 14.3c-.25.7-1.45 1.35-2 1.4-.53.06-1.02.28-3.4-.72-2.9-1.2-4.75-4.1-4.9-4.3-.14-.2-1.16-1.55-1.16-2.95 0-1.4.73-2.1 1-2.4.25-.27.55-.34.73-.34h.52c.17 0 .4-.06.6.47.25.6.83 2.05.9 2.2.07.15.12.33.02.53-.1.2-.15.32-.3.5-.14.16-.3.36-.44.49-.14.13-.3.28-.13.56.17.28.75 1.24 1.62 2 1.12 1 2.05 1.32 2.33 1.47.28.15.44.13.6-.08.17-.2.7-.82.9-1.1.18-.28.37-.23.62-.14.25.1 1.6.75 1.88.9.28.13.46.2.53.3.07.13.07.7-.18 1.4z"/></svg>
+  </span>
+  <span class="fab-label">Hablar con un experto</span>
+</button>
+<div class="fab-popup" id="fabPopup" role="dialog" aria-modal="false" aria-label="Contacto">
+  <button type="button" class="fab-popup-close" id="fabPopupClose" aria-label="Cerrar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <span class="fab-popup-avatar" data-fab-part><img src="images/icon-color.svg" alt="" /></span>
+  <p class="fab-popup-title" data-fab-part>Equipo Asoclicper</p>
+  <p class="fab-popup-message" data-fab-part>¿Tienes dudas sobre tu clínica o quieres asociarte? Escríbenos y te respondemos directo por WhatsApp.</p>
+  <a href="https://wa.me/573153075463" target="_blank" rel="noopener" class="fab-popup-cta" data-fab-part data-magnetic>
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm5.8 14.3c-.25.7-1.45 1.35-2 1.4-.53.06-1.02.28-3.4-.72-2.9-1.2-4.75-4.1-4.9-4.3-.14-.2-1.16-1.55-1.16-2.95 0-1.4.73-2.1 1-2.4.25-.27.55-.34.73-.34h.52c.17 0 .4-.06.6.47.25.6.83 2.05.9 2.2.07.15.12.33.02.53-.1.2-.15.32-.3.5-.14.16-.3.36-.44.49-.14.13-.3.28-.13.56.17.28.75 1.24 1.62 2 1.12 1 2.05 1.32 2.33 1.47.28.15.44.13.6-.08.17-.2.7-.82.9-1.1.18-.28.37-.23.62-.14.25.1 1.6.75 1.88.9.28.13.46.2.53.3.07.13.07.7-.18 1.4z"/></svg>
+    Escribir por WhatsApp
+  </a>
+</div>
+
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+  const progress = document.getElementById('progress');
+  const header = document.getElementById('siteHeader');
+  function onScroll(){
+    // documentElement.scrollTop se queda en 0 en esta pagina: el html{overflow-x:hidden} (necesario
+    // para no romper los pines de ScrollTrigger) hace que el navegador use <body> como scrollingElement
+    // real, no <html>. window.scrollY funciona siempre sin importar cual sea el scrollingElement.
+    const y = window.scrollY;
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const scrolled = max > 0 ? (y / max) * 100 : 0;
+    progress.style.width = scrolled + '%';
+    header.classList.toggle('scrolled', y > 40);
+  }
+  document.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  const burger = document.getElementById('burger');
+  let mobileNav;
+  burger.addEventListener('click', () => {
+    if(!mobileNav){
+      mobileNav = document.createElement('div');
+      mobileNav.style.cssText = 'position:fixed;inset:0;background:rgba(6,10,18,.97);z-index:120;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;';
+      const links = [['Inicio','#top'],['Nosotros','#nosotros'],['Clínicas Asociadas','#asociados'],['Seguridad del paciente','#asociados'],['Turismo Médico','https://asoclicper.com/turismo-medico-cirugia-plastica/'],['Contacto','#contacto']];
+      links.forEach(([label,href])=>{
+        const a = document.createElement('a');
+        a.href = href; a.textContent = label;
+        a.style.cssText = 'color:#fff;font-family:Poppins;font-size:22px;font-weight:600;';
+        a.addEventListener('click', ()=> mobileNav.remove());
+        mobileNav.appendChild(a);
+      });
+      const close = document.createElement('button');
+      close.textContent = '✕';
+      close.style.cssText = 'position:absolute;top:26px;right:28px;background:none;border:none;color:#fff;font-size:24px;cursor:pointer;';
+      close.addEventListener('click', ()=> mobileNav.remove());
+      mobileNav.appendChild(close);
+    }
+    document.body.appendChild(mobileNav);
+  });
+
+  gsap.registerPlugin(ScrollTrigger);
+  // ignora el auto-refresh nativo en resize/visibilitychange: con varios pin:true apilados
+  // (hero + beneficios), un refresh() disparado mientras el usuario ya esta scrolleado a fondo
+  // remide los triggers posteriores contra una pagina "colapsada" y les deja start/end minusculos
+  // (asi se soltaba beneficios mucho antes de la ultima card). Lo reemplazamos por un refresh
+  // propio que vuelve al top antes de remedir y luego restaura el scroll del usuario.
+  ScrollTrigger.config({ autoRefreshEvents: 'DOMContentLoaded,load' });
+  function safeRefresh(){
+    // behavior:'instant' es obligatorio: con scroll-behavior:smooth en <html>, un scrollTo(0,0)
+    // normal queda "en curso" y el refresh de abajo se ejecuta antes de que la pagina se mueva.
+    const y = window.scrollY;
+    window.scrollTo({top:0, left:0, behavior:'instant'});
+    ScrollTrigger.refresh();
+    window.scrollTo({top:y, left:0, behavior:'instant'});
+  }
+  let resizeTimer;
+  window.addEventListener('resize', ()=>{
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(safeRefresh, 200);
+  });
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine = window.matchMedia('(pointer: fine)').matches;
+
+  /* ---------- hero: toda la escena entra junta al cargar (solo el primer slide) ---------- */
+  const S0 = '[data-slide="0"]';
+  if(!reduceMotion){
+    gsap.timeline({defaults:{ease:'power3.out'}})
+      .from('.hero-field', {opacity:0, scale:1.32, duration:2.4, ease:'power2.out'}, 0)
+      .from('.hero-mood', {opacity:0, duration:1.9}, 0)
+      .from('.hero-gridlines', {opacity:0, duration:2.1, ease:'power1.out'}, .35)
+      .from([`${S0} .hero-pill`,`${S0} .eyebrow`,`${S0} h1`,`${S0} p.lead`,`${S0} .hero-ctas`],
+            {yPercent:42, opacity:0, filter:'blur(10px)', duration:1.15, stagger:.085}, .28)
+      .fromTo(`${S0} .hero-photo-wrap`,
+            {clipPath:'inset(100% 0% 0% 0% round 34px)', scale:1.14},
+            {clipPath:'inset(0% 0% 0% 0% round 34px)', scale:1, duration:1.6, ease:'power3.inOut'}, .4)
+      .from('.hero-hud', {opacity:0, y:18, duration:.9}, 1.25);
+  }
+
+  /* ---------- hero fijo: 3 slides, cada uno emerge desde el fondo de la escena ---------- */
+  const heroSlides = gsap.utils.toArray('.hero-slide');
+  const heroEl = document.getElementById('heroSection');
+  let heroPin = null, heroSwitchAt = [], heroHoldAt = [];
+
+  function setActiveSlide(idx){
+    heroSlides.forEach((s, i)=>{
+      const on = i === idx;
+      s.classList.toggle('is-active', on);
+      s.inert = !on;
+      s.setAttribute('aria-hidden', on ? 'false' : 'true');
+    });
+    document.querySelectorAll('.hero-step').forEach((b, i)=> b.classList.toggle('is-active', i === idx));
+    const c = document.getElementById('heroCount');
+    if(c) c.textContent = String(idx + 1).padStart(2, '0');
+  }
+
+  if(reduceMotion){
+    heroEl.classList.add('hero--static');
+  } else {
+    const HOLD = .5, TRANS = 1.15;
+    const DEEP = -2600;   // donde espera cada slide nuevo: al fondo de la escena
+    const PAST = 640;     // hacia donde sale el actual: pasa junto a la camara (debe ser < perspective)
+
+    gsap.set(heroSlides, {visibility:'visible'});
+    heroSlides.forEach((s, i)=>{
+      if(i === 0) return;
+      gsap.set(s.querySelector('.hero-copy'), {z:DEEP, opacity:0, filter:'blur(18px)'});
+      gsap.set(s.querySelector('.hero-visual'), {z:DEEP * 1.3, opacity:0});
+    });
+    setActiveSlide(0);
+
+    const tl = gsap.timeline({defaults:{ease:'none'}});
+    heroHoldAt.push(HOLD / 2);
+    tl.to({}, {duration:HOLD});
+
+    for(let i = 0; i < heroSlides.length - 1; i++){
+      const A = heroSlides[i], B = heroSlides[i + 1];
+      const t = tl.duration();
+      heroSwitchAt.push(t + TRANS * .5);
+
+      tl
+        // el slide actual avanza hacia la camara y se disuelve: "entramos" en la escena
+        .to(A.querySelector('.hero-copy'), {z:PAST, opacity:0, filter:'blur(12px)', duration:TRANS * .7, ease:'power2.in'}, t)
+        .to(A.querySelector('.hero-visual'), {z:PAST, duration:TRANS * .7, ease:'power1.in'}, t)
+        .to(A.querySelector('.hero-visual'), {opacity:0, duration:TRANS * .45, ease:'power1.in'}, t + .3)
+
+        // anillo de luz en el punto de fuga
+        .fromTo('.hero-portal', {scale:.15, opacity:0}, {scale:1.5, opacity:.95, duration:TRANS * .5, ease:'power2.out', immediateRender:false}, t + .12)
+        .to('.hero-portal', {scale:3.2, opacity:0, duration:TRANS * .45, ease:'power2.in'}, t + TRANS * .62)
+
+        // la reja y el color avanzan: sensacion de desplazamiento hacia adentro
+        .to('.hero-gridlines', {scale:1 + .45 * (i + 1), duration:TRANS, ease:'power1.inOut'}, t)
+        .to('.hero-field', {rotation:16 * (i + 1), duration:TRANS, ease:'power1.inOut'}, t)
+
+        // el slide nuevo emerge desde el fondo y se asienta
+        .to(B.querySelector('.hero-visual'), {z:0, duration:TRANS, ease:'power3.out'}, t + TRANS * .3)
+        .to(B.querySelector('.hero-visual'), {opacity:1, duration:TRANS * .4, ease:'power1.out'}, t + TRANS * .3)
+        .to(B.querySelector('.hero-copy'), {z:0, opacity:1, filter:'blur(0px)', duration:TRANS, ease:'power3.out'}, t + TRANS * .38);
+
+      heroHoldAt.push(tl.duration() + HOLD / 2);
+      tl.to({}, {duration:HOLD});
+    }
+
+    heroPin = ScrollTrigger.create({
+      animation: tl,
+      trigger: heroEl,
+      start: 'top top',
+      end: () => '+=' + Math.round(window.innerHeight * 3.2),
+      pin: true,
+      scrub: 1,
+      anticipatePin: 1,
+      invalidateOnRefresh: true,
+      onUpdate: (self) => {
+        const time = self.progress * tl.duration();
+        let idx = 0;
+        heroSwitchAt.forEach((at, k)=>{ if(time >= at) idx = k + 1; });
+        if(!heroSlides[idx].classList.contains('is-active')) setActiveSlide(idx);
+        // cada segmento del indicador se llena con su tramo de recorrido
+        const bounds = [0, ...heroSwitchAt, tl.duration()];
+        document.querySelectorAll('.hero-step i b').forEach((bar, k)=>{
+          const p = gsap.utils.clamp(0, 1, (time - bounds[k]) / (bounds[k + 1] - bounds[k]));
+          bar.style.transform = `scaleX(${p})`;
+        });
+      }
+    });
+
+    // saltar a un slide desde el indicador
+    document.querySelectorAll('.hero-step').forEach((btn)=>{
+      btn.addEventListener('click', ()=>{
+        const k = +btn.dataset.go;
+        const target = heroPin.start + (heroHoldAt[k] / tl.duration()) * (heroPin.end - heroPin.start);
+        window.scrollTo({top: target, behavior:'smooth'});
+      });
+    });
+  }
+
+  /* ---------- escenas inmersivas: las secciones entran como una sola toma ---------- */
+  const SCENE_ZONES = '#specialistsSection, #nosotros';
+
+  if(!reduceMotion){
+    // especialidades: el titulo emerge y las tarjetas llegan en arco desde el fondo
+    gsap.fromTo('#specialistsSection .tag-row .reveal',
+      {z:-620, y:70, opacity:0, filter:'blur(14px)'},
+      {z:0, y:0, opacity:1, filter:'blur(0px)', ease:'none', stagger:.1,
+       scrollTrigger:{trigger:'#specialistsSection', start:'top 92%', end:'top 42%', scrub:.7}});
+
+    const specCards = gsap.utils.toArray('#specialistsSection .spec-card');
+    specCards.forEach((card, i)=>{
+      const arc = i - (specCards.length - 1) / 2;   // -1, 0, 1
+      gsap.fromTo(card,
+        {z:-1250 - Math.abs(arc)*260, rotateY: arc*42, rotateX:18, y:130, opacity:0, filter:'blur(20px)'},
+        {z:0, rotateY: arc*6, rotateX:0, y:0, opacity:1, filter:'blur(0px)', ease:'none',
+         scrollTrigger:{trigger:'.spec-grid', start:'top 98%', end:'top 32%', scrub:.85}});
+    });
+
+    // nosotros: la escena entra desde el fondo mientras la foto abre el portal
+    gsap.fromTo('#nosotros .about-media',
+      {z:-900, rotateY:16, opacity:0, filter:'blur(18px)'},
+      {z:0, rotateY:0, opacity:1, filter:'blur(0px)', ease:'none',
+       scrollTrigger:{trigger:'#nosotros', start:'top 96%', end:'top 38%', scrub:.8}});
+    gsap.fromTo('#portalFrame',
+      {clipPath:'circle(6% at 50% 50%)'},
+      {clipPath:'circle(75% at 50% 50%)', ease:'none',
+       scrollTrigger:{trigger:'#nosotros', start:'top 92%', end:'top 40%', scrub:.8}});
+    gsap.fromTo('#nosotros .about-copy > *',
+      {z:-560, y:60, opacity:0, filter:'blur(13px)'},
+      {z:0, y:0, opacity:1, filter:'blur(0px)', ease:'none', stagger:.08,
+       scrollTrigger:{trigger:'#nosotros', start:'top 92%', end:'top 32%', scrub:.8}});
+    gsap.from('#nosotros .about-badge',
+      {opacity:0, scale:.55, y:40, ease:'back.out(1.7)', duration:.9,
+       scrollTrigger:{trigger:'#nosotros', start:'top 55%', once:true}});
+  }
+
+  /* ---------- reveals estandar para el resto del sitio ---------- */
+  document.querySelectorAll('.reveal,.reveal-l,.reveal-r,.reveal-scale').forEach(el=>{
+    if(el.closest('#heroSection') || el.closest(SCENE_ZONES)) return; // ya cubiertos por sus escenas
+    const fromX = el.classList.contains('reveal-l') ? -40 : el.classList.contains('reveal-r') ? 40 : 0;
+    const fromY = el.classList.contains('reveal') ? 36 : 0;
+    const fromScale = el.classList.contains('reveal-scale') ? .94 : 1;
+    gsap.fromTo(el,
+      {opacity:0, x:fromX, y:fromY, scale:fromScale},
+      {
+        opacity:1, x:0, y:0, scale:1, duration:1, ease:'power3.out',
+        delay: el.parentElement.classList.contains('stagger') ? [...el.parentElement.children].indexOf(el)*0.09 : 0,
+        scrollTrigger:{trigger:el, start:'top 85%', once:true}
+      }
+    );
+  });
+
+  /* ---------- scroll-scrubbed count-up ---------- */
+  document.querySelectorAll('[data-count]').forEach(el=>{
+    const target = parseInt(el.dataset.count, 10);
+    const proxy = {v:0};
+    gsap.to(proxy, {
+      v:target, duration:1.6, ease:'power2.out',
+      scrollTrigger:{trigger:el, start:'top 88%', once:true},
+      onUpdate:()=> el.textContent = Math.floor(proxy.v).toLocaleString('es-CO')
+    });
+  });
+
+  /* ---------- custom cursor ---------- */
+  if(fine && !reduceMotion){
+    document.documentElement.classList.add('has-cursor');
+    const dot = document.getElementById('cursorDot');
+    const ring = document.getElementById('cursorRing');
+    const ringX = gsap.quickTo(ring, 'x', {duration:.5, ease:'power3.out'});
+    const ringY = gsap.quickTo(ring, 'y', {duration:.5, ease:'power3.out'});
+    const dotX = gsap.quickTo(dot, 'x', {duration:.08, ease:'none'});
+    const dotY = gsap.quickTo(dot, 'y', {duration:.08, ease:'none'});
+    window.addEventListener('mousemove', (e)=>{
+      dotX(e.clientX); dotY(e.clientY);
+      ringX(e.clientX); ringY(e.clientY);
+    });
+    document.addEventListener('mousedown', ()=> ring.classList.add('is-down'));
+    document.addEventListener('mouseup', ()=> ring.classList.remove('is-down'));
+    document.querySelectorAll('a, button, .spec-card, .orbit-chip, .bcard, .cx-row').forEach(el=>{
+      el.addEventListener('mouseenter', ()=> ring.classList.add('is-hover'));
+      el.addEventListener('mouseleave', ()=> ring.classList.remove('is-hover'));
+    });
+
+    /* hero: el color se mueve y reacciona al cursor (glow + ondas) */
+    const heroSection = document.getElementById('heroSection');
+    const ripplesLayer = document.getElementById('heroRipples');
+    const glow = document.getElementById('heroCursorGlow');
+    gsap.set(glow, {xPercent:-50, yPercent:-50});
+    const glowX = gsap.quickTo(glow, 'x', {duration:.75, ease:'power3.out'});
+    const glowY = gsap.quickTo(glow, 'y', {duration:.75, ease:'power3.out'});
+    const fieldX = gsap.quickTo('.hero-field', 'x', {duration:1.4, ease:'power3.out'});
+    const fieldY = gsap.quickTo('.hero-field', 'y', {duration:1.4, ease:'power3.out'});
+
+    let lastRipple = 0;
+    heroSection.addEventListener('mousemove', (e)=>{
+      const r = heroSection.getBoundingClientRect();
+      const x = e.clientX - r.left, y = e.clientY - r.top;
+      glowX(x); glowY(y);
+      gsap.to(glow, {opacity:1, duration:.45, overwrite:'auto'});
+
+      // el campo de color se desplaza con el mouse
+      fieldX(((x / r.width) - .5) * 70);
+      fieldY(((y / r.height) - .5) * 45);
+
+      // ondas que se expanden desde el cursor
+      const now = performance.now();
+      if(now - lastRipple > 430){
+        lastRipple = now;
+        const rip = document.createElement('span');
+        rip.className = 'hero-ripple';
+        ripplesLayer.appendChild(rip);
+        gsap.set(rip, {x, y, xPercent:-50, yPercent:-50, scale:.16, opacity:.9});
+        gsap.to(rip, {scale:1.55, opacity:0, duration:2.3, ease:'power2.out', onComplete:()=>rip.remove()});
+      }
+    });
+    heroSection.addEventListener('mouseleave', ()=> gsap.to(glow, {opacity:0, duration:.7}));
+
+    /* magnetic buttons */
+    document.querySelectorAll('.btn-primary, .btn-dark').forEach(btn=>{
+      btn.classList.add('magnetic');
+      btn.addEventListener('mousemove', (e)=>{
+        const r = btn.getBoundingClientRect();
+        const mx = e.clientX - r.left - r.width/2;
+        const my = e.clientY - r.top - r.height/2;
+        gsap.to(btn, {x:mx*.35, y:my*.5, duration:.4, ease:'power3.out'});
+      });
+      btn.addEventListener('mouseleave', ()=> gsap.to(btn, {x:0, y:0, duration:.5, ease:'elastic.out(1,.4)'}));
+    });
+
+    /* tilt en la foto de cada slide */
+    document.querySelectorAll('.tilt-wrap').forEach((wrap)=>{
+      const photo = wrap.querySelector('.hero-photo-wrap');
+      if(!photo) return;
+      wrap.addEventListener('mousemove', (e)=>{
+        const r = wrap.getBoundingClientRect();
+        const px = (e.clientX - r.left)/r.width - .5;
+        const py = (e.clientY - r.top)/r.height - .5;
+        gsap.to(photo, {rotateY: px*10, rotateX: -py*10, duration:.5, ease:'power3.out', transformPerspective:900});
+      });
+      wrap.addEventListener('mouseleave', ()=> gsap.to(photo, {rotateY:0, rotateX:0, duration:.6, ease:'power3.out'}));
+    });
+  }
+
+  /* ---------- WebGL nebula (pure WebGL, no libraries) ---------- */
+  function initNebula(canvasId, opts = {}) {
+    const { timeOffset = 0 } = opts;
+    const canvas = document.getElementById(canvasId);
+    if(!canvas) return null;
+    const gl = canvas.getContext("webgl", { antialias: false, alpha: true });
+    if (!gl) return null;
+
+    const VERT = `
+      attribute vec2 aPos;
+      void main() { gl_Position = vec4(aPos, 0.0, 1.0); }
+    `;
+    const FRAG = `
+      precision mediump float;
+      uniform vec2 iResolution;
+      uniform float iTime;
+      uniform vec2 iMouse;
+      uniform float iMouseAmt;
+      #define t iTime
+      // Paleta de marca ASOCLICPER
+      #define C_BLUE    vec3(0.043, 0.467, 0.741)
+      #define C_TEAL    vec3(0.290, 0.729, 0.678)
+      #define C_LIME    vec3(0.757, 0.824, 0.149)
+      #define C_PURPLE  vec3(0.408, 0.275, 0.588)
+      #define C_MAGENTA vec3(0.718, 0.404, 0.651)
+
+      mat2 m(float a){ float c=cos(a), s=sin(a); return mat2(c,-s,s,c); }
+
+      // Campo propio: esfera base deformada por 3 ondas cruzadas (vortice), no ray-march logaritmico
+      float field(vec3 p){
+        p.xy *= m(t*0.22);
+        p.yz *= m(t*0.16 + 1.3);
+        float swirl = sin(p.x*1.7 + t*0.55)
+                    + sin(p.y*1.5 - t*0.42 + p.z*0.6)
+                    + sin(p.z*1.9 + t*0.33 + p.x*0.4);
+        return length(p) - 1.35 + swirl*0.33;
+      }
+
+      void main() {
+        vec2 fragCoord = gl_FragCoord.xy;
+        float unit = min(iResolution.x, iResolution.y);
+        vec2 rel = (fragCoord - iMouse) / unit;
+        float infl = exp(-length(rel) * 3.0) * iMouseAmt;
+        fragCoord += normalize(rel + vec2(1e-5)) * infl * unit * 0.28;
+        vec2 uv = fragCoord / unit - 0.5;
+
+        vec3 col = vec3(0.0);
+        float d = 2.0;
+        for (int i = 0; i <= 6; i++) {
+          vec3 p = vec3(0.0, 0.0, 4.2) + normalize(vec3(uv, -1.0)) * d;
+          float rz = field(p);
+          float edge = clamp((rz - field(p + 0.08)) * 3.2, 0.0, 1.0);
+          vec3 tint = mix(C_PURPLE, C_BLUE, smoothstep(0.0, 0.5, edge));
+          tint = mix(tint, C_TEAL, smoothstep(0.4, 0.75, edge));
+          tint = mix(tint, C_LIME, smoothstep(0.75, 1.0, edge));
+          col += tint * (0.24 / (abs(rz) + 0.07));
+          d += clamp(rz, 0.12, 0.85);
+        }
+        col = col / (1.0 + col * 0.9);
+        col += C_MAGENTA * 0.05 * infl;
+
+        float dist = length(uv);
+        float vignette = 1.0 - smoothstep(0.32, 0.5, dist);
+        gl_FragColor = vec4(col * mix(0.35, 1.0, vignette), 1.0);
+      }
+    `;
+
+    function compile(type, src) {
+      const sh = gl.createShader(type);
+      gl.shaderSource(sh, src);
+      gl.compileShader(sh);
+      if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) { console.warn(gl.getShaderInfoLog(sh)); return null; }
+      return sh;
+    }
+    const vs = compile(gl.VERTEX_SHADER, VERT);
+    const fs = compile(gl.FRAGMENT_SHADER, FRAG);
+    const prog = gl.createProgram();
+    gl.attachShader(prog, vs); gl.attachShader(prog, fs); gl.linkProgram(prog);
+    if(!gl.getProgramParameter(prog, gl.LINK_STATUS)){ console.error('nebula link error:', gl.getProgramInfoLog(prog)); return null; }
+    gl.useProgram(prog);
+
+    const buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    const aPos = gl.getAttribLocation(prog, "aPos");
+    gl.enableVertexAttribArray(aPos);
+    gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+    const uRes = gl.getUniformLocation(prog, "iResolution");
+    const uTime = gl.getUniformLocation(prog, "iTime");
+    const uMouse = gl.getUniformLocation(prog, "iMouse");
+    const uMouseAmt = gl.getUniformLocation(prog, "iMouseAmt");
+
+    const ptr = { x: -9999, y: -9999, amt: 0 };
+    const ptrX = fine ? gsap.quickTo(ptr, 'x', {duration:.5, ease:'power3.out'}) : (v)=>ptr.x=v;
+    const ptrY = fine ? gsap.quickTo(ptr, 'y', {duration:.5, ease:'power3.out'}) : (v)=>ptr.y=v;
+    const ptrAmt = fine ? gsap.quickTo(ptr, 'amt', {duration:.4, ease:'power3.out'}) : (v)=>ptr.amt=v;
+    window.addEventListener("mousemove", (e) => {
+      const r = canvas.getBoundingClientRect();
+      if(e.clientX < r.left-200 || e.clientX > r.right+200 || e.clientY < r.top-200 || e.clientY > r.bottom+200) return;
+      ptrX(((e.clientX - r.left) / r.width) * canvas.width);
+      ptrY(((r.bottom - e.clientY) / r.height) * canvas.height);
+      ptrAmt(1);
+    });
+
+    const DPR_CAP = 1.5;
+    function resize() {
+      const dpr = Math.min(window.devicePixelRatio || 1, DPR_CAP);
+      const w = Math.max(1, Math.round(canvas.clientWidth * dpr));
+      const h = Math.max(1, Math.round(canvas.clientHeight * dpr));
+      if (canvas.width === w && canvas.height === h) return;
+      canvas.width = w; canvas.height = h;
+      gl.viewport(0, 0, w, h);
+      gl.uniform2f(uRes, w, h);
+    }
+    resize();
+    window.addEventListener("resize", resize);
+
+    const start = performance.now();
+    function frame() {
+      requestAnimationFrame(frame);
+      if(reduceMotion) return;
+      resize();
+      gl.uniform1f(uTime, (performance.now() - start) / 1000 + timeOffset);
+      gl.uniform2f(uMouse, ptr.x, ptr.y);
+      gl.uniform1f(uMouseAmt, ptr.amt);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    }
+    requestAnimationFrame(frame);
+  }
+  initNebula("benefitsNebulaShader");
+
+  /* ---------- orbit: arco eliptico giratorio de clinicas sobre el hub ---------- */
+  (function(){
+    const stage = document.getElementById('orbitStage');
+    const hub = document.querySelector('.orbit-hub');
+    const arc = document.getElementById('orbitArc');
+    const chips = arc ? Array.from(arc.children) : [];
+    if(!stage || !hub || !chips.length) return;
+
+    const N = chips.length;
+    const ARC_SPAN = 210;     // recorrido virtual total (grados): mas ancho que la ventana visible, para que entren/salgan por los bordes
+    const VISIBLE_HALF = 78;  // ventana visible: +-78 grados desde arriba del hub
+    let rotation = 0;
+    let active = false;
+
+    function layout(){
+      const stageRect = stage.getBoundingClientRect();
+      const hubRect = hub.getBoundingClientRect();
+      const cx = hubRect.left + hubRect.width / 2 - stageRect.left;
+      const hubTop = hubRect.top - stageRect.top;
+      const cy = hubTop + hubRect.height * 0.22;
+      const rx = stageRect.width * 0.40;
+      // ry se deriva del espacio real sobre el hub (no de la altura del stage): asi el arco
+      // queda pegado al hub sin recortarse por arriba sin importar cuanto se achique el stage.
+      // el margen (90) deja sitio para el propio radio del chip (hasta ~70px con su escala maxima).
+      const ry = Math.max(120, cy - 90);
+
+      chips.forEach((chip, i)=>{
+        let angle = (-ARC_SPAN / 2) + (i / N) * ARC_SPAN + rotation;
+        angle = ((angle + ARC_SPAN / 2) % ARC_SPAN + ARC_SPAN) % ARC_SPAN - ARC_SPAN / 2;
+        const rad = angle * Math.PI / 180;
+        const x = cx + rx * Math.sin(rad);
+        const y = cy - ry * Math.cos(rad);
+        const abs = Math.abs(angle);
+        const visible = abs <= VISIBLE_HALF;
+        const fadeStart = VISIBLE_HALF * 0.72;
+        const op = visible ? gsap.utils.clamp(0, 1, 1 - Math.max(0, (abs - fadeStart) / (VISIBLE_HALF - fadeStart))) : 0;
+        const scale = .74 + .34 * (1 - abs / VISIBLE_HALF);
+        chip.style.transform = `translate(${x}px, ${y}px) scale(${visible ? scale : .6})`;
+        chip.style.opacity = op;
+        chip.style.zIndex = String(100 - Math.round(abs));
+      });
+    }
+
+    // IntersectionObserver en vez de posiciones de ScrollTrigger: estas se desfasan por los
+    // pines dinamicos del hero y de beneficios (su alto depende del viewport y se recalcula).
+    new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ active = e.isIntersecting; });
+    }, {threshold: 0}).observe(stage);
+
+    gsap.ticker.add(()=>{
+      if(!active || reduceMotion) return;
+      rotation += 0.045;
+      layout();
+    });
+    window.addEventListener('resize', layout);
+    layout();
+  })();
+
+  /* ---------- beneficios: scroll horizontal fijado (todo ocurre en la misma seccion) ---------- */
+  (function(){
+    const section = document.getElementById('benefitsSection');
+    const track = document.getElementById('benefitsTrack');
+    const bar = document.getElementById('benefitsBar');
+    if(!section || !track) return;
+
+    if(reduceMotion || window.matchMedia('(max-width: 900px)').matches){
+      document.querySelector('.benefits-viewport').style.overflowX = 'auto';
+      if(bar) bar.style.width = '100%';
+      return;
+    }
+
+    // mide el inicio real del texto del titulo (borde + padding de .wrap) y lo aplica como
+    // padding del track: asi la primera/ultima card quedan alineadas con el titulo en vez de
+    // calcularlo a mano (el centrado real de .wrap no siempre coincide con max-width/2).
+    const head = document.querySelector('.benefits-head');
+    function syncInset(){
+      if(!head) return;
+      const r = head.getBoundingClientRect();
+      const pl = parseFloat(getComputedStyle(head).paddingLeft) || 28;
+      track.style.setProperty('--bf-inset', Math.max(20, r.left + pl) + 'px');
+    }
+    syncInset();
+    window.addEventListener('resize', syncInset);
+    if(document.fonts && document.fonts.ready){ document.fonts.ready.then(syncInset); }
+
+    // sin margen extra: el track ya trae el mismo padding que .wrap a cada lado, asi que al
+    // terminar el scroll el borde derecho del track queda pegado al borde del viewport y la
+    // ultima card se detiene exactamente a ese padding del titulo (simetrico con el arranque).
+    const scrollLen = () => Math.max(0, track.scrollWidth - window.innerWidth);
+    const horizontal = gsap.to(track, {
+      x: () => -scrollLen(),
+      ease: 'none',
+      scrollTrigger: {
+        trigger: section,
+        start: 'top top',
+        end: () => '+=' + scrollLen(),
+        pin: true,
+        scrub: 1,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => { if(bar) bar.style.width = (self.progress*100).toFixed(2)+'%'; }
+      }
+    });
+
+    // cada card llega desde el fondo justo cuando entra en cuadro. Con porcentajes tipo
+    // 'left 95%'/'left 55%' la card final (la ultima ya no tiene mas scroll disponible
+    // despues de ella) se quedaba a medio animar por siempre: el umbral de fin caia mas
+    // alla del final real del scroll y nunca se alcanzaba a leer bien. Usamos posiciones
+    // en px (mismo espacio que scrollLen) recortadas al final real, para que toda card
+    // -incluida la ultima- termine su entrada exactamente cuando el scroll se acaba.
+    const revealPx = () => window.innerWidth * 0.4;
+    gsap.utils.toArray('.bcard').forEach((card)=>{
+      gsap.fromTo(card,
+        {z:-620, rotateY:24, opacity:.2, filter:'blur(12px)'},
+        {z:0, rotateY:0, opacity:1, filter:'blur(0px)', ease:'none',
+         scrollTrigger:{
+           trigger: card,
+           containerAnimation: horizontal,
+           start: () => Math.min(card.offsetLeft - window.innerWidth*0.95, scrollLen() - revealPx()),
+           end: () => Math.min(card.offsetLeft - window.innerWidth*0.55, scrollLen()),
+           scrub: .6
+         }});
+    });
+  })();
+
+  /* ---------- scroll-driven panel: light -> violeta de marca -> tinta oscura ---------- */
+  (function(){
+    const panel = document.getElementById('statsPanel');
+    if(!panel) return;
+    const PANEL_STOPS = ["#eef3f8", "#674696", "#0a0e17"];
+    const FG_LIGHT = "#f4f8f6", FG_DARK = "#12131a";
+    const ACCENT_ON_DARK = "#4abab7", ACCENT_ON_LIGHT = "#0b77bd";
+
+    const channelLum = (v) => { v /= 255; return v <= 0.03928 ? v/12.92 : Math.pow((v+0.055)/1.055, 2.4); };
+    const relLum = (r,g,b) => 0.2126*channelLum(r) + 0.7152*channelLum(g) + 0.0722*channelLum(b);
+    const ratio = (a,b) => (Math.max(a,b)+0.05) / (Math.min(a,b)+0.05);
+    const LUM_LIGHT = relLum(238,243,248), LUM_DARK = relLum(10,14,23);
+
+    function paintPanel(t, el) {
+      const eased = Math.max(0, Math.min(1, t));
+      const leg = eased < 0.5 ? 0 : 1;
+      const bg = gsap.utils.interpolate(PANEL_STOPS[leg], PANEL_STOPS[leg+1], (eased - leg*0.5)*2);
+      const [r,g,b] = gsap.utils.splitColor(bg);
+      const bgLum = relLum(r,g,b);
+      const isLightBg = ratio(bgLum, LUM_DARK) >= ratio(bgLum, LUM_LIGHT);
+      el.style.setProperty("--panel-bg", bg);
+      el.style.setProperty("--panel-fg", isLightBg ? FG_DARK : FG_LIGHT);
+      el.style.setProperty("--panel-accent", isLightBg ? ACCENT_ON_LIGHT : ACCENT_ON_DARK);
+      el.classList.toggle('is-light-panel', isLightBg);
+    }
+
+    ScrollTrigger.create({
+      trigger: panel, start: "top 80%", end: "top top", scrub: true,
+      onUpdate: (self) => paintPanel(self.progress, panel)
+    });
+  })();
+
+  /* ---------- spotlight de borde en las cards de datos: el halo de color sigue al cursor,
+     calculando la posicion del mouse en el sistema de coordenadas local de cada card ---------- */
+  (function(){
+    if(reduceMotion || !fine) return;
+    const panel = document.getElementById('statsPanel');
+    const cards = panel ? Array.from(panel.querySelectorAll('.big-stat, .mini-stat')) : [];
+    if(!cards.length) return;
+    let raf = null, lastX = 0, lastY = 0;
+    function paint(){
+      raf = null;
+      cards.forEach(card=>{
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--sx', (lastX - r.left) + 'px');
+        card.style.setProperty('--sy', (lastY - r.top) + 'px');
+      });
+    }
+    panel.addEventListener('mousemove', (e)=>{
+      lastX = e.clientX; lastY = e.clientY;
+      if(!raf) raf = requestAnimationFrame(paint);
+    }, {passive:true});
+    panel.addEventListener('mouseleave', ()=>{
+      cards.forEach(card=>{ card.style.setProperty('--sx','-999px'); card.style.setProperty('--sy','-999px'); });
+    });
+  })();
+
+  /* ---------- fab de contacto: abrir/cerrar tarjeta + aparicion por scroll + efecto magnetico ---------- */
+  (function(){
+    const fab = document.getElementById('fab');
+    const fabPopup = document.getElementById('fabPopup');
+    const fabPopupClose = document.getElementById('fabPopupClose');
+    if(!fab || !fabPopup || !fabPopupClose) return;
+    const fabParts = Array.from(fabPopup.querySelectorAll('[data-fab-part]'));
+    let fabOpen = false;
+
+    function openFabPopup(){
+      fabOpen = true;
+      fab.setAttribute('aria-expanded', 'true');
+      fab.classList.add('is-hidden');
+      fabPopup.classList.add('is-open');
+      gsap.killTweensOf([fabPopup, ...fabParts]);
+      gsap.timeline()
+        .fromTo(fabPopup, {opacity:0, scale:.85, y:16}, {opacity:1, scale:1, y:0, duration:.45, ease:'back.out(1.6)'})
+        .fromTo(fabParts, {opacity:0, y:10}, {opacity:1, y:0, duration:.35, ease:'power3.out', stagger:.08}, '-=0.25');
+    }
+    function closeFabPopup(){
+      fabOpen = false;
+      fab.setAttribute('aria-expanded', 'false');
+      fab.classList.remove('is-hidden');
+      gsap.killTweensOf([fabPopup, ...fabParts]);
+      gsap.to(fabPopup, {opacity:0, scale:.9, y:10, duration:.25, ease:'power2.in',
+        onComplete: () => fabPopup.classList.remove('is-open')});
+    }
+    fab.addEventListener('click', () => fabOpen ? closeFabPopup() : openFabPopup());
+    fabPopupClose.addEventListener('click', closeFabPopup);
+    document.addEventListener('click', (e) => {
+      if(!fabOpen || fabPopup.contains(e.target) || fab.contains(e.target)) return;
+      closeFabPopup();
+    });
+    document.addEventListener('keydown', (e) => { if(fabOpen && e.key === 'Escape') closeFabPopup(); });
+
+    // aparece despues de medio viewport de scroll, para no competir con el hero
+    window.addEventListener('scroll', () => {
+      fab.classList.toggle('is-visible', window.scrollY > window.innerHeight * 0.5);
+    }, {passive:true});
+
+    // efecto magnetico: el boton "sigue" un poco al cursor dentro de su propia area (solo con mouse fino)
+    if(fine && !reduceMotion){
+      document.querySelectorAll('[data-magnetic]').forEach((btn) => {
+        const xTo = gsap.quickTo(btn, 'x', {duration:.4, ease:'power3.out'});
+        const yTo = gsap.quickTo(btn, 'y', {duration:.4, ease:'power3.out'});
+        btn.addEventListener('mousemove', (e) => {
+          const r = btn.getBoundingClientRect();
+          xTo((e.clientX - r.left - r.width/2) * 0.35);
+          yTo((e.clientY - r.top - r.height/2) * 0.35);
+        });
+        btn.addEventListener('mouseleave', () => { xTo(0); yTo(0); });
+      });
+    }
+  })();
+
+  // recalcular posiciones cuando el layout ya esta estable (imagenes y fuentes cargadas):
+  // sin esto, los triggers quedan medidos contra una pagina mas corta y arrancan con progreso > 0
+  safeRefresh();
+  window.addEventListener('load', safeRefresh);
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(safeRefresh); }
+</script>
