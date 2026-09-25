@@ -238,7 +238,7 @@
 
 
   /* ---------- orbit: arco giratorio de clinicas sobre el icono ASOCLICPER ---------- */
-  #asociados{position:relative;overflow:hidden;}
+  #asociados{position:relative;overflow:hidden;min-height:100vh;display:flex;flex-direction:column;justify-content:center;}
   #asociados::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
     background:
       radial-gradient(42% 42% at 2% 0%, rgba(11,119,189,.18) 0%, transparent 72%),
@@ -246,21 +246,23 @@
       radial-gradient(46% 46% at 0% 100%, rgba(193,210,38,.16) 0%, transparent 72%),
       radial-gradient(46% 46% at 100% 100%, rgba(74,186,183,.18) 0%, transparent 72%);}
   #asociados > *{position:relative;z-index:1;}
-  .orbit-stage{position:relative;height:340px;margin-top:50px;overflow:hidden;}
+  .orbit-stage{position:relative;height:clamp(470px,60vh,720px);margin-top:34px;overflow:hidden;}
   /* logo completo (icono + wordmark) tal cual, sin reconstruir el texto aparte */
-  .orbit-hub{position:absolute;left:50%;bottom:32px;width:340px;transform:translateX(-50%);z-index:3;pointer-events:none;}
+  .orbit-hub{position:absolute;left:50%;bottom:36px;width:400px;transform:translateX(-50%);z-index:3;pointer-events:none;}
   .orbit-hub img{width:100%;display:block;}
   .orbit-arc{position:absolute;inset:0;z-index:2;pointer-events:none;}
-  .orbit-chip{position:absolute;top:0;left:0;width:130px;height:130px;margin:-65px 0 0 -65px;border-radius:50%;
+  .orbit-chip{position:absolute;top:0;left:0;width:195px;height:195px;margin:-97.5px 0 0 -97.5px;border-radius:50%;
     background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);
-    display:flex;align-items:center;justify-content:center;padding:24px;pointer-events:auto;will-change:transform,opacity;}
+    display:flex;align-items:center;justify-content:center;padding:36px;pointer-events:auto;will-change:transform,opacity;transition:box-shadow .3s;}
+  .orbit-chip:hover{box-shadow:0 30px 60px -20px rgba(11,119,189,.45);}
   .orbit-chip a{display:flex;width:100%;height:100%;align-items:center;justify-content:center;}
   .orbit-chip img{max-width:100%;max-height:100%;object-fit:contain;filter:grayscale(.25);transition:filter .3s;}
   .orbit-chip:hover img{filter:grayscale(0);}
   @media (max-width:980px){
-    .orbit-stage{height:230px;margin-top:24px;}
-    .orbit-hub{width:230px;bottom:20px;}
-    .orbit-chip{width:96px;height:96px;margin:-48px 0 0 -48px;padding:18px;}
+    #asociados{min-height:auto;padding:80px 0;}
+    .orbit-stage{height:360px;margin-top:24px;}
+    .orbit-hub{width:250px;bottom:20px;}
+    .orbit-chip{width:144px;height:144px;margin:-72px 0 0 -72px;padding:27px;}
   }
 
   /* ---------- benefits ---------- */
@@ -299,13 +301,13 @@
   .benefits-track{display:flex;gap:22px;padding:0 var(--bf-inset, 28px);width:max-content;will-change:transform;transform-style:preserve-3d;}
 
   /* tarjetas de beneficios: foto visible con degradado solo en el ~35% inferior (ahi van el icono y el
-     titulo) y giro 3D en el eje X al pasar el mouse; el texto del beneficio queda en la cara trasera.
+     titulo) y giro 3D lateral (eje Y, de izquierda a derecha) al pasar el mouse; el texto del beneficio queda en la cara trasera.
      perspective va en .bcard y el preserve-3d en .bcard-inner: GSAP anima filter/transform sobre .bcard
      (entrada por scroll) y eso aplanaria el 3D si los caras colgaran directo de ahi. */
   .bcard{position:relative;width:320px;height:360px;flex:none;perspective:1400px;border-radius:26px;outline:none;}
   .bcard-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .85s cubic-bezier(.4,.1,.2,1);}
-  @media (hover:hover){.bcard:hover .bcard-inner{transform:rotateX(180deg);}}
-  .bcard.is-flipped .bcard-inner,.bcard:focus-visible .bcard-inner{transform:rotateX(180deg);}
+  @media (hover:hover){.bcard:hover .bcard-inner{transform:rotateY(180deg);}}
+  .bcard.is-flipped .bcard-inner,.bcard:focus-visible .bcard-inner{transform:rotateY(180deg);}
   .bcard-face{position:absolute;inset:0;border-radius:26px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;}
   .bcard-front{border:1px solid rgba(255,255,255,.16);box-shadow:0 34px 60px -34px rgba(0,0,0,.65);background:#1a1230;}
   .bcard-bg{position:absolute;inset:0;background-image:var(--bimg);background-size:cover;background-position:center;}
@@ -316,7 +318,7 @@
   .bcard-icon-wrap{width:46px;height:46px;flex:none;display:flex;align-items:center;justify-content:center;filter:drop-shadow(0 6px 14px rgba(0,0,0,.45));}
   .bcard-icon-wrap img{width:100%;height:100%;object-fit:contain;display:block;}
   .bcard h3{font-size:19px;margin:0;color:#fff;line-height:1.22;}
-  .bcard-back{transform:rotateX(180deg);display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:14px;padding:32px 30px;
+  .bcard-back{transform:rotateY(180deg);display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:14px;padding:32px 30px;
     background:linear-gradient(160deg, color-mix(in srgb, var(--btint) 64%, #0a0e17) 0%, color-mix(in srgb, var(--btint) 24%, #0a0e17) 100%);
     border:1px solid rgba(255,255,255,.18);}
   .bcard-back .bcard-icon-wrap{width:54px;height:54px;}
@@ -662,23 +664,23 @@
         <img src="images/logo-color.svg" alt="ASOCLICPER">
       </div>
       <div class="orbit-arc" id="orbitArc">
-        <div class="orbit-chip"><a href="clinicas-asociadas.html#clinica-picasso"><img src="images/clinics/picasso.png" alt="Clínica Picasso"></a></div>
-        <div class="orbit-chip"><a href="clinicas-asociadas.html#clinica-cqb"><img src="images/clinics/cqb.png" alt="CQB Centro Quirúrgico de la Belleza"></a></div>
-        <div class="orbit-chip"><a href="clinicas-asociadas.html#clinica-interplastica"><img src="images/clinics/interplastica.png" alt="Clínica Interplástica"></a></div>
-        <div class="orbit-chip"><a href="clinicas-asociadas.html#clinica-plastikos"><img src="images/clinics/plastikos.png" alt="Plastikos Cirujanos"></a></div>
-        <div class="orbit-chip"><a href="clinicas-asociadas.html#clinica-excellence"><img src="images/clinics/excellence.png" alt="Clínica Excellence"></a></div>
-        <div class="orbit-chip"><a href="clinicas-asociadas.html#clinica-fiore"><img src="images/clinics/fiore.png" alt="Clínica Fiore"></a></div>
-        <div class="orbit-chip"><a href="clinicas-asociadas.html#clinica-sanfernando"><img src="images/clinics/sanfernando.png" alt="Clínica San Fernando"></a></div>
-        <div class="orbit-chip"><a href="clinicas-asociadas.html#clinica-corpus"><img src="images/clinics/corpus.png" alt="Corpus y Rostrum"></a></div>
-        <div class="orbit-chip"><a href="clinicas-asociadas.html#clinica-otorrinos"><img src="images/clinics/otorrinos.png" alt="Otorrinos Cali"></a></div>
-        <div class="orbit-chip"><a href="clinicas-asociadas.html#clinica-iq"><img src="images/clinics/iq.png" alt="IQ Interquirófanos"></a></div>
-        <div class="orbit-chip"><a href="clinicas-asociadas.html#clinica-esquirurgico"><img src="images/clinics/esquirurgico.png" alt="ES Quirúrgico"></a></div>
-        <div class="orbit-chip"><a href="clinicas-asociadas.html#clinica-mariadelpilar"><img src="images/clinics/mariadelpilar.png" alt="Clínica Integrativa María del Pilar"></a></div>
-        <div class="orbit-chip"><a href="clinicas-asociadas.html#clinica-alejandria"><img src="images/clinics/alejandria.png" alt="Clínica Alejandría"></a></div>
-        <div class="orbit-chip"><a href="clinicas-asociadas.html#clinica-bellatriz"><img src="images/clinics/bellatriz.png" alt="Bellatriz"></a></div>
-        <div class="orbit-chip"><a href="clinicas-asociadas.html#clinica-gomezarbelaez"><img src="images/clinics/gomezarbelaez.png" alt="Clínica Gómez Arbeláez"></a></div>
-        <div class="orbit-chip"><a href="clinicas-asociadas.html#clinica-sea"><img src="images/clinics/sea.png" alt="Clínica SEA"></a></div>
-        <div class="orbit-chip"><a href="clinicas-asociadas.html#clinica-pink"><img src="images/clinics/pink.png" alt="Clínica Pink"></a></div>
+        <div class="orbit-chip"><a href="https://clinicapicassocali.com/" target="_blank" rel="noopener" title="Clínica Picasso" aria-label="Visitar el sitio de Clínica Picasso"><img src="images/clinics/picasso.png" alt="Clínica Picasso"></a></div>
+        <div class="orbit-chip"><a href="https://cqbelleza.com/" target="_blank" rel="noopener" title="Centro Quirúrgico de la Belleza" aria-label="Visitar el sitio de Centro Quirúrgico de la Belleza"><img src="images/clinics/cqb.png" alt="CQB Centro Quirúrgico de la Belleza"></a></div>
+        <div class="orbit-chip"><a href="http://www.alvaroarana.com" target="_blank" rel="noopener" title="Clínica Interplástica" aria-label="Visitar el sitio de Clínica Interplástica"><img src="images/clinics/interplastica.png" alt="Clínica Interplástica"></a></div>
+        <div class="orbit-chip"><a href="https://plastikoscirujanos.com.co/" target="_blank" rel="noopener" title="Plastikos Cirujanos" aria-label="Visitar el sitio de Plastikos Cirujanos"><img src="images/clinics/plastikos.png" alt="Plastikos Cirujanos"></a></div>
+        <div class="orbit-chip"><a href="http://www.clinicaexcellence.com.co" target="_blank" rel="noopener" title="Clínica Excellence" aria-label="Visitar el sitio de Clínica Excellence"><img src="images/clinics/excellence.png" alt="Clínica Excellence"></a></div>
+        <div class="orbit-chip"><a href="https://clinicafiore.com.co/" target="_blank" rel="noopener" title="Clínica Fiore" aria-label="Visitar el sitio de Clínica Fiore"><img src="images/clinics/fiore.png" alt="Clínica Fiore"></a></div>
+        <div class="orbit-chip"><a href="https://www.clinicasanfernando.com.co/" target="_blank" rel="noopener" title="Clínica San Fernando" aria-label="Visitar el sitio de Clínica San Fernando"><img src="images/clinics/sanfernando.png" alt="Clínica San Fernando"></a></div>
+        <div class="orbit-chip"><a href="http://www.corpusyrostrum.com/" target="_blank" rel="noopener" title="Clínica Corpus & Rostrum" aria-label="Visitar el sitio de Clínica Corpus & Rostrum"><img src="images/clinics/corpus.png" alt="Corpus y Rostrum"></a></div>
+        <div class="orbit-chip"><a href="http://www.otorrinoscali.com/" target="_blank" rel="noopener" title="Clínica de Otorrinolaringología y Cirugía Plástica" aria-label="Visitar el sitio de Clínica de Otorrinolaringología y Cirugía Plástica"><img src="images/clinics/otorrinos.png" alt="Otorrinos Cali"></a></div>
+        <div class="orbit-chip"><a href="https://iqinterquirofanos.com/" target="_blank" rel="noopener" title="IQ InterQuirófanos S.A." aria-label="Visitar el sitio de IQ InterQuirófanos S.A."><img src="images/clinics/iq.png" alt="IQ Interquirófanos"></a></div>
+        <div class="orbit-chip"><a href="https://clinicadeespecialidadesquirurgicas.com/" target="_blank" rel="noopener" title="Clínica de Especialidades Quirúrgicas" aria-label="Visitar el sitio de Clínica de Especialidades Quirúrgicas"><img src="images/clinics/esquirurgico.png" alt="ES Quirúrgico"></a></div>
+        <div class="orbit-chip"><a href="https://www.clinicacemein.com/" target="_blank" rel="noopener" title="Clínica Integrativa María del Pilar Díaz" aria-label="Visitar el sitio de Clínica Integrativa María del Pilar Díaz"><img src="images/clinics/mariadelpilar.png" alt="Clínica Integrativa María del Pilar"></a></div>
+        <div class="orbit-chip"><a href="https://clinicaalejandria.co/" target="_blank" rel="noopener" title="Clínica Alejandría" aria-label="Visitar el sitio de Clínica Alejandría"><img src="images/clinics/alejandria.png" alt="Clínica Alejandría"></a></div>
+        <div class="orbit-chip"><a href="https://bellatriz.com/" target="_blank" rel="noopener" title="Clínica Bellatriz" aria-label="Visitar el sitio de Clínica Bellatriz"><img src="images/clinics/bellatriz.png" alt="Bellatriz"></a></div>
+        <div class="orbit-chip"><a href="http://clinicagomezarbelaez.com.co" target="_blank" rel="noopener" title="Clínica Gómez Arbeláez" aria-label="Visitar el sitio de Clínica Gómez Arbeláez"><img src="images/clinics/gomezarbelaez.png" alt="Clínica Gómez Arbeláez"></a></div>
+        <div class="orbit-chip"><a href="https://seasa.com.co/" target="_blank" rel="noopener" title="Sociedad Especializada de Anestesiología (SEA)" aria-label="Visitar el sitio de Sociedad Especializada de Anestesiología (SEA)"><img src="images/clinics/sea.png" alt="Clínica SEA"></a></div>
+        <div class="orbit-chip"><a href="https://clinicapinklaser.com/" target="_blank" rel="noopener" title="Clínica Pink Laser" aria-label="Visitar el sitio de Clínica Pink Laser"><img src="images/clinics/pink.png" alt="Clínica Pink"></a></div>
       </div>
     </div>
   </section>
@@ -1320,8 +1322,8 @@
     if(!stage || !hub || !chips.length) return;
 
     const N = chips.length;
-    const ARC_SPAN = 210;     // recorrido virtual total (grados): mas ancho que la ventana visible, para que entren/salgan por los bordes
-    const VISIBLE_HALF = 78;  // ventana visible: +-78 grados desde arriba del hub
+    let ARC_SPAN = 210;       // recorrido virtual total (grados): se recalcula en layout() segun el tamano de los logos
+    const VISIBLE_HALF = 72;  // ventana visible: +-72 grados desde arriba del hub
     let rotation = 0;
     let active = false;
 
@@ -1331,11 +1333,16 @@
       const cx = hubRect.left + hubRect.width / 2 - stageRect.left;
       const hubTop = hubRect.top - stageRect.top;
       const cy = hubTop + hubRect.height * 0.22;
-      const rx = stageRect.width * 0.40;
+      const rx = stageRect.width * 0.44;
+      // el logo mide 195px (144 en movil) y su escala llega a 1.08: la separacion angular se calcula para que
+      // los logos vecinos no se monten en la parte central del arco; ARC_SPAN crece con ella (siempre > 2*VISIBLE_HALF)
+      const chipMax = chips[0].offsetWidth * 1.08;
+      const step = Math.min(60, Math.max(14, Math.asin(Math.min(.95, chipMax * 1.16 / rx)) * 180 / Math.PI));
+      ARC_SPAN = step * N;
       // ry se deriva del espacio real sobre el hub (no de la altura del stage): asi el arco
       // queda pegado al hub sin recortarse por arriba sin importar cuanto se achique el stage.
-      // el margen (90) deja sitio para el propio radio del chip (hasta ~70px con su escala maxima).
-      const ry = Math.max(120, cy - 90);
+      // el margen deja sitio para el propio radio del chip con su escala maxima.
+      const ry = Math.max(120, cy - (chipMax / 2 + 14));
 
       chips.forEach((chip, i)=>{
         let angle = (-ARC_SPAN / 2) + (i / N) * ARC_SPAN + rotation;
@@ -1345,7 +1352,7 @@
         const y = cy - ry * Math.cos(rad);
         const abs = Math.abs(angle);
         const visible = abs <= VISIBLE_HALF;
-        const fadeStart = VISIBLE_HALF * 0.72;
+        const fadeStart = VISIBLE_HALF * 0.6;
         const op = visible ? gsap.utils.clamp(0, 1, 1 - Math.max(0, (abs - fadeStart) / (VISIBLE_HALF - fadeStart))) : 0;
         const scale = .74 + .34 * (1 - abs / VISIBLE_HALF);
         chip.style.transform = `translate(${x}px, ${y}px) scale(${visible ? scale : .6})`;
