@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Turismo Médico en Colombia | ASOCLICPER</title>
+<meta name="description" content="Guía de turismo médico en cirugía plástica: cómo elegir tu cirujano y tu clínica, planear tu viaje, honorarios, pólizas y recuperación, con el respaldo de ASOCLICPER.">
+<link rel="icon" href="images/icon-color.svg">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/nav.css">
+<style>
+  .cchips{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:920px;margin:0 auto;}
+  .cchip{display:inline-flex;align-items:center;gap:10px;padding:12px 20px;border-radius:100px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);font-weight:600;font-size:14.5px;transition:transform .35s var(--ease),background .3s;}
+  .cchip:hover{transform:translateY(-4px) rotate(-1.5deg);background:rgba(255,255,255,.16);}
+  .cchip i{width:9px;height:9px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 4px rgba(193,210,38,.2);}
+  .cx{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:56px;}
+  .cxi{padding:22px 20px;border-radius:20px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);position:relative;}
+  .cxi .n{font:800 34px 'Poppins';background:var(--grad-a);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .cxi p{font-size:13.5px;line-height:1.55;color:rgba(255,255,255,.8);margin-top:8px;}
+  /* guia */
+  .guide{display:grid;grid-template-columns:290px 1fr;gap:60px;align-items:start;}
+  .g-nav{position:sticky;top:104px;}
+  .g-nav h4{font:700 12px 'Inter';letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:18px;}
+  .g-list{position:relative;display:grid;gap:4px;}
+  .g-list::before{content:"";position:absolute;left:17px;top:18px;bottom:18px;width:2px;background:var(--line);}
+  .g-fill{position:absolute;left:17px;top:18px;width:2px;height:0;background:var(--grad-a);transition:height .5s var(--ease);}
+  .g-step{position:relative;display:flex;gap:14px;align-items:center;padding:9px 0;background:none;border:none;text-align:left;cursor:pointer;font:600 14px 'Inter';color:var(--ink-dim);transition:color .3s;}
+  .g-step .d{width:36px;height:36px;border-radius:50%;background:#fff;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font:700 12px 'Poppins';flex:none;position:relative;z-index:1;transition:all .3s;}
+  .g-step.is-on{color:var(--ink);}
+  .g-step.is-on .d{background:var(--grad-a);border-color:transparent;color:#fff;box-shadow:0 10px 20px -8px rgba(11,119,189,.6);transform:scale(1.1);}
+  .g-step.done .d{border-color:var(--teal);color:var(--teal);}
+  .g-prog{margin-top:22px;font-size:12.5px;color:var(--ink-dim);}
+  .g-prog i{display:block;height:6px;border-radius:6px;background:var(--surface-2);margin-top:8px;overflow:hidden;}
+  .g-prog i b{display:block;height:100%;width:0;background:var(--grad-a);border-radius:6px;transition:width .5s var(--ease);}
+  .g-panel{padding:8px 0 70px;}
+  .g-panel .k{display:inline-flex;align-items:center;gap:10px;font:700 12px 'Inter';letter-spacing:.14em;text-transform:uppercase;color:var(--blue);}
+  .g-panel h3{font-size:clamp(24px,2.8vw,32px);line-height:1.15;margin:12px 0 18px;letter-spacing:-.3px;}
+  .g-panel p{font-size:16px;line-height:1.75;color:var(--ink-dim);margin-bottom:16px;}
+  .g-panel h5{font:600 16px 'Poppins';margin:26px 0 12px;}
+  .callout{display:flex;gap:16px;padding:20px 22px;border-radius:20px;background:linear-gradient(160deg,#eef8f8,#e8f1fb);border:1px solid #cfe6ea;margin:22px 0;}
+  .callout .ico{width:42px;height:42px;border-radius:13px;background:var(--grad-a);color:#fff;font-size:20px;flex:none;}
+  .callout p{margin:0!important;font-size:14.5px!important;color:#2b3346!important;}
+  .qlist{list-style:none;padding:0;margin:0;display:grid;gap:10px;}
+  .qlist li{display:flex;gap:12px;align-items:flex-start;padding:14px 18px;border-radius:16px;background:#fff;border:1px solid var(--line);font-size:14.5px;line-height:1.55;color:#2b3346;}
+  .qlist li .ico{color:var(--blue);font-size:18px;margin-top:2px;}
+  .cl{display:grid;gap:8px;}
+  .cl label{display:flex;gap:14px;align-items:flex-start;padding:14px 18px;border-radius:16px;background:#fff;border:1px solid var(--line);cursor:pointer;font-size:14.5px;line-height:1.55;color:#2b3346;transition:all .25s;}
+  .cl label:hover{border-color:var(--teal);}
+  .cl input{width:20px;height:20px;accent-color:var(--blue);flex:none;margin-top:2px;}
+  .cl label.on{background:#eefaf3;border-color:#bfe9d1;color:#26523d;text-decoration:line-through;text-decoration-color:rgba(38,82,61,.3);}
+  .cl-head{display:flex;justify-content:space-between;align-items:center;margin:22px 0 12px;gap:12px;}
+  .cl-head b{font:600 15px 'Poppins';}
+  .reset{background:none;border:none;color:var(--blue);font:600 13px 'Inter';cursor:pointer;}
+  .who{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:22px 0;}
+  .who div{padding:24px 20px;border-radius:20px;background:linear-gradient(160deg,var(--bf-purple-1),var(--bf-purple-2));color:#fff;position:relative;overflow:hidden;}
+  .who div::after{content:"";position:absolute;right:-30px;top:-30px;width:110px;height:110px;border-radius:50%;background:rgba(255,255,255,.1);}
+  .who b{display:block;font:800 30px 'Poppins';color:var(--lime);}
+  .who span{display:block;margin-top:6px;font-size:14px;line-height:1.45;font-weight:600;}
+  .cost{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+  .cost span{display:flex;gap:10px;align-items:flex-start;padding:12px 16px;border-radius:14px;background:#fff;border:1px solid var(--line);font-size:14px;line-height:1.5;color:#2b3346;}
+  .cost span .ico{color:var(--teal);font-size:16px;margin-top:2px;}
+  .res{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px;}
+  @media (max-width:1040px){.guide{grid-template-columns:1fr;gap:20px;}.g-nav{position:relative;top:0;}.g-list{display:flex;overflow-x:auto;gap:6px;padding-bottom:6px;}.g-list::before,.g-fill{display:none;}.g-step span:last-child{display:none;}.g-prog{display:none;}.cx{grid-template-columns:repeat(2,1fr);}.who{grid-template-columns:1fr;}}
+  @media (max-width:640px){.cost{grid-template-columns:1fr;}.cx{grid-template-columns:1fr;}}
+</style>
+</head>
+<body data-page="turismo">
+<header id="siteHeader"></header>
+
+<main id="top">
+  <section class="page-hero">
+    <div class="ph-field"><span class="ph-blob pb1"></span><span class="ph-blob pb2"></span><span class="ph-blob pb3"></span><span class="ph-blob pb4"></span></div>
+    <div class="ph-grid"></div><div class="ph-scrim"></div>
+    <div class="wrap ph-inner">
+      <div>
+        <div class="crumbs rv"><a href="index.html">Inicio</a><span class="sep">/</span><span>Turismo Médico</span></div>
+        <span class="eyebrow rv" data-d=".05">Turismo médico · Crece con ASOCLICPER</span>
+        <h1 class="rv" data-d=".1">Claves para un turismo de <span class="grad-text">cirugía plástica</span> exitoso</h1>
+        <p class="lead rv" data-d=".18">Es fundamental prepararse bien antes de salir de su país o de su ciudad para someterse a un procedimiento médico. Por eso ASOCLICPER desarrolla esta Guía de Turismo Médico, enfocada en la cirugía plástica, estética y reconstructiva, con información y preguntas importantes para quienes planean su viaje hacia o en Colombia.</p>
+        <div class="ph-actions rv" data-d=".26"><a class="btn btn-primary" href="#guia">Empezar la guía <span data-i="arrow-right"></span></a><a class="btn btn-ghost-dark" href="#directorio">Ver clínicas habilitadas</a></div>
+        <div class="ph-pills rv" data-d=".32"><span class="pill"><span class="dot"></span>30.658 pacientes internacionales · 2020–2025</span><span class="pill"><span data-i="globe"></span>15 países nos visitan</span></div>
+      </div>
+      <div class="ph-visual rv rv-s" data-d=".15">
+        <div class="ph-photo"><img src="images/patient-glow.jpg" alt="Paciente atendida en una clínica asociada a Asoclicper"></div>
+        <div class="ph-float f1"><b data-count="30658">0</b><span>pacientes internacionales</span></div>
+        <div class="ph-float f2"><b data-count="15">0</b><span>países de origen</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAISES + CX -->
+  <section class="section--dark">
+    <div class="wrap">
+      <div class="sec-center rv"><span class="eyebrow">Pacientes de 15 países confían en la red</span><h2 class="sec-title">Colombia recibe pacientes de todo el mundo</h2><p>Entre 2020 y 2025, 30.658 pacientes internacionales fueron atendidos en clínicas asociadas a ASOCLICPER, llegando desde España, Estados Unidos, Canadá, México y otros 11 países.</p></div>
+      <div class="cchips stagger" id="countries"></div>
+      <div class="rv" style="text-align:center;margin-top:62px;"><span class="eyebrow">Cirugías más realizadas</span></div>
+      <div class="cx stagger" id="cxList"></div>
+    </div>
+  </section>
+
+  <!-- GUIA -->
+  <section id="guia">
+    <div class="wrap">
+      <div class="tag-row rv"><div><span class="eyebrow">Guía de viaje paso a paso</span><h2 class="sec-title">Aspectos y directrices para tener en cuenta en turismo de cirugía plástica</h2></div><p>Siete pasos para tomar decisiones informadas, desde elegir a tu cirujano hasta planear tu recuperación.</p></div>
+      <div class="guide">
+        <aside class="g-nav">
+          <h4>Tu recorrido</h4>
+          <div class="g-list" id="gList"><span class="g-fill" id="gFill"></span></div>
+          <div class="g-prog"><span id="gTxt">Paso 1 de 7</span><i><b id="gBar"></b></i></div>
+        </aside>
+        <div class="g-panels">
+          <article class="g-panel" id="paso-1" data-t="Aspectos a tener en cuenta">
+            <span class="k">Paso 01</span><h3>Aspectos y directrices para tener en cuenta</h3>
+            <p>Una de las prioridades más importantes para ASOCLICPER es promover la seguridad del paciente. Si usted opta por viajar a Colombia o ya está en nuestro país en la búsqueda de una cirugía plástica estética y/o reconstructiva, consúltenos y encuentre las respuestas a las preguntas de esta página.</p>
+            <p>Elegir una cirugía plástica en el extranjero o en Colombia requiere una cuidadosa planificación, y la toma de decisiones juega un papel importante. Requiere elegir un cirujano plástico altamente capacitado y calificado.</p>
+            <div class="callout"><span class="ico" data-i="shield-check"></span><p><b>Lo primero:</b> si está en Colombia o va a viajar a nuestro país, los médicos deben estar adscritos a la Sociedad Colombiana de Cirugía Plástica, Estética y Reconstructiva (SCCP). Encontrarlos allí es prenda de seguridad y calidad para los pacientes.</p></div>
+          </article>
+          <article class="g-panel" id="paso-2" data-t="Consideraciones de seguridad">
+            <span class="k">Paso 02</span><h3>Consideraciones sobre seguridad de la cirugía plástica</h3>
+            <p>Teniendo en cuenta que estos procedimientos son de carácter electivo, la cirugía estética implica riesgos y posibles efectos secundarios. ASOCLICPER motiva a los pacientes que tengan previsto viajar a Colombia, o que sean residentes, a revisar las clínicas de mayor demanda e importancia del país.</p>
+            <p>Estas consideraciones previas de seguridad son importantes y le brindan tranquilidad al momento de seleccionar la institución en la cual desea hacerse su procedimiento quirúrgico.</p>
+            <div class="callout"><span class="ico" data-i="heart"></span><p>ASOCLICPER respeta y promueve la seguridad de los pacientes por encima de todo. Por eso invita a los pacientes interesados en un procedimiento plástico estético a validar las instituciones líderes en la especialidad.</p></div>
+          </article>
+          <article class="g-panel" id="paso-3" data-t="Planeando su viaje">
+            <span class="k">Paso 03</span><h3>Planeando su viaje</h3>
+            <p>Una vez tenga claro qué procedimiento es el apropiado, cuál es la mejor clínica y haya seleccionado un cirujano plástico calificado, está listo para planear su viaje. Use esta lista de planificación; sus marcas se guardan en este dispositivo.</p>
+            <div class="cl-head"><b>Lista de planificación</b><button class="reset" id="clReset">Reiniciar lista</button></div>
+            <div class="cl" id="cl1"></div>
+            <h5>Haga sus planes de viaje</h5>
+            <ul class="qlist" id="q3"></ul>
+            <h5>Prepare el «pack» para su viaje</h5>
+            <div class="cl" id="cl2"></div>
+          </article>
+          <article class="g-panel" id="paso-4" data-t="Elija su cirujano">
+            <span class="k">Paso 04</span><h3>Elija su cirujano</h3>
+            <p>Tres consideraciones importantes: la calidad, las instalaciones quirúrgicas y la compenetración/entendimiento. La cirugía plástica estética y reconstructiva requiere de un cirujano plástico altamente capacitado, idóneo y calificado.</p>
+            <p>En Colombia los cirujanos plásticos son de alta calidad: para su tranquilidad puede ingresar a la página de la Sociedad Colombiana de Cirugía Plástica y buscar el nombre de su médico, y en ASOCLICPER conocerá las clínicas de más alto nivel, enfocadas en la seguridad del paciente.</p>
+            <h5>Preguntas para hacerle a su potencial cirujano</h5>
+            <ul class="qlist">
+              <li><span data-i="check"></span>¿Es usted miembro de la Sociedad Colombiana de Cirujanos Plásticos (SCCP)?</li>
+              <li><span data-i="check"></span>¿La clínica donde opera pertenece a ASOCLICPER?</li>
+              <li><span data-i="check"></span>¿Cuántos procedimientos de este tipo ha realizado? ¿Cuál es su tasa de complicaciones?</li>
+              <li><span data-i="check"></span>¿Con qué frecuencia suele realizar el procedimiento que estoy considerando?</li>
+              <li><span data-i="check"></span>¿Cuántos pacientes ha tratado que hayan venido desde el extranjero?</li>
+              <li><span data-i="check"></span>¿Tiene fotos del antes y del después que demuestren los resultados típicos de estos procedimientos?</li>
+              <li><span data-i="check"></span>¿Podría hablar con algunos de sus pacientes que se han sometido a procedimientos similares?</li>
+            </ul>
+            <div class="callout"><span class="ico" data-i="users"></span><p>Es importante que se sienta cómodo hablando con su cirujano y que sienta que comprende sus metas: esa comodidad facilita la comunicación abierta, esencial en la preparación de su procedimiento.</p></div>
+          </article>
+          <article class="g-panel" id="paso-5" data-t="Instalaciones quirúrgicas">
+            <span class="k">Paso 05</span><h3>Las instalaciones quirúrgicas</h3>
+            <p>Las regulaciones varían de país a país, y puede ser difícil determinar si las instalaciones que utiliza el cirujano son seguras. La medida más fiable de seguridad es verificar que el cirujano use una clínica ambulatoria <b>debidamente habilitada</b>: para serlo, debe pasar una evaluación integral y funcionar conforme a las normas de seguridad del paciente vigentes.</p>
+            <h5>Protocolo de seguridad de la OMS · 19 puntos</h5>
+            <p>La Organización Mundial de la Salud desarrolló un protocolo de 19 puntos que, aplicado con rigor, reduce las complicaciones y los casos de muerte relacionados con la cirugía. Es como la lista de comprobación previa al vuelo de un piloto, y se divide en tres fases:</p>
+            <div class="who"><div><b>01</b><span>Antes de la anestesia</span></div><div><b>02</b><span>Antes de realizar incisión alguna</span></div><div><b>03</b><span>Antes de que el paciente abandone el quirófano</span></div></div>
+            <p>Pregunte si su cirujano y centro quirúrgico utilizan la lista/protocolo OMS u otro similar. Además, los pacientes sanos no deben estar expuestos a pacientes con enfermedades infecciosas: por eso las clínicas de cirugía plástica están diseñadas para un servicio y cuidado personalizado.</p>
+            <div class="callout"><span class="ico" data-i="building"></span><p>Un centro distinguido por ASOCLICPER ha abierto voluntariamente sus instalaciones al escrutinio de una organización que vela por la seguridad del paciente y debe cumplir estándares nacionales estrictos de equipamiento, seguridad del quirófano y credenciales del personal.</p></div>
+          </article>
+          <article class="g-panel" id="paso-6" data-t="Honorarios y pólizas">
+            <span class="k">Paso 06</span><h3>Honorarios y pólizas de complicaciones</h3>
+            <p>Una razón común para viajar es ahorrar dinero, por eso es importante evaluar el <b>costo total</b> del procedimiento para saber si realmente existe un beneficio económico. Además del precio de la cirugía, tenga en cuenta:</p>
+            <div class="cost" id="costList"></div>
+            <div class="callout"><span class="ico" data-i="shield"></span><p>Las clínicas asociadas ofrecen, a través de compañías de seguros reconocidas a nivel nacional e internacional, <b>póliza de complicaciones</b> para cubrir eventos postoperatorios. Averigüe de manera previa sus costos y coberturas.</p></div>
+            <p>Aunque una tarifa baja resulte atractiva, seleccione la clínica y su cirujano cuidadosamente: investigue su calidad profesional, reputación, referencias y experiencia, sobre todo cuando las tarifas sean significativamente menores que las de otros cirujanos.</p>
+          </article>
+          <article class="g-panel" id="paso-7" data-t="Recuperación y complicaciones">
+            <span class="k">Paso 07</span><h3>Recuperación, cuidados postoperatorios y complicaciones</h3>
+            <p>La atención posterior y los cuidados postoperatorios adecuados son fundamentales para el éxito de su procedimiento. Su cirujano le ayudará a entender qué esperar y a planificar; ASOCLICPER le proporciona información de las clínicas y su sistema de recuperación.</p>
+            <div class="acc" data-single>
+              <div class="acc-item"><button class="acc-head"><span class="ico lead" data-i="clock"></span><span class="t">¿Dónde voy a estar en las primeras 24 horas tras la cirugía?</span><span class="ico plus" data-i="plus"></span></button><div class="acc-body"><div>Es típicamente el período en que las complicaciones por la anestesia o el sangrado excesivo tienen más probabilidad de ocurrir. Averigüe si puede regresar a la clínica si surgen problemas.</div></div></div>
+              <div class="acc-item"><button class="acc-head"><span class="ico lead" data-i="heart"></span><span class="t">¿Qué tipo de atención postoperatoria necesitaré?</span><span class="ico plus" data-i="plus"></span></button><div class="acc-body"><div>Los pacientes a menudo necesitan ayuda para vestirse, alimentarse y cubrir otras necesidades básicas durante al menos unos días. Pregunte si necesitará ayuda y durante cuánto tiempo.</div></div></div>
+              <div class="acc-item"><button class="acc-head"><span class="ico lead" data-i="plane"></span><span class="t">¿Cómo afectará mi viaje al resultado quirúrgico?</span><span class="ico plus" data-i="plus"></span></button><div class="acc-body"><div>Estar sentado durante largos períodos, como en un viaje aéreo o terrestre, aumenta el riesgo de trombosis venosa profunda y de embolia pulmonar; después de la cirugía estos riesgos pueden agravarse. Averigüe cuánto tiempo esperar antes de viajar de vuelta a casa y siga los consejos de su cirujano.</div></div></div>
+              <div class="acc-item"><button class="acc-head"><span class="ico lead" data-i="alert"></span><span class="t">¿Qué restricciones tendré después de la cirugía?</span><span class="ico plus" data-i="plus"></span></button><div class="acc-body"><div>Actividades típicas de vacaciones como nadar, tomar el sol e ingerir alcohol normalmente no se recomiendan tras una cirugía. También debe evitar levantar bolsas pesadas y estar de pie o caminar durante largos períodos.</div></div></div>
+            </div>
+            <h5>Complicaciones: pregúntele a su cirujano antes de operarse</h5>
+            <ul class="qlist">
+              <li><span data-i="check"></span>¿Dónde debo acudir si surge alguna complicación o emergencia antes de mi regreso a casa?</li>
+              <li><span data-i="check"></span>¿Puedo llamarle a usted si tengo dudas, preguntas o problemas tras la cirugía?</li>
+              <li><span data-i="check"></span>¿Disponen de alguna póliza que cubra las posibles complicaciones?</li>
+            </ul>
+            <h5>Recursos recomendados (ISAPS)</h5>
+            <div class="res">
+              <a class="btn btn-ghost-dark btn-sm" target="_blank" rel="noopener" href="https://www.isaps.org/es/guia-turismo-medico/eligiendo-su-cirujano/">Eligiendo su cirujano <span data-i="external"></span></a>
+              <a class="btn btn-ghost-dark btn-sm" target="_blank" rel="noopener" href="https://www.isaps.org/es/guia-turismo-medico/recuperacion-cuidados-postoperatorios-complicaciones/">Recuperación y cuidados <span data-i="external"></span></a>
+              <a class="btn btn-ghost-dark btn-sm" target="_blank" rel="noopener" href="https://www.isaps.org/find-a-surgeon/">Buscar cirujano <span data-i="external"></span></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIRECTORIO -->
+  <section id="directorio" class="section--tint">
+    <div class="wrap">
+      <div class="tag-row rv"><div><span class="eyebrow">Directorio de clínicas certificadas</span><h2 class="sec-title">Clínicas habilitadas, con estándares de calidad y seguridad</h2></div><p>Trabajar en una clínica habilitada es otro indicio de que la formación del cirujano ha sido evaluada. Filtra las que cuentan con certificación ISO 9001 o atienden pacientes internacionales.</p></div>
+      <div data-clinic-directory data-mode="turismo"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="cta-band rv rv-s">
+        <span class="eyebrow">Tu bienestar es nuestra prioridad</span>
+        <h2>¿Vas a operarte en Colombia? Verifica antes de decidir</h2>
+        <p>Consulta si tu clínica hace parte de ASOCLICPER o escríbenos: te orientamos con la información de las clínicas de nuestra red.</p>
+        <div class="row"><a class="btn btn-primary" href="seguridad-del-paciente.html#verifica">Verifica tu clínica</a><a class="btn btn-ghost" target="_blank" rel="noopener" href="https://wa.me/573153075463">Escríbenos por WhatsApp</a></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="siteFooter"></footer>
+<script src="assets/data.js"></script>
+<script src="assets/nav.js"></script>
+<script src="assets/site.js"></script>
+<script>
+(function(){
+  const A = window.ASOC, ic = window.asocIcon;
+  document.getElementById('countries').innerHTML = A.countries.map(c => '<span class="cchip"><i></i>' + c + '</span>').join('');
+  document.getElementById('cxList').innerHTML = A.topCx.map((t, i) => '<div class="cxi glass spot" style="padding:22px 20px;"><div class="n">' + String(i + 1).padStart(2, '0') + '</div><p>' + t + '</p></div>').join('');
+  const cost = ['Honorarios del cirujano','Valor de la póliza de complicaciones','Consultas pre y postoperatorias','Clínica','Anestesia','Otras necesidades quirúrgicas (implantes mamarios, prendas de compresión)','Pruebas de laboratorio','Medicamentos','Cuidados postoperatorios','Viaje: tiquetes, alojamiento, transporte terrestre y tiempo de baja laboral','Costos adicionales (médicos y de viaje) si se presenta una complicación'];
+  document.getElementById('costList').innerHTML = cost.map(t => '<span>' + ic('dollar') + t + '</span>').join('');
+  document.getElementById('q3').innerHTML = ['¿Dónde me alojaré la víspera del procedimiento y durante mi recuperación?','¿Cuál es el aeropuerto de la ciudad?','¿Necesitaré pasaporte? ¿Necesitaré visado?','¿Necesitaré moneda extranjera o cheques de viaje?','¿Quién me llevará al hotel y quién me cuidará tras la intervención?'].map(t => '<li>' + ic('map-pin') + t + '</li>').join('');
+
+  /* listas interactivas con persistencia */
+  const L1 = ['Programe una consulta preliminar: personalmente en una clínica asociada, por teléfono, con el formulario en línea de cada clínica o por videollamada','Asegúrese de que el cirujano y el personal que lo cuidarán antes y después de la cirugía hablen su idioma','Obtenga un precio cerrado para su cirugía y compruebe qué incluye','Determine cómo financiará el procedimiento y el viaje, y qué métodos de pago acepta su cirujano','Programe su cirugía y defina las pruebas de laboratorio, diagnósticas y vacunas necesarias, y con cuánta antelación debe llegar','Informe a su médico local de la cirugía y entregue su documentación médica previa al cirujano','Planifique su recuperación y cuidados postoperatorios: tiempo antes de volver a casa y calendario de controles','Averigüe si la clínica cuenta con servicios de urgencia y/u hospitalización para complicaciones inmediatas'];
+  const L2 = ['Protección solar: crema, gorro y bufanda','Ropa fácil de poner y quitar (camisas con botones al frente, pantalones con elástico)','Prendas de compresión especial (fajas) o sujetador postquirúrgico','Almohadas para el cuello, el cuerpo o la espalda que apoyen las zonas operadas'];
+  const KEY = 'asoc-viaje-checklist';
+  let saved = {}; try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e){}
+  function build(id, arr, pre){
+    document.getElementById(id).innerHTML = arr.map((t, i) => '<label class="' + (saved[pre + i] ? 'on' : '') + '"><input type="checkbox" data-k="' + pre + i + '"' + (saved[pre + i] ? ' checked' : '') + '><span>' + t + '</span></label>').join('');
+  }
+  build('cl1', L1, 'a'); build('cl2', L2, 'b');
+  document.querySelector('.g-panels').addEventListener('change', (e) => {
+    const c = e.target.closest('input[data-k]'); if(!c) return;
+    saved[c.dataset.k] = c.checked; c.closest('label').classList.toggle('on', c.checked);
+    try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch(err){}
+  });
+  document.getElementById('clReset').addEventListener('click', () => { saved = {}; try { localStorage.removeItem(KEY); } catch(e){} build('cl1', L1, 'a'); build('cl2', L2, 'b'); });
+
+  /* navegacion de la guia */
+  const panels = Array.from(document.querySelectorAll('.g-panel')), list = document.getElementById('gList');
+  list.insertAdjacentHTML('beforeend', panels.map((p, i) => '<button class="g-step" data-idx="' + i + '"><span class="d">' + (i + 1) + '</span><span>' + p.dataset.t + '</span></button>').join(''));
+  const steps = Array.from(list.querySelectorAll('.g-step'));
+  let cur = 0;
+  function setStep(i){
+    cur = i;
+    steps.forEach((s, k) => { s.classList.toggle('is-on', k === i); s.classList.toggle('done', k < i); });
+    const s = steps[i], fillH = s.offsetTop + s.offsetHeight / 2 - 18;
+    document.getElementById('gFill').style.height = Math.max(0, fillH) + 'px';
+    document.getElementById('gTxt').textContent = 'Paso ' + (i + 1) + ' de ' + panels.length;
+    document.getElementById('gBar').style.width = ((i + 1) / panels.length * 100) + '%';
+  }
+  steps.forEach(s => s.addEventListener('click', () => panels[+s.dataset.idx].scrollIntoView({behavior:'smooth', block:'start'})));
+  function spy(){ const line = window.innerHeight * .35; let idx = 0; panels.forEach((p, i) => { if(p.getBoundingClientRect().top <= line) idx = i; }); if(idx !== cur) setStep(idx); }
+  window.addEventListener('scroll', spy, {passive:true}); setStep(0); spy();
+  window.asocBoot(document);
+})();
+</script>
+</body>
+</html>

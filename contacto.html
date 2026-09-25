@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contacto | ASOCLICPER</title>
+<meta name="description" content="Contáctanos: quieres asociarte, tienes dudas sobre una clínica o buscas una alianza comercial. Escríbenos a ASOCLICPER, en Santiago de Cali, Colombia.">
+<link rel="icon" href="images/icon-color.svg">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/nav.css">
+<style>
+  .cw{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:start;}
+  .topics{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:28px;}
+  .topic{display:flex;gap:14px;align-items:center;padding:16px 18px;border-radius:18px;background:#fff;border:1.5px solid var(--line);cursor:pointer;text-align:left;font:inherit;color:var(--ink);transition:all .3s var(--ease);}
+  .topic:hover{border-color:var(--teal);transform:translateY(-3px);}
+  .topic .ico{width:40px;height:40px;border-radius:12px;background:var(--surface-2);color:var(--blue);font-size:19px;flex:none;transition:all .3s;}
+  .topic b{display:block;font:600 14px 'Poppins';line-height:1.3;}
+  .topic small{font-size:12px;color:var(--ink-dim);}
+  .topic.is-on{border-color:transparent;background:var(--ink);color:#fff;box-shadow:0 22px 44px -22px rgba(10,14,23,.6);}
+  .topic.is-on .ico{background:var(--grad-a);color:#fff;}
+  .topic.is-on small{color:rgba(255,255,255,.65);}
+  .hint{display:none;align-items:center;gap:12px;padding:14px 18px;border-radius:16px;background:linear-gradient(160deg,#eef8f8,#e8f1fb);border:1px solid #cfe6ea;font-size:13.5px;color:#2b3346;line-height:1.5;margin-bottom:22px;}
+  .hint.on{display:flex;animation:fadeUp .5s var(--ease);}
+  .hint .ico{font-size:20px;color:var(--blue);flex:none;}
+  .hint a{color:var(--blue);font-weight:700;text-decoration:underline;}
+  .side{display:grid;gap:16px;}
+  .cc{display:flex;gap:16px;align-items:flex-start;padding:22px 24px;border-radius:22px;background:#fff;border:1px solid var(--line);box-shadow:0 18px 40px -28px rgba(20,40,60,.22);transition:transform .35s var(--ease);}
+  .cc:hover{transform:translateX(6px);}
+  .cc .ico{width:48px;height:48px;border-radius:14px;background:var(--grad-a);color:#fff;font-size:22px;flex:none;box-shadow:0 14px 24px -12px rgba(11,119,189,.6);}
+  .cc.b .ico{background:var(--grad-b);}
+  .cc small{display:block;font:700 11px 'Inter';letter-spacing:.1em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:4px;}
+  .cc b,.cc a{font-size:15px;font-weight:600;line-height:1.45;}
+  .cc a:hover{color:var(--blue);}
+  .social-row{display:flex;gap:10px;margin-top:8px;}
+  .social-row a{width:44px;height:44px;border-radius:14px;background:var(--surface-2);display:flex;align-items:center;justify-content:center;transition:all .3s;color:var(--ink);}
+  .social-row a:hover{background:var(--grad-a);color:#fff;transform:translateY(-3px);}
+  .social-row svg{width:18px;height:18px;fill:currentColor;}
+  .map{border-radius:26px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow);aspect-ratio:16/10;background:var(--surface-2);}
+  .map iframe{width:100%;height:100%;border:0;}
+  @media (max-width:1040px){.cw{grid-template-columns:1fr;}}
+  @media (max-width:640px){.topics{grid-template-columns:1fr;}}
+</style>
+</head>
+<body data-page="contacto">
+<header id="siteHeader"></header>
+
+<main id="top">
+  <section class="page-hero" style="padding-bottom:70px;">
+    <div class="ph-field"><span class="ph-blob pb1"></span><span class="ph-blob pb2"></span><span class="ph-blob pb3"></span><span class="ph-blob pb4"></span></div>
+    <div class="ph-grid"></div><div class="ph-scrim"></div>
+    <div class="wrap ph-inner solo">
+      <div>
+        <div class="crumbs rv"><a href="index.html">Inicio</a><span class="sep">/</span><span>Contacto</span></div>
+        <span class="eyebrow rv" data-d=".05">Contáctanos</span>
+        <h1 class="rv" data-d=".1">Hablemos: <span class="grad-text">solo faltas tú</span></h1>
+        <p class="lead rv" data-d=".18">En ASOCLICPER estamos comprometidos en agremiar y trabajar en beneficio de las clínicas del sector de la cirugía plástica, estética y reconstructiva. Si deseas formar parte de nuestra asociación y experimentar un crecimiento corporativo, te invitamos a asociarte.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:60px;">
+    <div class="wrap cw">
+      <div class="rv rv-l">
+        <span class="eyebrow">Escríbenos</span>
+        <h2 class="sec-title" style="margin-bottom:26px;">¿En qué podemos ayudarte?</h2>
+        <div class="topics" id="topics"></div>
+        <div class="hint" id="hint"></div>
+        <div class="form-shell">
+          <form class="form" data-form novalidate>
+            <div class="f-row">
+              <div class="field"><label for="c1">Nombre completo *</label><input id="c1" required><span class="err">Cuéntanos cómo te llamas.</span></div>
+              <div class="field"><label for="c2">Clínica o empresa</label><input id="c2"></div>
+            </div>
+            <div class="f-row">
+              <div class="field"><label for="c3">Correo electrónico *</label><input id="c3" type="email" required><span class="err">Escribe un correo válido.</span></div>
+              <div class="field"><label for="c4">Teléfono / WhatsApp *</label><input id="c4" required><span class="err">Déjanos un número de contacto.</span></div>
+            </div>
+            <div class="field"><label for="tema">Tema *</label><select id="tema" required></select><span class="err">Selecciona un tema.</span></div>
+            <div class="field"><label for="c5">Mensaje *</label><textarea id="c5" required placeholder="Cuéntanos cómo podemos ayudarte"></textarea><span class="err">Escribe tu mensaje.</span></div>
+            <label class="check"><input type="checkbox" required><span>He leído el <a href="transparencia.html#aviso">aviso legal</a> y acepto la <a href="transparencia.html#politica">política de privacidad de datos</a>.</span></label>
+            <button class="btn btn-primary" type="submit">Enviar mensaje <span data-i="arrow-right"></span></button>
+          </form>
+          <div class="form-ok"><div class="big" data-i="check"></div><h3>¡Mensaje listo!</h3><p>Gracias por escribirnos. Como este es un prototipo, el formulario aún no envía datos: contáctanos directamente por WhatsApp o correo.</p><div class="ph-actions" style="justify-content:center;margin-top:0;"><a class="btn btn-primary" target="_blank" rel="noopener" href="https://wa.me/573153075463"><span data-i="whatsapp"></span> WhatsApp</a><a class="btn btn-ghost-dark" href="mailto:info@asoclicper.com.co"><span data-i="mail"></span> Correo</a></div></div>
+        </div>
+      </div>
+      <aside class="side rv rv-r">
+        <div class="cc"><span class="ico" data-i="map-pin"></span><div><small>Oficina principal</small><b>Carrera 50 # 9B - 20, Edif. Torres de la 50, Ofic. 216</b><br><span style="font-size:14px;color:var(--ink-dim);">Santiago de Cali, Colombia</span></div></div>
+        <div class="cc b"><span class="ico" data-i="phone"></span><div><small>Teléfono y WhatsApp</small><a href="tel:+573153075463">(+57) 315 307 54 63</a></div></div>
+        <div class="cc"><span class="ico" data-i="mail"></span><div><small>Correo</small><a href="mailto:info@asoclicper.com.co">info@asoclicper.com.co</a></div></div>
+        <div class="cc b"><span class="ico" data-i="users"></span><div><small>Síguenos en</small><div class="social-row"><a href="http://facebook.com/asoclicper/" target="_blank" rel="noopener" aria-label="Facebook"><span data-i="facebook"></span></a><a href="https://www.instagram.com/asoclicper/" target="_blank" rel="noopener" aria-label="Instagram"><span data-i="instagram"></span></a><a href="https://www.linkedin.com/company/asoclicper/" target="_blank" rel="noopener" aria-label="LinkedIn"><span data-i="linkedin"></span></a></div></div></div>
+        <div class="map"><iframe title="Ubicación de ASOCLICPER en Cali" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Carrera+50+%239B-20+Cali+Colombia&output=embed"></iframe></div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer id="siteFooter"></footer>
+<script src="assets/data.js"></script>
+<script src="assets/nav.js"></script>
+<script src="assets/site.js"></script>
+<script>
+(function(){
+  const T = [
+    ['users','Quiero asociarme','Mi clínica quiere ser parte','Sobre afiliación','<b>Para afiliarte más rápido</b>, usa la <a href="ser-asociado.html#preseleccion">pre-solicitud de afiliación</a>.'],
+    ['shield-check','Soy paciente','Quiero verificar una clínica','Verificar una clínica o resolver dudas de seguridad','Antes de escribir, prueba el <a href="seguridad-del-paciente.html#verifica">verificador de clínicas asociadas</a>.'],
+    ['briefcase','Alianza comercial','Proveedores y patrocinadores','Alianza comercial o patrocinio','Para paquetes y cotizaciones ve a <a href="aliados.html#b2b">contacto comercial B2B</a>.'],
+    ['megaphone','Prensa y comunicaciones','Entrevistas y contenidos','Prensa y comunicaciones','Cuéntanos tu medio y tu solicitud; nuestro equipo de comunicaciones te responderá.']
+  ];
+  const wrap = document.getElementById('topics'), sel = document.getElementById('tema'), hint = document.getElementById('hint');
+  sel.innerHTML = '<option value="">Selecciona un tema…</option>' + T.map(t => '<option>' + t[3] + '</option>').join('') + '<option>Otro tema</option>';
+  wrap.innerHTML = T.map((t, i) => '<button type="button" class="topic" data-idx="' + i + '"><span class="ico">' + '</span><span><b>' + t[1] + '</b><small>' + t[2] + '</small></span></button>').join('');
+  Array.from(wrap.children).forEach((b, i) => { b.firstElementChild.innerHTML = '<svg viewBox="0 0 24 24">' + window.ASOC_ICONS[T[i][0]] + '</svg>'; });
+  wrap.addEventListener('click', (e) => {
+    const b = e.target.closest('.topic'); if(!b) return;
+    const i = +b.dataset.idx; Array.from(wrap.children).forEach(x => x.classList.toggle('is-on', x === b));
+    sel.value = T[i][3]; hint.innerHTML = window.asocIcon('alert') + '<span>' + T[i][4] + '</span>'; hint.classList.add('on');
+  });
+  const h = location.hash.slice(1); if(h === 'aliado') wrap.children[2].click();
+  window.asocBoot(document);
+})();
+</script>
+</body>
+</html>

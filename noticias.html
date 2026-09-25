@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Noticias | ASOCLICPER</title>
+<meta name="description" content="Noticias, eventos, reconocimientos y contenidos sobre cirugía plástica de la red de clínicas asociadas a ASOCLICPER.">
+<link rel="icon" href="images/icon-color.svg">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/nav.css">
+<style>
+  .feat{display:grid;grid-template-columns:1.1fr .9fr;border-radius:32px;overflow:hidden;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);}
+  .feat .im{position:relative;min-height:380px;overflow:hidden;background:var(--surface-2);}
+  .feat .im img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease);}
+  .feat:hover .im img{transform:scale(1.06);}
+  .feat .bd{padding:46px 44px;display:flex;flex-direction:column;justify-content:center;gap:16px;}
+  .feat h2{font-size:clamp(24px,2.8vw,32px);line-height:1.2;letter-spacing:-.3px;}
+  .cat{display:inline-flex;align-items:center;gap:8px;font:700 11.5px 'Inter';letter-spacing:.1em;text-transform:uppercase;color:var(--blue);}
+  .cat::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--grad-a);}
+  .cat.c2{color:var(--purple);}.cat.c3{color:#5f7a10;}
+  .date{font-size:13px;color:var(--ink-dim);}
+  .posts{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .post{display:flex;flex-direction:column;border-radius:24px;background:#fff;border:1px solid var(--line);overflow:hidden;box-shadow:0 18px 40px -28px rgba(20,40,60,.25);transition:transform .45s var(--ease),box-shadow .35s;}
+  .post:hover{transform:translateY(-8px);box-shadow:0 40px 70px -34px rgba(20,40,70,.4);}
+  .post.is-hidden{display:none;}
+  .post .im{aspect-ratio:16/10;overflow:hidden;background:var(--surface-2);position:relative;}
+  .post .im img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease);}
+  .post:hover .im img{transform:scale(1.08);}
+  .post .bd{padding:22px 24px 26px;display:flex;flex-direction:column;gap:10px;flex:1;}
+  .post h3{font-size:17px;line-height:1.3;}
+  .post .more{margin-top:auto;padding-top:6px;font-size:13.5px;font-weight:600;color:var(--blue);display:flex;align-items:center;gap:6px;}
+  .learn{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .lp{display:flex;gap:16px;align-items:center;padding:14px;border-radius:20px;background:#fff;border:1px solid var(--line);transition:transform .35s var(--ease),box-shadow .3s;}
+  .lp:hover{transform:translateY(-5px);box-shadow:0 26px 50px -30px rgba(20,40,70,.35);}
+  .lp img{width:84px;height:84px;border-radius:14px;object-fit:cover;flex:none;background:var(--surface-2);}
+  .lp b{font:600 14.5px/1.35 'Poppins';display:block;}
+  .lp small{font-size:12px;color:var(--ink-dim);}
+  .promo{display:grid;grid-template-columns:1fr auto;gap:30px;align-items:center;border-radius:28px;padding:44px 48px;background:linear-gradient(160deg,var(--bf-purple-1),var(--bf-purple-2));color:#fff;position:relative;overflow:hidden;}
+  .promo::before{content:"";position:absolute;inset:0;background:radial-gradient(40% 80% at 90% 10%,rgba(74,186,183,.4),transparent 70%);}
+  .promo>*{position:relative;}
+  .promo h3{font-size:clamp(22px,2.6vw,30px);margin:12px 0 8px;}
+  .promo p{color:rgba(255,255,255,.75);max-width:520px;}
+  @media (max-width:1040px){.feat{grid-template-columns:1fr;}.feat .im{min-height:260px;}.posts,.learn{grid-template-columns:repeat(2,1fr);}.promo{grid-template-columns:1fr;padding:34px 28px;}}
+  @media (max-width:640px){.posts,.learn{grid-template-columns:1fr;}.feat .bd{padding:30px 24px;}}
+</style>
+</head>
+<body data-page="noticias">
+<header id="siteHeader"></header>
+
+<main id="top">
+  <section class="page-hero" style="padding-bottom:70px;">
+    <div class="ph-field"><span class="ph-blob pb1"></span><span class="ph-blob pb2"></span><span class="ph-blob pb3"></span><span class="ph-blob pb4"></span></div>
+    <div class="ph-grid"></div><div class="ph-scrim"></div>
+    <div class="wrap ph-inner solo">
+      <div>
+        <div class="crumbs rv"><a href="index.html">Inicio</a><span class="sep">/</span><span>Noticias</span></div>
+        <span class="eyebrow rv" data-d=".05">Noticias</span>
+        <h1 class="rv" data-d=".1">Lo que pasa en la <span class="grad-text">red de clínicas</span> asociadas</h1>
+        <p class="lead rv" data-d=".18">Eventos, reconocimientos, avances en seguridad del paciente y contenidos para aprender sobre cirugía plástica, de la mano de ASOCLICPER.</p>
+        <div class="filter-bar rv" data-d=".26" style="margin:34px 0 0;max-width:520px;"><label class="search">
+          <span class="ico" data-i="search"></span><input id="q" type="search" placeholder="Buscar en noticias…" aria-label="Buscar noticias"></label></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:60px;">
+    <div class="wrap">
+      <a class="feat rv rv-s" id="feat" target="_blank" rel="noopener"></a>
+      <div class="chips rv" id="cats" style="margin:52px 0 30px;"></div>
+      <div class="posts" id="posts"></div>
+      <div class="empty" id="none" hidden>No encontramos noticias con ese criterio.</div>
+    </div>
+  </section>
+
+  <section class="section--alt">
+    <div class="wrap">
+      <div class="tag-row rv"><div><span class="eyebrow">Interés general</span><h2 class="sec-title">Aprende sobre cirugías plásticas</h2></div><p>Respuestas claras a las dudas más frecuentes sobre procedimientos, para que decidas con información.</p></div>
+      <div class="learn stagger" id="learn"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="promo rv rv-s">
+        <div><span class="eyebrow" style="color:#fff;">Podcast</span><h3>Escucha «Bajo el Bisturí»</h3><p>Conversaciones sobre seguridad del paciente, excelencia médica y el futuro de la cirugía plástica en Colombia.</p></div>
+        <a class="btn btn-primary" style="background:#fff;color:var(--purple);" href="seguridad-del-paciente.html#podcast"><span data-i="play"></span> Ver capítulos</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="siteFooter"></footer>
+<script src="assets/data.js"></script>
+<script src="assets/nav.js"></script>
+<script src="assets/site.js"></script>
+<script>
+(function(){
+  const U = 'https://asoclicper.com/';
+  const P = [
+    ['Medicina de Precisión en la Cirugía Plástica: el rol transformador del monitoreo digital postoperatorio','Cirujanos en Acción','mayo 9, 2025','n07.jpg','medicina-de-precision-en-la-cirugia-plastica-el-roltransformador-del-monitoreo-digital-postoperatorio/'],
+    ['Medidas de prevención y control del hematoma en procedimientos de abdominoplastia','Cirujanos en Acción','noviembre 25, 2024','n08.jpg','medidas-de-prevencion-y-control-del-hematoma-en-procedimientos-de-abdominoplastia/'],
+    ['Clínica San Fernando S.A.: más de 70 años dedicados al bienestar','Cirujanos en Acción','octubre 9, 2024','n09.jpg','clinica-san-fernando-s-a-mas-de-70-anos-dedicados-al-bienestar/'],
+    ['Juntos avanzamos: formación para la excelencia','Enfocados en la Excelencia','septiembre 3, 2024','n01.jpg','clinicas-se-destacan-en-excelencia-y-seguridad-2/'],
+    ['Clínicas se destacan en excelencia y seguridad','Enfocados en la Excelencia','septiembre 3, 2024','n02.jpg','clinicas-se-destacan-en-excelencia-y-seguridad/'],
+    ['Workshop 2024: un encuentro exitoso sobre seguridad del paciente en cirugía plástica','Eventos y Oportunidades','septiembre 3, 2024','n13.jpg','workshop-2024-un-encuentro-exitoso-sobre-seguridad-del-paciente-en-cirugia-plastica/'],
+    ['Colombia, «Número Uno» en turismo médico según las estadísticas mundiales de cirugía plástica estética','Cirujanos en Acción','agosto 9, 2024','n10.jpg','colombia-numero-uno-en-turismo-medicosegun-las-estadisticas-mundiales-de-cirugia-plastica-estetica/'],
+    ['La interdependencia en cirugía plástica como herramienta en la seguridad del paciente','Cirujanos en Acción','mayo 20, 2024','n11.jpg','la-interdependencia-en-cirugia-plastica-como-una-herramienta-en-la-seguridad-del-paciente/'],
+    ['Reuniones administrativas: compromiso con la excelencia y seguridad','Enfocados en la Excelencia','abril 2, 2024','n03.jpg','reuniones-administrativas-compromiso-con-la-excelencia-y-seguridad/'],
+    ['Junta Directiva y jornada de referenciación en Clínica Bellatriz','Eventos y Oportunidades','abril 2, 2024','n14.jpg','junta-directiva-y-jornada-de-referenciacion-en-clinica-bellatriz/'],
+    ['VII Asamblea General Ordinaria de Asociados 2024','Eventos y Oportunidades','abril 2, 2024','n15.jpg','vii-asamblea-general-ordinaria-de-asociados-2024/'],
+    ['Impulsando el turismo de salud en el Valle del Cauca y Cali','Eventos y Oportunidades','abril 2, 2024','n16.jpg','impulsando-el-turismo-de-salud-en-el-valle-del-cauca-y-cali/'],
+    ['¡Asoclicper en los medios!','Eventos y Oportunidades','marzo 11, 2024','n17.jpg','asoclicper-en-los-medios/'],
+    ['Excelencia e innovación en cirugía plástica: Clínica El Pinar a la vanguardia','Cirujanos en Acción','marzo 8, 2024','n12.jpg','excelencia-e-innovacion-en-cirugia-plastica-clinica-el-pinar-a-la-vanguardia/'],
+    ['¡Celebramos el reconocimiento de IQ InterQuirófanos «Medellín Me Cuida con Amor»!','Enfocados en la Excelencia','diciembre 18, 2023','n04.jpg','celebramos-el-reconocimiento-de-iq-quirofanos-medellin-me-cuida-con-amor/'],
+    ['Clínica El Pinar: ¡nuevo miembro de nuestra comunidad!','Eventos y Oportunidades','diciembre 7, 2023','n18.jpg','clinica-el-pinar-nuevo-miembro-de-nuestra-comunidad/'],
+    ['Comprometidos con la humanización en la cirugía plástica: Asoclicper','Enfocados en la Excelencia','','n05.jpg','comprometidos-con-la-humanizacion-en-la-cirugia-plastica-asoclicper/'],
+    ['Fortaleciendo las capacidades de nuestras clínicas para garantizar la seguridad del paciente','Enfocados en la Excelencia','noviembre 17, 2023','n06.jpg','fortaleciendo-las-capacidades-de-nuestras-clinicas-para-garantizar-la-seguridad-del-paciente/']
+  ];
+  const L = [
+    ['Lifting facial: el secreto para una apariencia juvenil y radiante','n19.png','lifting-facial-el-secreto-para-una-apariencia-juvenil-y-radiante/'],
+    ['Retiro de biopolímeros en glúteos: recuperando la salud y la estética','n20.png','retiro-de-biopolimeros-en-gluteos-recuperando-la-salud-y-la-estetica/'],
+    ['Beneficios de la lipólisis láser no invasiva','n21.png','beneficios-de-la-lipolisis-laser-no-invasiva/'],
+    ['Bichectomía: ¿qué es?','n22.png','bichectomia-que-es/'],
+    ['¿Para qué sirve la cirugía capilar?','n23.png','para-que-sirve-la-cirugia-capilar/'],
+    ['¿A qué edad se puede hacer una rinoplastia?','n24.png','a-que-edad-se-puede-hacer-una-rinoplastia/']
+  ];
+  const cls = {'Enfocados en la Excelencia':'', 'Cirujanos en Acción':'c2', 'Eventos y Oportunidades':'c3'};
+  const f = P[0], feat = document.getElementById('feat');
+  feat.href = U + f[4];
+  feat.innerHTML = '<div class="im"><img src="images/site/news/' + f[3] + '" alt=""></div><div class="bd"><span class="cat c2">' + f[1] + '</span><h2>' + f[0] + '</h2><span class="date">' + f[2] + '</span><span class="link-arrow">Leer en asoclicper.com ' + window.asocIcon('external') + '</span></div>';
+  const rest = P.slice(1), grid = document.getElementById('posts');
+  grid.innerHTML = rest.map((p, i) => '<a class="post rv" style="--d:' + (i % 3) * .08 + 's" href="' + U + p[4] + '" target="_blank" rel="noopener" data-c="' + p[1] + '" data-s="' + window.ASOC_UI.norm(p[0] + ' ' + p[1]) + '"><div class="im"><img src="images/site/news/' + p[3] + '" alt="" loading="lazy"></div><div class="bd"><span class="cat ' + cls[p[1]] + '">' + p[1] + '</span><h3>' + p[0] + '</h3>' + (p[2] ? '<span class="date">' + p[2] + '</span>' : '') + '<span class="more">Leer más ' + window.asocIcon('arrow-right') + '</span></div></a>').join('');
+  const cats = ['Todas'].concat(Object.keys(cls));
+  const cw = document.getElementById('cats');
+  cw.innerHTML = cats.map((c, i) => '<button class="chip' + (i ? '' : ' is-on') + '" data-v="' + (i ? c : '') + '">' + c + '</button>').join('');
+  let cat = '', q = '';
+  function apply(){
+    let n = 0;
+    grid.querySelectorAll('.post').forEach(el => { const ok = (!cat || el.dataset.c === cat) && (!q || el.dataset.s.indexOf(q) > -1); el.classList.toggle('is-hidden', !ok); if(ok) n++; });
+    document.getElementById('none').hidden = n > 0;
+  }
+  cw.addEventListener('click', (e) => { const b = e.target.closest('.chip'); if(!b) return; cat = b.dataset.v; cw.querySelectorAll('.chip').forEach(x => x.classList.toggle('is-on', x === b)); apply(); });
+  document.getElementById('q').addEventListener('input', (e) => { q = window.ASOC_UI.norm(e.target.value.trim()); apply(); });
+  document.getElementById('learn').innerHTML = L.map(l => '<a class="lp" href="' + U + l[2] + '" target="_blank" rel="noopener"><img src="images/site/news/' + l[1] + '" alt="" loading="lazy"><div><b>' + l[0] + '</b><small>Interés general</small></div></a>').join('');
+  window.asocBoot(document);
+})();
+</script>
+</body>
+</html>

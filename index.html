@@ -1,5 +1,6 @@
 <meta charset="utf-8">
 <title>Asoclicper Premium Home</title>
+<link rel="icon" href="images/icon-color.svg">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 
@@ -70,20 +71,6 @@
 
   #progress{position:fixed;top:0;left:0;height:3px;background:var(--grad-a);z-index:999;width:0%;}
 
-  header{position:fixed;top:0;left:0;right:0;z-index:90;padding:22px 0;transition:padding .4s ease,background .4s ease,box-shadow .4s ease;}
-  header .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;}
-  header.scrolled{padding:12px 0;background:rgba(255,255,255,.92);border-bottom:1px solid var(--line);box-shadow:0 8px 24px -16px rgba(20,40,60,.25);}
-  .logo{display:flex;align-items:center;gap:10px;}
-  .logo img{height:34px;width:auto;}
-  nav.mainnav{display:flex;align-items:center;gap:28px;}
-  nav.mainnav a{font-size:14.5px;font-weight:600;color:var(--ink);opacity:.78;transition:opacity .25s;}
-  nav.mainnav a:hover{opacity:1;}
-  .navcta{display:flex;align-items:center;gap:12px;}
-  .burger{display:none;width:42px;height:42px;border-radius:12px;background:#fff;border:1px solid var(--line);align-items:center;justify-content:center;cursor:pointer;}
-  .burger span{display:block;width:18px;height:2px;background:var(--ink);position:relative;}
-  .burger span::before,.burger span::after{content:"";position:absolute;left:0;width:18px;height:2px;background:inherit;}
-  .burger span::before{top:-6px;}
-  .burger span::after{top:6px;}
 
   /* ---------- hero: campo de color vivo + fotografia ---------- */
   .hero{position:relative;overflow:hidden;height:100vh;min-height:660px;padding:0;background:linear-gradient(180deg,#ffffff 0%,#ffffff 32%,#e6eff8 100%);}
@@ -369,17 +356,6 @@
   .cta-final .row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;z-index:2;}
   .cta-final .btn-primary{background:#fff;color:var(--purple);box-shadow:0 16px 34px -12px rgba(0,0,0,.35);}
 
-  footer{background:var(--dark);color:rgba(255,255,255,.7);padding:70px 0 30px;}
-  .foot-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:40px;padding-bottom:50px;border-bottom:1px solid var(--dark-line);}
-  .foot-grid img{height:32px;margin-bottom:16px;}
-  .foot-grid p{font-size:13.5px;line-height:1.7;color:rgba(255,255,255,.5);max-width:280px;}
-  .foot-col h4{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:#fff;margin:0 0 18px;}
-  .foot-col a{display:block;font-size:13.5px;color:rgba(255,255,255,.55);margin-bottom:12px;transition:color .2s;}
-  .foot-col a:hover{color:#fff;}
-  .foot-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:26px;font-size:12.5px;color:rgba(255,255,255,.4);flex-wrap:wrap;gap:14px;}
-  .social{display:flex;gap:10px;}
-  .social a{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid var(--dark-line);display:flex;align-items:center;justify-content:center;}
-  .social svg{width:15px;height:15px;fill:#fff;}
 
   /* ---------- fab flotante de contacto: circulo en reposo, se expande en hover mostrando
      el label (animando el width del boton entero, no el padding, para poder usar transition
@@ -449,8 +425,6 @@
   .magnetic{will-change:transform;}
 
   @media (max-width:980px){
-    nav.mainnav,.navcta .btn-ghost, .navcta .btn-ghost-dark{display:none;}
-    .burger{display:flex;}
     .hero-inner{grid-template-columns:1fr;}
     .hero-slide .hero-visual{display:none;}
     .hero-step span,.hero-hud .scroll-cue{display:none;}
@@ -468,36 +442,18 @@
     .bcard{width:264px;min-height:300px;}
     .podcast{grid-template-columns:1fr;text-align:center;padding:44px 28px;}
     .podcast .waves{justify-content:center;}
-    .foot-grid{grid-template-columns:1fr 1fr;}
   }
   @media (max-width:560px){
     section{padding:80px 0;}
-    .foot-grid{grid-template-columns:1fr;}
     .cta-final{padding:60px 24px;}
     .podcast-body h3{font-size:22px;}
   }
 </style>
+<link rel="stylesheet" href="assets/nav.css">
 
 <div id="progress"></div>
 
-<header id="siteHeader">
-  <div class="wrap">
-    <a class="logo" href="#top">
-      <img src="images/logo-color.svg" alt="Asoclicper">
-    </a>
-    <nav class="mainnav">
-      <a href="#nosotros">Nosotros</a>
-      <a href="#asociados">Clínicas Asociadas</a>
-      <a href="#asociados">Seguridad del Paciente</a>
-      <a href="https://asoclicper.com/turismo-medico-cirugia-plastica/">Turismo Médico</a>
-    </nav>
-    <div class="navcta">
-      <a class="btn btn-ghost-dark" href="https://asoclicper.com/contact-cirujanos-plasticos-en-cali/">Contacto</a>
-      <a class="btn btn-primary" href="https://asoclicper.com/ser-asociado-clinica-de-cirugia-plastica/">Ser Asociado</a>
-    </div>
-    <button class="burger" id="burger" aria-label="Abrir menú"><span></span></button>
-  </div>
-</header>
+<header id="siteHeader"></header>
 
 <main id="top">
 
@@ -528,8 +484,8 @@
             <h1>Unidos por la <span class="grad-text">excelencia</span> en cirugía plástica y la seguridad del paciente</h1>
             <p class="lead">ASOCLICPER agremia a las clínicas de cirugía plástica, estética y reconstructiva de Colombia para trabajar juntas en el fortalecimiento y el constante mejoramiento de sus instituciones.</p>
             <div class="hero-ctas">
-              <a class="btn btn-primary" href="https://asoclicper.com/quienes-somos-cirujanos-plasticos-medellin/">Conoce más aquí</a>
-              <a class="btn btn-ghost-dark" href="https://asoclicper.com/ser-asociado-clinica-de-cirugia-plastica/">Fortalece nuestra red</a>
+              <a class="btn btn-primary" href="nosotros.html">Conoce más aquí</a>
+              <a class="btn btn-ghost-dark" href="ser-asociado.html">Fortalece nuestra red</a>
             </div>
           </div>
           <div class="hero-visual tilt-wrap">
@@ -547,8 +503,8 @@
             <h1>Claves para un <span class="grad-text">turismo</span> de cirugía plástica exitoso</h1>
             <p class="lead">Entre 2020 y 2025, 30.658 pacientes internacionales fueron atendidos en clínicas asociadas a ASOCLICPER, llegando desde España, Estados Unidos, Canadá, México y otros 11 países.</p>
             <div class="hero-ctas">
-              <a class="btn btn-primary" href="https://asoclicper.com/turismo-medico-cirugia-plastica/">Ver más</a>
-              <a class="btn btn-ghost-dark" href="https://asoclicper.com/turismo-medico-cirugia-plastica/">Países que nos visitan</a>
+              <a class="btn btn-primary" href="turismo-medico.html">Ver más</a>
+              <a class="btn btn-ghost-dark" href="turismo-medico.html">Países que nos visitan</a>
             </div>
           </div>
           <div class="hero-visual tilt-wrap">
@@ -566,8 +522,8 @@
             <h1>Fortaleciendo nuestra <span class="grad-text">red de clínicas</span> asociadas</h1>
             <p class="lead">En Asoclicper representamos tus intereses. Únete hoy mismo y encuentra apoyo integral para tu clínica, respaldo institucional y conexión con toda la red nacional.</p>
             <div class="hero-ctas">
-              <a class="btn btn-primary" href="https://asoclicper.com/ser-asociado-clinica-de-cirugia-plastica/">¡Conviértete en asociado!</a>
-              <a class="btn btn-ghost-dark" href="https://asoclicper.com/contact-cirujanos-plasticos-en-cali/">Contáctanos</a>
+              <a class="btn btn-primary" href="ser-asociado.html">¡Conviértete en asociado!</a>
+              <a class="btn btn-ghost-dark" href="contacto.html">Contáctanos</a>
             </div>
           </div>
           <div class="hero-visual tilt-wrap">
@@ -622,7 +578,7 @@
     <div class="wrap about-grid">
       <div class="about-media reveal-l">
         <div class="frame" id="portalFrame"><img src="images/clinic-interior.jpg" alt="Instalaciones de una clínica asociada a Asoclicper"></div>
-        <a class="play-btn" href="https://asoclicper.com/quienes-somos-cirujanos-plasticos-medellin/" aria-label="Ver video de Asoclicper">
+        <a class="play-btn" href="nosotros.html" aria-label="Ver video de Asoclicper">
           <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
         </a>
         <div class="about-badge">
@@ -640,7 +596,7 @@
           <div class="pt"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div><div><b>Una comunidad con un propósito claro</b><span>Únete a Asoclicper y forma parte de una red comprometida.</span></div></div>
         </div>
         <div class="hero-ctas" style="margin-top:34px;">
-          <a class="btn btn-dark" href="https://asoclicper.com/ser-asociado-clinica-de-cirugia-plastica/">¡Conviértete en asociado hoy mismo!</a>
+          <a class="btn btn-dark" href="ser-asociado.html">¡Conviértete en asociado hoy mismo!</a>
         </div>
       </div>
     </div>
@@ -711,23 +667,23 @@
         <img src="images/logo-color.svg" alt="ASOCLICPER">
       </div>
       <div class="orbit-arc" id="orbitArc">
-        <div class="orbit-chip"><a href="https://clinicapicassocali.com/" target="_blank" rel="noopener"><img src="images/clinics/picasso.png" alt="Clínica Picasso"></a></div>
-        <div class="orbit-chip"><a href="https://cqbelleza.com/" target="_blank" rel="noopener"><img src="images/clinics/cqb.png" alt="CQB Centro Quirúrgico de la Belleza"></a></div>
-        <div class="orbit-chip"><a href="https://asoclicper.com/clinicas-asociadas/" target="_blank" rel="noopener"><img src="images/clinics/interplastica.png" alt="Clínica Interplástica"></a></div>
-        <div class="orbit-chip"><a href="https://plastikoscirujanos.com.co/" target="_blank" rel="noopener"><img src="images/clinics/plastikos.png" alt="Plastikos Cirujanos"></a></div>
-        <div class="orbit-chip"><a href="https://asoclicper.com/clinicas-asociadas/" target="_blank" rel="noopener"><img src="images/clinics/excellence.png" alt="Clínica Excellence"></a></div>
-        <div class="orbit-chip"><a href="https://asoclicper.com/clinicas-asociadas/" target="_blank" rel="noopener"><img src="images/clinics/fiore.png" alt="Clínica Fiore"></a></div>
-        <div class="orbit-chip"><a href="https://asoclicper.com/clinicas-asociadas/" target="_blank" rel="noopener"><img src="images/clinics/sanfernando.png" alt="Clínica San Fernando"></a></div>
-        <div class="orbit-chip"><a href="http://www.corpusyrostrum.com" target="_blank" rel="noopener"><img src="images/clinics/corpus.png" alt="Corpus y Rostrum"></a></div>
-        <div class="orbit-chip"><a href="http://www.otorrinoscali.com" target="_blank" rel="noopener"><img src="images/clinics/otorrinos.png" alt="Otorrinos Cali"></a></div>
-        <div class="orbit-chip"><a href="https://asoclicper.com/clinicas-asociadas/" target="_blank" rel="noopener"><img src="images/clinics/iq.png" alt="IQ Interquirófanos"></a></div>
-        <div class="orbit-chip"><a href="https://asoclicper.com/clinicas-asociadas/" target="_blank" rel="noopener"><img src="images/clinics/esquirurgico.png" alt="ES Quirúrgico"></a></div>
-        <div class="orbit-chip"><a href="https://asoclicper.com/clinicas-asociadas/" target="_blank" rel="noopener"><img src="images/clinics/mariadelpilar.png" alt="Clínica Integrativa María del Pilar"></a></div>
-        <div class="orbit-chip"><a href="https://asoclicper.com/clinicas-asociadas/" target="_blank" rel="noopener"><img src="images/clinics/alejandria.png" alt="Clínica Alejandría"></a></div>
-        <div class="orbit-chip"><a href="https://bellatriz.com" target="_blank" rel="noopener"><img src="images/clinics/bellatriz.png" alt="Bellatriz"></a></div>
-        <div class="orbit-chip"><a href="https://clinicagomezarbelaez.com/" target="_blank" rel="noopener"><img src="images/clinics/gomezarbelaez.png" alt="Clínica Gómez Arbeláez"></a></div>
-        <div class="orbit-chip"><a href="https://asoclicper.com/clinicas-asociadas/" target="_blank" rel="noopener"><img src="images/clinics/sea.png" alt="Clínica SEA"></a></div>
-        <div class="orbit-chip"><a href="https://asoclicper.com/clinicas-asociadas/" target="_blank" rel="noopener"><img src="images/clinics/pink.png" alt="Clínica Pink"></a></div>
+        <div class="orbit-chip"><a href="clinicas-asociadas.html#clinica-picasso"><img src="images/clinics/picasso.png" alt="Clínica Picasso"></a></div>
+        <div class="orbit-chip"><a href="clinicas-asociadas.html#clinica-cqb"><img src="images/clinics/cqb.png" alt="CQB Centro Quirúrgico de la Belleza"></a></div>
+        <div class="orbit-chip"><a href="clinicas-asociadas.html#clinica-interplastica"><img src="images/clinics/interplastica.png" alt="Clínica Interplástica"></a></div>
+        <div class="orbit-chip"><a href="clinicas-asociadas.html#clinica-plastikos"><img src="images/clinics/plastikos.png" alt="Plastikos Cirujanos"></a></div>
+        <div class="orbit-chip"><a href="clinicas-asociadas.html#clinica-excellence"><img src="images/clinics/excellence.png" alt="Clínica Excellence"></a></div>
+        <div class="orbit-chip"><a href="clinicas-asociadas.html#clinica-fiore"><img src="images/clinics/fiore.png" alt="Clínica Fiore"></a></div>
+        <div class="orbit-chip"><a href="clinicas-asociadas.html#clinica-sanfernando"><img src="images/clinics/sanfernando.png" alt="Clínica San Fernando"></a></div>
+        <div class="orbit-chip"><a href="clinicas-asociadas.html#clinica-corpus"><img src="images/clinics/corpus.png" alt="Corpus y Rostrum"></a></div>
+        <div class="orbit-chip"><a href="clinicas-asociadas.html#clinica-otorrinos"><img src="images/clinics/otorrinos.png" alt="Otorrinos Cali"></a></div>
+        <div class="orbit-chip"><a href="clinicas-asociadas.html#clinica-iq"><img src="images/clinics/iq.png" alt="IQ Interquirófanos"></a></div>
+        <div class="orbit-chip"><a href="clinicas-asociadas.html#clinica-esquirurgico"><img src="images/clinics/esquirurgico.png" alt="ES Quirúrgico"></a></div>
+        <div class="orbit-chip"><a href="clinicas-asociadas.html#clinica-mariadelpilar"><img src="images/clinics/mariadelpilar.png" alt="Clínica Integrativa María del Pilar"></a></div>
+        <div class="orbit-chip"><a href="clinicas-asociadas.html#clinica-alejandria"><img src="images/clinics/alejandria.png" alt="Clínica Alejandría"></a></div>
+        <div class="orbit-chip"><a href="clinicas-asociadas.html#clinica-bellatriz"><img src="images/clinics/bellatriz.png" alt="Bellatriz"></a></div>
+        <div class="orbit-chip"><a href="clinicas-asociadas.html#clinica-gomezarbelaez"><img src="images/clinics/gomezarbelaez.png" alt="Clínica Gómez Arbeláez"></a></div>
+        <div class="orbit-chip"><a href="clinicas-asociadas.html#clinica-sea"><img src="images/clinics/sea.png" alt="Clínica SEA"></a></div>
+        <div class="orbit-chip"><a href="clinicas-asociadas.html#clinica-pink"><img src="images/clinics/pink.png" alt="Clínica Pink"></a></div>
       </div>
     </div>
   </section>
@@ -785,7 +741,7 @@
           <article class="bcard bcard-cta">
             <h3>Tener voz en el sector es clave</h3>
             <p>En Asoclicper representamos tus intereses y encuentras apoyo integral.</p>
-            <a class="btn btn-primary" href="https://asoclicper.com/ser-asociado-clinica-de-cirugia-plastica/">Ser Asociado</a>
+            <a class="btn btn-primary" href="ser-asociado.html">Ser Asociado</a>
           </article>
         </div>
       </div>
@@ -797,7 +753,7 @@
   <section>
     <div class="wrap">
       <div class="podcast reveal-scale">
-        <a class="podcast-play" href="https://asoclicper.com/news/" aria-label="Escuchar Bajo el Bisturí">
+        <a class="podcast-play" href="seguridad-del-paciente.html#podcast" aria-label="Escuchar Bajo el Bisturí">
           <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
         </a>
         <div class="podcast-body">
@@ -822,8 +778,8 @@
         <h2>Únete a Asoclicper y forma parte de una comunidad con un claro propósito</h2>
         <p>Tener voz en el sector es clave. En Asoclicper representamos tus intereses y encuentras apoyo integral para tu clínica.</p>
         <div class="row">
-          <a class="btn btn-primary" href="https://asoclicper.com/ser-asociado-clinica-de-cirugia-plastica/">¡Conviértete en asociado hoy mismo!</a>
-          <a class="btn btn-ghost" href="https://asoclicper.com/contact-cirujanos-plasticos-en-cali/">Contáctanos</a>
+          <a class="btn btn-primary" href="ser-asociado.html">¡Conviértete en asociado hoy mismo!</a>
+          <a class="btn btn-ghost" href="contacto.html">Contáctanos</a>
         </div>
       </div>
     </div>
@@ -831,45 +787,7 @@
 
 </main>
 
-<footer id="contacto">
-  <div class="wrap">
-    <div class="foot-grid">
-      <div>
-        <img src="images/logo-blanco.svg" alt="Asoclicper">
-        <p>Unidos por la excelencia en cirugía plástica y la seguridad del paciente. Asociación Colombiana de Clínicas de Cirugía Plástica, Estética y Reconstructiva.</p>
-        <div class="social" style="margin-top:20px;">
-          <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M13.5 21v-7.5H16l.5-3H13.5V8.3c0-.87.24-1.46 1.5-1.46H16.6V4.14C16.3 4.1 15.3 4 14.1 4c-2.4 0-4 1.47-4 4.16V10.5H7.6v3h2.5V21h3.4z"/></svg></a>
-          <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c2.7 0 3 0 4.1.06 2.7.12 3.9 1.36 4.1 4.1.05 1.1.06 1.4.06 4.1s0 3-.06 4.1c-.12 2.7-1.36 3.94-4.1 4.06-1.1.05-1.4.06-4.1.06s-3 0-4.1-.06c-2.74-.12-3.94-1.36-4.06-4.06C3.78 15 3.77 14.7 3.77 12s0-3 .06-4.1C4 5.2 5.2 4 7.9 3.86 9 3.8 9.3 3.8 12 3.8zm0 4.05a5.75 5.75 0 100 11.5 5.75 5.75 0 000-11.5zm0 9.5a3.75 3.75 0 110-7.5 3.75 3.75 0 010 7.5zm5.9-9.7a1.35 1.35 0 11-2.7 0 1.35 1.35 0 012.7 0z"/></svg></a>
-          <a href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21H17v-5.4c0-1.3-.02-2.96-1.8-2.96-1.8 0-2.08 1.4-2.08 2.86V21H9z"/></svg></a>
-        </div>
-      </div>
-      <div class="foot-col">
-        <h4>Navegación</h4>
-        <a href="#top">Inicio</a>
-        <a href="#nosotros">Nosotros</a>
-        <a href="#asociados">Clínicas Asociadas</a>
-        <a href="https://asoclicper.com/news/">Noticias</a>
-      </div>
-      <div class="foot-col">
-        <h4>Asociación</h4>
-        <a href="#asociados">Seguridad del Paciente</a>
-        <a href="https://asoclicper.com/turismo-medico-cirugia-plastica/">Turismo Médico</a>
-        <a href="https://asoclicper.com/ser-asociado-clinica-de-cirugia-plastica/">Ser Asociado</a>
-        <a href="https://asoclicper.com/asoclicper-documental/">Asoclicper Documental</a>
-      </div>
-      <div class="foot-col">
-        <h4>Contacto</h4>
-        <a href="#">Carrera 50 # 9B - 20, Edif. Torres de la 50, Ofic. 216, Santiago de Cali, Colombia</a>
-        <a href="tel:+573153075463">(+57) 315 307 54 63</a>
-        <a href="mailto:info@asoclicper.com.co">info@asoclicper.com.co</a>
-      </div>
-    </div>
-    <div class="foot-bottom">
-      <span>© 2025 ASOCLICPER — Asociación Colombiana de Clínicas de Cirugía Plástica.</span>
-      <span>Propuesta de rediseño — prototipo de HOME · fotografía de referencia (Unsplash)</span>
-    </div>
-  </div>
-</footer>
+<footer id="siteFooter"></footer>
 
 <button type="button" class="fab" id="fab" aria-haspopup="dialog" aria-expanded="false" aria-controls="fabPopup" data-magnetic>
   <span class="fab-icon" aria-hidden="true">
@@ -893,6 +811,8 @@
 <div class="cursor-dot" id="cursorDot"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
+<script src="assets/data.js"></script>
+<script src="assets/nav.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
@@ -911,28 +831,6 @@
   document.addEventListener('scroll', onScroll, {passive:true});
   onScroll();
 
-  const burger = document.getElementById('burger');
-  let mobileNav;
-  burger.addEventListener('click', () => {
-    if(!mobileNav){
-      mobileNav = document.createElement('div');
-      mobileNav.style.cssText = 'position:fixed;inset:0;background:rgba(6,10,18,.97);z-index:120;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;';
-      const links = [['Inicio','#top'],['Nosotros','#nosotros'],['Clínicas Asociadas','#asociados'],['Seguridad del paciente','#asociados'],['Turismo Médico','https://asoclicper.com/turismo-medico-cirugia-plastica/'],['Contacto','#contacto']];
-      links.forEach(([label,href])=>{
-        const a = document.createElement('a');
-        a.href = href; a.textContent = label;
-        a.style.cssText = 'color:#fff;font-family:Poppins;font-size:22px;font-weight:600;';
-        a.addEventListener('click', ()=> mobileNav.remove());
-        mobileNav.appendChild(a);
-      });
-      const close = document.createElement('button');
-      close.textContent = '✕';
-      close.style.cssText = 'position:absolute;top:26px;right:28px;background:none;border:none;color:#fff;font-size:24px;cursor:pointer;';
-      close.addEventListener('click', ()=> mobileNav.remove());
-      mobileNav.appendChild(close);
-    }
-    document.body.appendChild(mobileNav);
-  });
 
   gsap.registerPlugin(ScrollTrigger);
   // ignora el auto-refresh nativo en resize/visibilitychange: con varios pin:true apilados

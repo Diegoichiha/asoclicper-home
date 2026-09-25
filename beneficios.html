@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Beneficios de asociarte | ASOCLICPER</title>
+<meta name="description" content="Conoce los 9 beneficios exclusivos de ser asociado a ASOCLICPER y estima el ahorro potencial de tu clínica con la calculadora.">
+<link rel="icon" href="images/icon-color.svg">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/nav.css">
+<style>
+  .bx{display:grid;grid-template-columns:.8fr 1.2fr;gap:28px;align-items:stretch;}
+  .bx-list{display:grid;gap:10px;align-content:start;}
+  .bx-item{display:flex;align-items:center;gap:16px;padding:16px 18px;border-radius:18px;background:#fff;border:1px solid var(--line);cursor:pointer;text-align:left;font:inherit;color:var(--ink);transition:transform .35s var(--ease),box-shadow .3s,border-color .3s,background .3s;}
+  .bx-item:hover{transform:translateX(6px);border-color:rgba(11,119,189,.4);}
+  .bx-item .n{font:700 12px 'Poppins';color:var(--ink-dim);letter-spacing:.14em;width:22px;}
+  .bx-item img{width:44px;height:44px;flex:none;}
+  .bx-item b{font:600 14.5px 'Poppins';line-height:1.3;flex:1;}
+  .bx-item.is-on{background:var(--ink);color:#fff;border-color:var(--ink);box-shadow:0 24px 50px -24px rgba(10,14,23,.6);transform:translateX(10px);}
+  .bx-item.is-on .n{color:var(--teal);}
+  .bx-panel{position:relative;border-radius:30px;overflow:hidden;min-height:520px;color:#fff;display:flex;align-items:flex-end;box-shadow:0 50px 90px -40px rgba(20,20,60,.5);isolation:isolate;}
+  .bx-bg{position:absolute;inset:-6%;background-size:cover;background-position:center;z-index:-2;transition:transform 1.4s var(--ease),opacity .6s;filter:saturate(.9);}
+  .bx-ov{position:absolute;inset:0;z-index:-1;transition:background .6s;}
+  .bx-in{padding:44px 44px 46px;width:100%;}
+  .bx-in .bigico{width:92px;height:92px;margin-bottom:24px;filter:drop-shadow(0 12px 22px rgba(0,0,0,.4));}
+  .bx-in .num{font:700 13px 'Poppins';letter-spacing:.2em;color:rgba(255,255,255,.7);margin-bottom:10px;}
+  .bx-in h3{font-size:clamp(26px,3vw,36px);line-height:1.15;margin-bottom:14px;max-width:520px;}
+  .bx-in p{font-size:17px;line-height:1.7;color:rgba(255,255,255,.85);max-width:520px;}
+  .bx-in.swap>*{animation:fadeUp .6s var(--ease) both;}
+  .bx-in.swap .num{animation-delay:.04s}.bx-in.swap h3{animation-delay:.1s}.bx-in.swap p{animation-delay:.16s}
+  .quote{font:700 clamp(30px,5vw,60px)/1.1 'Poppins';letter-spacing:-.5px;max-width:900px;}
+  .quote em{font-style:normal;background:var(--grad-a);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  /* calculadora */
+  .calc{display:grid;grid-template-columns:1.05fr .95fr;gap:0;border-radius:32px;overflow:hidden;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);box-shadow:0 60px 100px -50px rgba(0,0,0,.6);}
+  .calc-in{padding:44px;display:grid;gap:30px;align-content:start;}
+  .calc-out{padding:44px;background:linear-gradient(160deg,rgba(255,255,255,.96),rgba(233,241,249,.96));color:var(--ink);display:flex;flex-direction:column;gap:22px;}
+  .cf label{display:flex;justify-content:space-between;align-items:baseline;font:600 14px 'Inter';margin-bottom:12px;color:#fff;gap:12px;}
+  .cf label small{font-weight:500;color:rgba(255,255,255,.6);font-size:12px;}
+  .cf .val{font:700 20px 'Poppins';color:var(--lime);white-space:nowrap;}
+  .cf input[type=range]{width:100%;accent-color:var(--lime);height:6px;}
+  .cf input[type=number]{width:100%;padding:14px 18px;border-radius:14px;border:1.5px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;font:600 16px 'Inter';outline:none;}
+  .cf input[type=number]:focus{border-color:var(--teal);}
+  .out-big{border-radius:22px;padding:26px;background:var(--grad-b);color:#fff;position:relative;overflow:hidden;}
+  .out-big::after{content:"";position:absolute;right:-40px;top:-40px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.14);}
+  .out-big small{display:block;font-size:12.5px;opacity:.8;letter-spacing:.06em;text-transform:uppercase;font-weight:600;}
+  .out-big b{display:block;font:800 clamp(30px,3.6vw,44px)/1.1 'Poppins';margin-top:6px;}
+  .out-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .out-mini{border-radius:18px;padding:18px;background:#fff;border:1px solid var(--line);}
+  .out-mini small{display:block;font-size:11.5px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.06em;font-weight:600;}
+  .out-mini b{font:700 20px 'Poppins';display:block;margin-top:4px;}
+  .bars{display:grid;gap:10px;}
+  .bar{display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:center;font-size:12.5px;color:var(--ink-dim);font-weight:600;}
+  .bar i{display:block;height:14px;border-radius:8px;background:var(--surface-2);position:relative;overflow:hidden;}
+  .bar i::before{content:"";position:absolute;inset:0;width:var(--w,100%);background:var(--grad-a);border-radius:8px;transition:width .6s var(--ease);}
+  .bar.b2 i::before{background:var(--grad-b);}
+  .disc{font-size:12px;line-height:1.55;color:var(--ink-dim);border-top:1px solid var(--line);padding-top:16px;}
+  @media (max-width:1040px){.bx{grid-template-columns:1fr;}.bx-list{grid-template-columns:repeat(2,1fr);}.bx-item.is-on,.bx-item:hover{transform:none;}.calc{grid-template-columns:1fr;}}
+  @media (max-width:640px){.bx-list{grid-template-columns:1fr;}.bx-in{padding:30px 24px;}.calc-in,.calc-out{padding:28px 22px;}.out-row{grid-template-columns:1fr;}}
+</style>
+</head>
+<body data-page="beneficios">
+<header id="siteHeader"></header>
+
+<main id="top">
+  <section class="page-hero">
+    <div class="ph-field"><span class="ph-blob pb1"></span><span class="ph-blob pb2"></span><span class="ph-blob pb3"></span><span class="ph-blob pb4"></span></div>
+    <div class="ph-grid"></div><div class="ph-scrim"></div>
+    <div class="wrap ph-inner">
+      <div>
+        <div class="crumbs rv"><a href="index.html">Inicio</a><span class="sep">/</span><a href="clinicas-asociadas.html">Clínicas Asociadas</a><span class="sep">/</span><span>Beneficios</span></div>
+        <span class="eyebrow rv" data-d=".05">¿Por qué ser asociado?</span>
+        <h1 class="rv" data-d=".1">Conoce los beneficios de <span class="grad-text">pertenecer a ASOCLICPER</span></h1>
+        <p class="lead rv" data-d=".18">Te ofrecemos una oportunidad única para formar parte de una asociación que respira liderazgo, calidad, servicio, responsabilidad y compromiso. Estamos unidos en un propósito común: promover y fortalecer las clínicas de cirugía plástica, estética y reconstructiva en todo el país.</p>
+        <div class="ph-actions rv" data-d=".26"><a class="btn btn-primary" href="ser-asociado.html">Asóciate hoy <span data-i="arrow-right"></span></a><a class="btn btn-ghost-dark" href="#calculadora">Calcula tu ahorro</a></div>
+      </div>
+      <div class="ph-visual rv rv-s" data-d=".15">
+        <div class="ph-photo"><img src="images/doc-female1.jpg" alt="Especialista de la red Asoclicper"></div>
+        <div class="ph-float f1"><b data-count="9">0</b><span>beneficios exclusivos</span></div>
+        <div class="ph-float f2"><b data-count="17">0</b><span>clínicas ya en la red</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPLORADOR -->
+  <section id="beneficios">
+    <div class="wrap">
+      <div class="tag-row rv"><div><span class="eyebrow">Beneficios exclusivos</span><h2 class="sec-title">Explora lo que ganas al unirte</h2></div><p>Selecciona un beneficio para ver de qué se trata. Todos están pensados para impulsar el éxito de tu clínica.</p></div>
+      <div class="bx rv rv-s">
+        <div class="bx-list" id="bxList" role="tablist"></div>
+        <div class="bx-panel" id="bxPanel"><div class="bx-bg" id="bxBg"></div><div class="bx-ov" id="bxOv"></div><div class="bx-in" id="bxIn"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LINEAMIENTOS -->
+  <section class="section--dark section--tight">
+    <div class="wrap">
+      <div class="rv"><span class="eyebrow">Nuestros lineamientos · Valor, confianza y compromiso</span></div>
+      <p class="quote rv" data-d=".08" style="margin:22px 0 28px;">«Solos hacemos, <em>unidos hacemos más</em>.»</p>
+      <p class="rv lead-sm" data-d=".14" style="max-width:820px;color:rgba(255,255,255,.75);">Nuestros lineamientos se centran en los derechos y deberes de nuestros asociados, pero, sobre todo, en la convicción y compromiso de pertenecer a nuestra asociación. Nos enfocamos en generar valor y confianza para nuestros asociados, haciéndolo evidente y visible en todas nuestras acciones. Nuestra estrategia se basa en la multiactividad y la integración de servicios, porque creemos que juntos podemos lograr más.</p>
+    </div>
+  </section>
+
+  <!-- CALCULADORA -->
+  <section id="calculadora" class="section--dark" style="padding-top:20px;">
+    <div class="wrap">
+      <div class="tag-row rv"><div><span class="eyebrow">Calculadora de ahorro</span><h2 class="sec-title">Estima el ahorro potencial de tu clínica con la economía conjunta</h2></div><p>Ajusta los valores a tu realidad. El ahorro que ves es una simulación ilustrativa: el resultado real depende de los convenios vigentes.</p></div>
+      <div class="calc rv rv-s">
+        <div class="calc-in">
+          <div class="cf"><label for="cGasto">Gasto mensual en insumos y servicios <span class="val" id="vGasto"></span></label><input id="cGasto" type="range" min="5000000" max="500000000" step="1000000" value="40000000"></div>
+          <div class="cf"><label for="cPct">Ahorro estimado por economía conjunta <span class="val" id="vPct"></span></label><input id="cPct" type="range" min="0" max="20" step="0.5" value="6"><small style="display:block;margin-top:8px;color:rgba(255,255,255,.55);font-size:12px;">Supuesto editable para la simulación; no es una promesa comercial.</small></div>
+          <div class="cf"><label for="cCuota">Cuota mensual de afiliación <small>(opcional · confírmala con la Asociación)</small></label><input id="cCuota" type="number" min="0" step="10000" value="0" placeholder="$ 0"></div>
+        </div>
+        <div class="calc-out">
+          <div class="out-big"><small>Ahorro neto estimado al año</small><b id="oAnual">$ 0</b></div>
+          <div class="out-row"><div class="out-mini"><small>Ahorro mensual</small><b id="oMes">$ 0</b></div><div class="out-mini"><small>Gasto anual con ahorro</small><b id="oCon">$ 0</b></div></div>
+          <div class="bars"><div class="bar"><span>Sin asociarte</span><i id="bSin" style="--w:100%"></i></div><div class="bar b2"><span>Con ASOCLICPER</span><i id="bCon" style="--w:94%"></i></div></div>
+          <p class="disc">Simulador ilustrativo con supuestos ajustables por el usuario. No constituye una oferta, garantía de descuento ni compromiso económico de ASOCLICPER; los beneficios reales dependen de los programas y convenios vigentes para los asociados.</p>
+          <a class="btn btn-primary" href="ser-asociado.html">Quiero ser asociado <span data-i="arrow-right"></span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="cta-band rv rv-s">
+        <span class="eyebrow">Únete hoy mismo</span>
+        <h2>Tener voz en el sector es clave</h2>
+        <p>En Asoclicper representamos tus intereses y encuentras apoyo integral para tu clínica.</p>
+        <div class="row"><a class="btn btn-primary" href="ser-asociado.html">¡Conviértete en asociado!</a><a class="btn btn-ghost" href="contacto.html">Habla con nosotros</a></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="siteFooter"></footer>
+<script src="assets/data.js"></script>
+<script src="assets/nav.js"></script>
+<script src="assets/site.js"></script>
+<script>
+(function(){
+  const B = window.ASOC.benefits;
+  const look = [['clinic-interior.jpg','#0b77bd'],['doc-hero.jpg','#4abab7'],['doc-female1.jpg','#2e53a1'],['doc-male2.jpg','#b767a6'],['doc-female2.jpg','#674696'],['patient-glow.jpg','#5f7a10'],['serum-closeup.jpg','#0b77bd'],['clinic-interior.jpg','#2e53a1'],['doc-hero.jpg','#4abab7']];
+  const list = document.getElementById('bxList'), bg = document.getElementById('bxBg'), ov = document.getElementById('bxOv'), inn = document.getElementById('bxIn');
+  list.innerHTML = B.map((b, i) => '<button class="bx-item" role="tab" data-idx="' + i + '"><span class="n">' + String(i + 1).padStart(2, '0') + '</span><img src="' + b.img + '" alt=""><b>' + b.t + '</b></button>').join('');
+  function pick(i){
+    const b = B[i], l = look[i];
+    list.querySelectorAll('.bx-item').forEach((el, k) => { el.classList.toggle('is-on', k === i); el.setAttribute('aria-selected', k === i); });
+    bg.style.backgroundImage = "url('images/" + l[0] + "')"; bg.style.transform = 'scale(' + (1.12 + (i % 3) * .03) + ') rotate(' + ((i % 2 ? 1 : -1) * 1.5) + 'deg)';
+    ov.style.background = 'linear-gradient(200deg, color-mix(in srgb,' + l[1] + ' 52%, #05070c) 0%, rgba(6,8,13,.82) 55%, rgba(6,8,13,.94) 100%)';
+    inn.classList.remove('swap'); void inn.offsetWidth; inn.classList.add('swap');
+    inn.innerHTML = '<img class="bigico" src="' + b.img + '" alt=""><div class="num">BENEFICIO ' + String(i + 1).padStart(2, '0') + ' / 09</div><h3>' + b.t + '</h3><p>' + b.d + '</p>';
+  }
+  list.addEventListener('click', (e) => { const b = e.target.closest('.bx-item'); if(b) pick(+b.dataset.idx); });
+  list.addEventListener('keydown', (e) => { if(e.key === 'ArrowDown' || e.key === 'ArrowUp'){ const cur = +list.querySelector('.is-on').dataset.idx, n = (cur + (e.key === 'ArrowDown' ? 1 : B.length - 1)) % B.length; pick(n); list.children[n].focus(); e.preventDefault(); } });
+  pick(0);
+
+  /* calculadora */
+  const $ = (id) => document.getElementById(id);
+  const cop = (n) => '$ ' + Math.round(n).toLocaleString('es-CO');
+  function calc(){
+    const g = +$('cGasto').value, p = +$('cPct').value, c = +$('cCuota').value || 0;
+    const mes = g * p / 100, anual = (mes - c) * 12, con = g * 12 - mes * 12;
+    $('vGasto').textContent = cop(g) + ' / mes'; $('vPct').textContent = p.toString().replace('.', ',') + ' %';
+    $('oAnual').textContent = (anual < 0 ? '- ' : '') + cop(Math.abs(anual)); $('oMes').textContent = cop(mes); $('oCon').textContent = cop(con);
+    $('bCon').style.setProperty('--w', Math.max(6, 100 - p) + '%');
+  }
+  ['cGasto', 'cPct', 'cCuota'].forEach(id => $(id).addEventListener('input', calc)); calc();
+})();
+</script>
+</body>
+</html>

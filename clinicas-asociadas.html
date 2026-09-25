@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Clínicas Asociadas | ASOCLICPER</title>
+<meta name="description" content="Directorio de las 17 clínicas de cirugía plástica asociadas a ASOCLICPER en 8 departamentos de Colombia. Verifica tu clínica y conoce su ficha completa.">
+<link rel="icon" href="images/icon-color.svg">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/nav.css">
+<style>
+  .mapbox{position:relative;aspect-ratio:1/1;max-width:560px;margin-left:auto;}
+  .mapbox::before{content:"";position:absolute;inset:8%;border-radius:50%;background:radial-gradient(circle,rgba(74,186,183,.4),rgba(11,119,189,.18) 55%,transparent 72%);filter:blur(20px);}
+  .mapbox img{position:relative;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 30px 40px rgba(46,20,90,.25));}
+  .node{position:absolute;transform:translate(-50%,-50%);border:none;background:none;padding:0;cursor:pointer;z-index:2;}
+  .node .pt{display:block;width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid var(--lime);box-shadow:0 0 0 0 rgba(193,210,38,.6);animation:pulse 2.4s infinite;transition:transform .3s;}
+  .node:hover .pt{transform:scale(1.5);}
+  .node .lb{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translate(-50%,6px);background:#fff;color:var(--ink);border-radius:12px;padding:8px 12px;font-size:12px;font-weight:700;white-space:nowrap;box-shadow:0 14px 30px -10px rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:opacity .25s,transform .3s var(--ease);}
+  .node .lb small{display:block;font-weight:500;color:var(--ink-dim);font-size:11px;margin-top:1px;}
+  .node:hover .lb,.node:focus-visible .lb{opacity:1;transform:translate(-50%,0);}
+  .node.big .pt{width:24px;height:24px;border-width:4px;}
+  .node .cnt{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font:700 10px 'Poppins';color:var(--purple);pointer-events:none;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(193,210,38,.65)}70%{box-shadow:0 0 0 14px rgba(193,210,38,0)}100%{box-shadow:0 0 0 0 rgba(193,210,38,0)}}
+  .hero-stats{display:flex;flex-wrap:wrap;gap:16px;margin-top:30px;}
+  .hs{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px 22px;min-width:140px;box-shadow:0 14px 30px -20px rgba(20,40,60,.25);}
+  .hs b{display:block;font:700 30px 'Poppins';line-height:1.1;}
+  .hs span{font-size:12.5px;color:var(--ink-dim);}
+  .vid-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  .vid{position:relative;aspect-ratio:9/13;border-radius:22px;overflow:hidden;background:#000;cursor:pointer;border:1px solid rgba(255,255,255,.15);box-shadow:0 30px 60px -30px rgba(0,0,0,.6);}
+  .vid img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease),opacity .3s;opacity:.85;}
+  .vid:hover img{transform:scale(1.08);opacity:1;}
+  .vid::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(6,10,22,.75),transparent 55%);pointer-events:none;}
+  .vid .play{position:absolute;left:50%;top:44%;width:64px;height:64px;transform:translate(-50%,-50%);border-radius:50%;background:rgba(255,255,255,.95);color:var(--blue);font-size:26px;display:flex;align-items:center;justify-content:center;z-index:2;box-shadow:0 20px 40px -12px rgba(0,0,0,.5);transition:transform .35s;}
+  .vid:hover .play{transform:translate(-50%,-50%) scale(1.12);}
+  .vid .cap{position:absolute;left:18px;right:18px;bottom:16px;z-index:2;color:#fff;font:600 14px 'Poppins';}
+  .vid .cap small{display:block;font:500 12px 'Inter';opacity:.7;margin-top:2px;}
+  .vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+  @media (max-width:1040px){.mapbox{margin:0 auto;max-width:440px;}.vid-grid{grid-template-columns:repeat(2,1fr);}.ph-visual.keep{display:block!important;}}
+  @media (max-width:640px){.vid-grid{grid-template-columns:1fr;}.vid{aspect-ratio:16/11;}}
+</style>
+</head>
+<body data-page="clinicas">
+<header id="siteHeader"></header>
+
+<main id="top">
+  <section class="page-hero">
+    <div class="ph-field"><span class="ph-blob pb1"></span><span class="ph-blob pb2"></span><span class="ph-blob pb3"></span><span class="ph-blob pb4"></span></div>
+    <div class="ph-grid"></div><div class="ph-scrim"></div>
+    <div class="wrap ph-inner">
+      <div>
+        <div class="crumbs rv"><a href="index.html">Inicio</a><span class="sep">/</span><span>Clínicas Asociadas</span></div>
+        <span class="eyebrow rv" data-d=".05">Nuestros asociados a nivel nacional</span>
+        <h1 class="rv" data-d=".1">Una red sólida de <span class="grad-text">17 clínicas</span> comprometidas con tu seguridad</h1>
+        <p class="lead rv" data-d=".18">Juntos estamos construyendo una red sólida de clínicas y cirujanos plásticos, comprometidos con la excelencia, la seguridad del paciente y el crecimiento en el campo de la cirugía plástica. Contamos con 17 clínicas asociadas a ASOCLICPER, todas habilitadas, con cirujanos plásticos acreditados.</p>
+        <div class="hero-stats rv" data-d=".26">
+          <div class="hs"><b data-count="17">0</b><span>Clínicas</span></div>
+          <div class="hs"><b data-count="8">0</b><span>Departamentos</span></div>
+          <div class="hs"><b data-count="186653" data-prefix="+">0</b><span>Pacientes atendidos</span></div>
+        </div>
+        <div class="ph-actions rv" data-d=".32"><a class="btn btn-primary" href="#directorio">Explorar el directorio <span data-i="arrow-right"></span></a><a class="btn btn-ghost-dark" href="#verifica">Verifica tu clínica</a></div>
+      </div>
+      <div class="ph-visual keep rv rv-s" data-d=".15">
+        <div class="mapbox" id="mapbox">
+          <img src="images/site/mapa-interactivo.png" alt="Mapa de Colombia con las clínicas asociadas a Asoclicper">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VERIFICA -->
+  <section class="section--alt section--tight" id="verifica">
+    <div class="wrap"><div class="verify rv rv-s" data-verify></div></div>
+  </section>
+
+  <!-- DIRECTORIO -->
+  <section id="directorio">
+    <div class="wrap">
+      <div class="tag-row rv">
+        <div><span class="eyebrow">Nuestros asociados</span><h2 class="sec-title">Clínicas de cirugía plástica en Colombia</h2></div>
+        <p>Filtra por departamento o busca por nombre. Cada ficha reúne dirección, contacto, servicios y la información oficial de la clínica.</p>
+      </div>
+      <div data-clinic-directory></div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <section class="section--dark">
+    <div class="wrap">
+      <div class="tag-row rv">
+        <div><span class="eyebrow">Testimonios</span><h2 class="sec-title">Breves testimonios sobre la calidad y atención de las clínicas</h2></div>
+        <p>Pacientes y equipos médicos cuentan su experiencia dentro de nuestra red de clínicas asociadas.</p>
+      </div>
+      <div class="vid-grid stagger" id="vids"></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section>
+    <div class="wrap">
+      <div class="cta-band rv rv-s">
+        <span class="eyebrow">¡Celebramos tener 17 clínicas asociadas!</span>
+        <h2>¿Necesitas asesoría para elegir tu clínica o quieres ser parte de nuestra comunidad?</h2>
+        <p>En ASOCLICPER nos unimos a clínicas con los más altos estándares de calidad y seguridad, junto a cirujanos plásticos certificados y equipos médicos altamente calificados.</p>
+        <div class="row"><a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=573153075463&text=Quisiera%20conocer%20m%C3%A1s%20sobre%20Asoclicper..." target="_blank" rel="noopener">Escríbenos</a><a class="btn btn-ghost" href="ser-asociado.html">Ser Asociado</a></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="siteFooter"></footer>
+<script src="assets/data.js"></script>
+<script src="assets/nav.js"></script>
+<script src="assets/site.js"></script>
+<script>
+(function(){
+  /* nodos del mapa (posiciones calibradas sobre la imagen) */
+  const nodes = [
+    {city:'Cali', x:22.9, y:53.5, dept:'Valle del Cauca', n:9, big:1},
+    {city:'Santander de Quilichao', x:24.2, y:57.2, id:'mariadelpilar', n:1},
+    {city:'Armenia', x:29.3, y:47.8, id:'gomezarbelaez', n:1},
+    {city:'Medellín', x:30.3, y:38.6, id:'iq', n:1},
+    {city:'Bogotá', x:41.4, y:46.8, id:'esquirurgico', n:1},
+    {city:'Neiva', x:32.3, y:56.3, id:'alejandria', n:1},
+    {city:'Pasto', x:18.8, y:63.5, id:'bellatriz', n:1},
+    {city:'Bucaramanga · Floridablanca', x:48.5, y:34, dept:'Santander', n:2, big:1}
+  ];
+  const box = document.getElementById('mapbox');
+  nodes.forEach(nd => {
+    const b = document.createElement('button');
+    b.className = 'node' + (nd.big ? ' big' : ''); b.style.left = nd.x + '%'; b.style.top = nd.y + '%';
+    b.setAttribute('aria-label', nd.city + ': ' + nd.n + (nd.n > 1 ? ' clínicas' : ' clínica'));
+    b.innerHTML = '<span class="pt"></span>' + (nd.big ? '<span class="cnt">' + nd.n + '</span>' : '') + '<span class="lb">' + nd.city + '<small>' + nd.n + (nd.n > 1 ? ' clínicas asociadas' : ' clínica asociada') + '</small></span>';
+    b.addEventListener('click', () => {
+      if(nd.id){ window.asocOpenClinic(nd.id); return; }
+      const chip = document.querySelector('[data-dept] .chip[data-v="' + nd.dept + '"]');
+      if(chip) chip.click();
+      document.getElementById('directorio').scrollIntoView({behavior:'smooth'});
+    });
+    box.appendChild(b);
+  });
+
+  /* testimonios en video (lite embed) */
+  const vids = [['wd3KmXQ5ghs','Testimonio 01'],['b7jeik09UmQ','Testimonio 02'],['Gdzj8HaIT5M','Testimonio 03'],['tEczrVwhqec','Testimonio 04']];
+  const grid = document.getElementById('vids');
+  grid.innerHTML = vids.map(v => '<div class="vid" data-id="' + v[0] + '"><img src="https://img.youtube.com/vi/' + v[0] + '/hqdefault.jpg" alt="' + v[1] + '" loading="lazy"><span class="play">' + window.asocIcon('play') + '</span><div class="cap">' + v[1] + '<small>Clínicas asociadas · YouTube</small></div></div>').join('');
+  grid.addEventListener('click', (e) => {
+    const v = e.target.closest('.vid'); if(!v || v.querySelector('iframe')) return;
+    v.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + v.dataset.id + '?autoplay=1&rel=0" title="Testimonio" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+  });
+  window.asocBoot(grid.parentElement);
+})();
+</script>
+</body>
+</html>

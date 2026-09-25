@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Seguridad del Paciente | ASOCLICPER</title>
+<meta name="description" content="Cirugía plástica segura: los 7 pilares de la seguridad del paciente, verificador de clínicas asociadas, señales de alerta de clínicas ilegales y el podcast Bajo el Bisturí.">
+<link rel="icon" href="images/icon-color.svg">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/nav.css">
+<style>
+  .ph-photo.wide{aspect-ratio:4/3.1;}
+  .pillar{padding:0;overflow:hidden;display:flex;flex-direction:column;}
+  .pillar .im{display:flex;justify-content:space-between;align-items:flex-start;padding:26px 26px 0;}
+  .pillar .im img{width:84px;height:84px;border-radius:22px;object-fit:cover;box-shadow:0 16px 28px -14px rgba(11,119,189,.6);transition:transform .6s var(--ease);}
+  .pillar:hover .im img{transform:scale(1.1) rotate(-4deg);}
+  .pillar .n{font:700 12px 'Poppins';letter-spacing:.14em;color:var(--ink-dim);background:var(--surface-2);padding:6px 12px;border-radius:100px;}
+  .pillar .bd{padding:20px 26px 28px;}
+  .pillar h3{font-size:17px;margin:0 0 10px;line-height:1.3;}
+  .pillar p{font-size:14px;line-height:1.65;color:var(--ink-dim);}
+  .pillar.end{background:linear-gradient(160deg,var(--bf-purple-1),var(--bf-purple-2));color:#fff;border-color:transparent;justify-content:center;padding:34px 30px;}
+  .pillar.end h3{color:#fff;font-size:22px;}
+  .pillar.end p{color:rgba(255,255,255,.8);margin-bottom:22px;}
+  .pillar.end .btn-primary{background:#fff;color:var(--purple);align-self:flex-start;}
+  /* alertas */
+  .alerts{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:start;}
+  .flag{display:flex;gap:16px;align-items:flex-start;padding:18px 20px;border-radius:18px;background:#fff;border:1.5px solid var(--line);cursor:pointer;transition:all .3s var(--ease);margin-bottom:10px;}
+  .flag:hover{border-color:#f0b27a;}
+  .flag input{width:22px;height:22px;accent-color:#e8891c;flex:none;margin-top:2px;}
+  .flag b{display:block;font:600 15px 'Poppins';margin-bottom:4px;line-height:1.35;}
+  .flag span{font-size:13.5px;color:var(--ink-dim);line-height:1.6;}
+  .flag.on{background:#fff6ec;border-color:#f0b27a;box-shadow:0 20px 40px -26px rgba(232,137,28,.5);transform:translateX(6px);}
+  .meter{position:sticky;top:110px;border-radius:28px;padding:34px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);}
+  .gauge{position:relative;height:16px;border-radius:10px;background:linear-gradient(90deg,#19a86b,#e7c21a 45%,#e8891c 70%,#d64545);margin:22px 0 10px;}
+  .gauge i{position:absolute;top:-6px;width:8px;height:28px;border-radius:5px;background:var(--ink);left:0;transition:left .6s var(--ease);box-shadow:0 0 0 3px #fff;}
+  .gl{display:flex;justify-content:space-between;font-size:11.5px;color:var(--ink-dim);font-weight:600;}
+  .meter h3{font-size:22px;margin:0 0 8px;}
+  .meter .res{margin-top:22px;padding:20px;border-radius:18px;background:var(--surface-2);}
+  .meter .res b{display:block;font:700 17px 'Poppins';margin-bottom:6px;}
+  .meter .res p{font-size:14px;color:var(--ink-dim);line-height:1.6;}
+  .meter .res.lo{background:#eefaf3;}.meter .res.mid{background:#fff8e0;}.meter .res.hi{background:#fdeeee;}
+  .meter .acts{display:grid;gap:10px;margin-top:20px;}
+  .disc{font-size:12px;color:var(--ink-dim);line-height:1.55;margin-top:18px;}
+  /* podcast */
+  .eps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .ep{position:relative;border-radius:24px;overflow:hidden;background:#000;aspect-ratio:16/10;box-shadow:0 30px 60px -30px rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.14);display:block;}
+  .ep img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease);}
+  .ep:hover img{transform:scale(1.07);}
+  .ep::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,4,24,.7),transparent 55%);}
+  .ep .play{position:absolute;left:50%;top:50%;width:66px;height:66px;transform:translate(-50%,-50%);border-radius:50%;background:var(--grad-a);color:#fff;font-size:26px;display:flex;align-items:center;justify-content:center;z-index:2;box-shadow:0 20px 40px -10px rgba(11,119,189,.7);transition:transform .35s;}
+  .ep:hover .play{transform:translate(-50%,-50%) scale(1.14);}
+  .ep .cap{position:absolute;left:20px;bottom:16px;z-index:2;font:600 14px 'Poppins';color:#fff;}
+  .waves{display:flex;gap:4px;align-items:flex-end;height:38px;margin-top:22px;}
+  .waves span{width:4px;background:var(--grad-a);border-radius:3px;animation:wave 1.4s ease-in-out infinite;}
+  @keyframes wave{0%,100%{height:8px}50%{height:36px}}
+  @media (max-width:1040px){.alerts{grid-template-columns:1fr;}.meter{position:relative;top:0;}.eps{grid-template-columns:1fr;}}
+</style>
+</head>
+<body data-page="seguridad">
+<header id="siteHeader"></header>
+
+<main id="top">
+  <section class="page-hero">
+    <div class="ph-field"><span class="ph-blob pb1"></span><span class="ph-blob pb2"></span><span class="ph-blob pb3"></span><span class="ph-blob pb4"></span></div>
+    <div class="ph-grid"></div><div class="ph-scrim"></div>
+    <div class="wrap ph-inner">
+      <div>
+        <div class="crumbs rv"><a href="index.html">Inicio</a><span class="sep">/</span><span>Seguridad del Paciente</span></div>
+        <span class="eyebrow rv" data-d=".05">Seguridad del paciente · Cirugía segura</span>
+        <h1 class="rv" data-d=".1">Tu seguridad en cirugía plástica es nuestra <span class="grad-text">prioridad</span></h1>
+        <p class="lead rv" data-d=".18">Somos una comunidad de clínicas y cirujanos plásticos de todo el país, unidos por el propósito de impulsar y fortalecer las clínicas de cirugía plástica, estética y reconstructiva en Colombia. Velamos por la seguridad de los pacientes, garantizamos la calidad de la atención y humanizamos el servicio.</p>
+        <div class="ph-actions rv" data-d=".26"><a class="btn btn-primary" href="#verifica">Verifica tu clínica <span data-i="arrow-right"></span></a><a class="btn btn-ghost-dark" href="#alertas">Señales de alerta</a></div>
+      </div>
+      <div class="ph-visual rv rv-s" data-d=".15">
+        <div class="ph-photo wide"><img src="images/site/seguridad-paciente.png" alt="Cirujano de Asoclicper explicando implantes a una paciente"></div>
+        <div class="ph-float f1"><b data-count="17">0</b><span>clínicas habilitadas</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PILARES -->
+  <section>
+    <div class="wrap">
+      <div class="sec-center rv"><span class="eyebrow">Siete pilares</span><h2 class="sec-title">Cómo cuidamos cada etapa de tu proceso</h2><p>Nos esforzamos por asegurar que cada persona que elige realizarse procedimientos de cirugía plástica y reconstructiva en Colombia lo haga con la confianza de estar en manos seguras y expertas.</p></div>
+      <div class="grid g4 stagger" id="pillars"></div>
+    </div>
+  </section>
+
+  <!-- VERIFICA -->
+  <section id="verifica" class="section--alt section--tight">
+    <div class="wrap"><div class="verify rv rv-s" data-verify></div></div>
+  </section>
+
+  <!-- ALERTAS -->
+  <section id="alertas" class="section--tint">
+    <div class="wrap">
+      <div class="tag-row rv"><div><span class="eyebrow">Señales de alerta</span><h2 class="sec-title">¿Cómo reconocer una clínica que no da garantías?</h2></div><p>Marca las situaciones que estás viendo en la clínica que estás evaluando. Cada señal se basa en las recomendaciones de la Asociación para una cirugía segura.</p></div>
+      <div class="alerts">
+        <div id="flags"></div>
+        <aside class="meter rv rv-r">
+          <span class="eyebrow">Tu nivel de precaución</span>
+          <h3 id="mTitle">Aún no has marcado señales</h3>
+          <div class="gauge"><i id="mNeedle"></i></div>
+          <div class="gl"><span>Tranquilo</span><span>Precaución</span><span>Alto riesgo</span></div>
+          <div class="res" id="mRes"><b>Empieza marcando lo que observas</b><p>Selecciona las señales que aplican a la clínica o al cirujano que estás evaluando.</p></div>
+          <div class="acts"><a class="btn btn-primary" href="#verifica">Verificar en el directorio</a><a class="btn btn-ghost-dark" target="_blank" rel="noopener" href="https://wa.me/573153075463?text=Quisiera%20verificar%20una%20cl%C3%ADnica%20antes%20de%20operarme">Consultar por WhatsApp</a></div>
+          <p class="disc">Guía orientativa: no reemplaza la verificación de la habilitación ante las autoridades de salud ni la consulta de la Sociedad Colombiana de Cirugía Plástica.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- PODCAST -->
+  <section id="podcast" class="section--dark">
+    <div class="wrap">
+      <div class="tag-row rv"><div><span class="eyebrow">Conoce nuestro podcast</span><h2 class="sec-title">«Bajo el Bisturí»</h2><div class="waves"><span style="animation-delay:0s"></span><span style="animation-delay:.15s"></span><span style="animation-delay:.3s"></span><span style="animation-delay:.45s"></span><span style="animation-delay:.6s"></span><span style="animation-delay:.75s"></span><span style="animation-delay:.9s"></span></div></div><p>Conversaciones sobre seguridad del paciente, excelencia médica y el futuro de la cirugía plástica en Colombia.</p></div>
+      <div class="eps stagger">
+        <a class="ep" href="https://asoclicper.com/news/" target="_blank" rel="noopener"><img src="images/site/podcast-1.jpg" alt="Bajo el bisturí, capítulo 01"><span class="play" data-i="play"></span><span class="cap">Capítulo 01</span></a>
+        <a class="ep" href="https://asoclicper.com/news/" target="_blank" rel="noopener"><img src="images/site/podcast-2.jpg" alt="Bajo el bisturí, capítulo 02"><span class="play" data-i="play"></span><span class="cap">Capítulo 02</span></a>
+        <a class="ep" href="https://asoclicper.com/news/" target="_blank" rel="noopener"><img src="images/site/podcast-3.jpg" alt="Bajo el bisturí, capítulo 03"><span class="play" data-i="play"></span><span class="cap">Capítulo 03</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="cta-band rv rv-s">
+        <span class="eyebrow">Tu bienestar es nuestra prioridad</span>
+        <h2>Elige a los profesionales y clínicas afiliadas a ASOCLICPER</h2>
+        <p>Donde tu seguridad y bienestar siempre estarán en primer lugar. Explora también nuestra guía de turismo médico para tomar decisiones informadas.</p>
+        <div class="row"><a class="btn btn-primary" href="clinicas-asociadas.html">Ver las 17 clínicas</a><a class="btn btn-ghost" href="turismo-medico.html">Guía de turismo médico</a></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="siteFooter"></footer>
+<script src="assets/data.js"></script>
+<script src="assets/nav.js"></script>
+<script src="assets/site.js"></script>
+<script>
+(function(){
+  const pillars = [
+    ['seg-seg1.png','Elección sabia: cirujanos acreditados','La seguridad va más allá de las habilidades quirúrgicas: implica elegir profesionales. Optar por cirujanos acreditados y adscritos en su mayoría a la SCCP es clave; han demostrado su competencia y compromiso con la excelencia.'],
+    ['seg-segcompromiso1.png','Compromiso con la excelencia: clínicas de alto nivel','Nos asociamos con clínicas con los más altos estándares de calidad y seguridad, junto a cirujanos plásticos certificados y equipos médicos altamente calificados en cada etapa del proceso quirúrgico.'],
+    ['seg-segprotocolo1.png','Protocolos rigurosos de seguridad del paciente','Desde la evaluación inicial hasta la recuperación postoperatoria, cada paciente pasa por una evaluación médica exhaustiva. Con prácticas basadas en la evidencia se minimizan los riesgos y se maximizan los resultados.'],
+    ['seg-seginfra.png','Infraestructura moderna para un entorno seguro','Las clínicas asociadas cuentan con instalaciones modernas y equipos de vanguardia, cumpliendo los más altos estándares de seguridad y regulaciones, para que te sientas seguro y cómodo durante todo el proceso.'],
+    ['seg-segedu1.png','Educación y empoderamiento del paciente','Promovemos la educación continua para profesionales y pacientes. La información detallada sobre procedimientos, riesgos y cuidados posteriores te permite tomar decisiones informadas y responsables.'],
+    ['seg-segseguimiento1.png','Vigilancia y mejora continua para tu seguridad','Las clínicas realizan un seguimiento constante de la seguridad del paciente mediante programas de vigilancia y auditoría, buscando siempre mejorar y adoptar las mejores prácticas.'],
+    ['seg-segconfianza1.png','Confianza, humanización y tranquilidad','Entendemos que la cirugía plástica puede generar ansiedad. Las clínicas se esfuerzan por brindarte confianza y tranquilidad, desde la consulta inicial hasta la recuperación completa, con un trato humanizado.']
+  ];
+  document.getElementById('pillars').innerHTML = pillars.map((p, i) => '<article class="card pillar spot"><div class="im"><img src="images/site/' + p[0] + '" alt="" loading="lazy"><span class="n">0' + (i + 1) + '</span></div><div class="bd"><h3>' + p[1] + '</h3><p>' + p[2] + '</p></div></article>').join('') +
+    '<article class="card pillar end spot"><h3>Tu bienestar es nuestra prioridad</h3><p>Todos los pacientes merecen atención segura, humanizada y de alta calidad en cada procedimiento.</p><a class="btn btn-primary" href="clinicas-asociadas.html">Conoce las clínicas</a></article>';
+
+  const flags = [
+    ['No puedo comprobar que la clínica esté habilitada','La medida más fiable de seguridad es que el cirujano use una clínica ambulatoria debidamente habilitada, que haya pasado una evaluación integral.'],
+    ['El cirujano no está adscrito a la SCCP o no puedo verificarlo','Los médicos deben estar adscritos a la Sociedad Colombiana de Cirugía Plástica, Estética y Reconstructiva: es prenda de seguridad y calidad.'],
+    ['La tarifa es muy inferior a la de otros cirujanos y no detallan qué incluye','Una tarifa baja resulta atractiva, pero conviene investigar la calidad profesional, la reputación, las referencias y qué cubre el precio.'],
+    ['No ofrecen póliza de complicaciones ni explican qué pasa si algo sale mal','Las clínicas asociadas ofrecen póliza de complicaciones para eventos postoperatorios; averigua costos y coberturas antes de operarte.'],
+    ['No utilizan una lista de verificación de seguridad (OMS o similar)','El protocolo de 19 puntos de la OMS reduce complicaciones quirúrgicas y se aplica en tres fases: antes de la anestesia, de la incisión y de salir del quirófano.'],
+    ['No cuentan con urgencias u hospitalización para complicaciones inmediatas','Una clínica segura debe poder atender las complicaciones que se presenten en el postoperatorio inmediato.'],
+    ['No me muestran fotos reales de antes y después ni me dejan hablar con pacientes','Pedir fotos de resultados típicos y hablar con pacientes que ya se operaron es parte de elegir con información.'],
+    ['Comparten quirófanos y áreas de recuperación con pacientes enfermos','En un hospital seguro, los pacientes sanos de cirugía plástica no comparten quirófanos, personal ni áreas de recuperación con pacientes enfermos.']
+  ];
+  document.getElementById('flags').innerHTML = flags.map((f, i) => '<label class="flag rv" style="--d:' + (i * .05) + 's"><input type="checkbox"><div><b>' + f[0] + '</b><span>' + f[1] + '</span></div></label>').join('');
+  const boxes = Array.from(document.querySelectorAll('#flags input'));
+  function meter(){
+    const n = boxes.filter(b => b.checked).length, pct = Math.min(100, n / 5 * 100);
+    boxes.forEach(b => b.closest('.flag').classList.toggle('on', b.checked));
+    document.getElementById('mNeedle').style.left = 'calc(' + pct + '% - 4px)';
+    const res = document.getElementById('mRes'), t = document.getElementById('mTitle');
+    if(n === 0){ t.textContent = 'Aún no has marcado señales'; res.className = 'res'; res.innerHTML = '<b>Empieza marcando lo que observas</b><p>Selecciona las señales que aplican a la clínica o al cirujano que estás evaluando.</p>'; }
+    else if(n <= 2){ t.textContent = n + (n === 1 ? ' señal marcada' : ' señales marcadas'); res.className = 'res mid'; res.innerHTML = '<b>Precaución: verifica antes de decidir</b><p>Pide a la clínica la evidencia de su habilitación, confirma la adscripción del cirujano a la SCCP y consulta el directorio de clínicas asociadas.</p>'; }
+    else { t.textContent = n + ' señales marcadas'; res.className = 'res hi'; res.innerHTML = '<b>Alto riesgo: no avances sin verificar</b><p>Varias señales coinciden con prácticas que ponen en riesgo tu seguridad. Detén el proceso, verifica la clínica en fuentes oficiales y consúltanos.</p>'; }
+  }
+  boxes.forEach(b => b.addEventListener('change', meter));
+  window.asocBoot(document);
+})();
+</script>
+</body>
+</html>
