@@ -266,19 +266,24 @@
   /* ---------- benefits ---------- */
   /* ---------- utilidad: seccion oscura ---------- */
 
-  /* ---------- beneficios: degradado indigo profundo (indigo/violeta de marca) con brillos suaves
-     y cintas luminosas finas dibujadas en WebGL por encima (ver initNebula) ---------- */
-  .benefits{background:#070430;color:#fff;padding:0;overflow:hidden;}
-  .benefits-nebula{position:absolute;inset:0;
-    background:
-      radial-gradient(62% 88% at 20% 58%, rgba(52,26,150,.78) 0%, rgba(38,18,118,.42) 46%, transparent 78%),
-      radial-gradient(55% 70% at 92% 100%, rgba(34,24,160,.55) 0%, transparent 72%),
-      radial-gradient(46% 52% at 84% -4%, rgba(18,84,104,.34) 0%, transparent 72%),
-      radial-gradient(40% 46% at 58% 42%, rgba(103,70,150,.20) 0%, transparent 74%),
-      linear-gradient(118deg, #0e0658 0%, #0a0440 42%, #050222 100%);}
+  /* ---------- beneficios: fondo degradado indigo/violeta con nebulosa WebGL (ver initNebula).
+     Mismo campo de color que el fondo "Creemos" de test.vectorial.co. ---------- */
+  .benefits{background:#090029;color:#fff;padding:0;overflow:hidden;}
+  .benefits-nebula{position:absolute;inset:0;pointer-events:none;background-color:#090029;
+    background-image:
+      radial-gradient(68% 62% at 30% 44%, rgba(75,34,246,.46) 0%, rgba(75,34,246,0) 70%),
+      radial-gradient(52% 48% at 82% 78%, rgba(27,0,138,.78) 0%, rgba(27,0,138,0) 72%),
+      radial-gradient(44% 40% at 76% 18%, rgba(57,252,207,.14) 0%, rgba(57,252,207,0) 68%);}
   .benefits-nebula canvas{display:block;width:100%;height:100%;mix-blend-mode:screen;}
-  .benefits-veil{position:absolute;inset:0;pointer-events:none;
-    background:radial-gradient(95% 80% at 50% 45%, transparent 0%, rgba(4,2,24,.38) 72%, rgba(3,1,18,.7) 100%);}
+  /* orbe: un trozo mas chico de la misma nebulosa arriba a la derecha, con mascara radial y deriva lenta */
+  .benefits-orb{position:absolute;top:clamp(2rem,6vh,5rem);right:clamp(1.5rem,5vw,6rem);width:clamp(11rem,17vw,19rem);aspect-ratio:1;pointer-events:none;
+    animation:bfOrbDrift 14s ease-in-out infinite;will-change:transform,translate;mix-blend-mode:screen;
+    -webkit-mask-image:radial-gradient(closest-side at 50% 50%, #000 30%, rgba(0,0,0,.55) 62%, transparent 92%);
+    mask-image:radial-gradient(closest-side at 50% 50%, #000 30%, rgba(0,0,0,.55) 62%, transparent 92%);}
+  .benefits-orb canvas{display:block;width:100%;height:100%;mix-blend-mode:normal;}
+  @keyframes bfOrbDrift{0%{translate:0 0;}33%{translate:-5% 7%;}66%{translate:6% -4%;}100%{translate:0 0;}}
+  @media (max-width:1023px){.benefits-orb{display:none;}}
+  @media (prefers-reduced-motion:reduce){.benefits-orb{animation:none;}}
   .benefits-sticky{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;gap:44px;padding:96px 0;z-index:2;}
   .benefits-head{display:flex;justify-content:space-between;align-items:flex-end;gap:36px;flex-wrap:wrap;}
   .benefits-head h2{font-size:clamp(28px,3.6vw,44px);margin:14px 0 0;line-height:1.12;max-width:640px;color:#fff;}
@@ -676,8 +681,10 @@
 
   <!-- BENEFITS: seccion oscura, nebulosa WebGL + scroll horizontal en sticky -->
   <section class="benefits" id="benefitsSection">
-    <div class="benefits-nebula"><canvas id="benefitsNebulaShader"></canvas></div>
-    <div class="benefits-veil"></div>
+    <div class="benefits-nebula" aria-hidden="true">
+      <canvas id="benefitsNebulaShader"></canvas>
+      <div class="benefits-orb"><canvas id="benefitsOrbCanvas"></canvas></div>
+    </div>
     <div class="benefits-sticky">
       <div class="wrap benefits-head">
         <div>
@@ -1125,11 +1132,16 @@
     });
   }
 
-  /* ---------- WebGL nebula (pure WebGL, no libraries) ---------- */
+  /* ---------- WebGL nebula (WebGL puro, sin librerias) ----------
+     Mismo campo que el fondo "Creemos" de test.vectorial.co: ray-march de 6 pasos sobre un
+     campo que rota solo (map), por eso esta siempre en movimiento. El segundo canvas (orbe)
+     corre el mismo material desfasado en el tiempo. Ademas el avance del scroll horizontal
+     de las cards empuja el tiempo del shader, asi la nebulosa evoluciona al recorrer la seccion. */
   function initNebula(canvasId, opts = {}) {
-    const { timeOffset = 0 } = opts;
+    const { timeOffset = 0, minWidth = 0 } = opts;
     const canvas = document.getElementById(canvasId);
     if(!canvas) return null;
+    if(minWidth && !window.matchMedia('(min-width:' + minWidth + 'px)').matches) return null;
     const gl = canvas.getContext("webgl", { antialias: false, alpha: true });
     if (!gl) return null;
 
@@ -1138,76 +1150,51 @@
       void main() { gl_Position = vec4(aPos, 0.0, 1.0); }
     `;
     const FRAG = `
-      #ifdef GL_FRAGMENT_PRECISION_HIGH
-      precision highp float;
-      #else
       precision mediump float;
-      #endif
       uniform vec2 iResolution;
       uniform float iTime;
-      uniform vec2 iMouse;
-      uniform float iMouseAmt;
-      uniform float iScroll;
+      uniform vec2 iMouse;      // puntero, en pixeles de este canvas
+      uniform float iMouseAmt;  // 0 con el puntero lejos, 1 encima
+
       #define t iTime
-      // Paleta de marca ASOCLICPER (azul electrico = azul de marca saturado para que brille sobre indigo)
-      #define C_BLUE  vec3(0.090, 0.330, 0.950)
-      #define C_TEAL  vec3(0.290, 0.800, 0.740)
-      #define C_MINT  vec3(0.700, 0.960, 0.780)
-      #define C_LIME  vec3(0.757, 0.824, 0.149)
-
-      float wrapA(float a){ return mod(a + 3.14159265, 6.2831853) - 3.14159265; }
-
-      // Cinta luminosa: arco elipsoidal deformado con ondas lentas. Nucleo fino + halo suave,
-      // mas ancha al centro del arco y afinada hacia las puntas; el halo es mas amplio por fuera.
-      vec3 ribbon(vec2 p, vec2 c, vec2 r, float mid, float span, float ph, float wob, float gain){
-        vec2 q = p - c;
-        q += wob * vec2(sin(q.y*5.0 + t*0.31 + ph), sin(q.x*4.2 - t*0.24 + ph*1.9));
-        vec2 qn = q / r;
-        float s = wrapA(atan(qn.y, qn.x) - mid) / span;
-        float a = abs(s);
-        float taper = 1.0 - smoothstep(0.18, 1.0, a);
-        float d = (length(qn) - 1.0) * min(r.x, r.y);
-        float w = mix(0.24, 1.0, taper) * 1.25;
-        float ds = d / w;
-        float outside = step(0.0, ds);
-        float core = exp(-abs(ds) * 230.0);
-        float body = exp(-abs(ds) * mix(95.0, 62.0, outside));
-        float halo = exp(-abs(ds) * mix(60.0, 9.5, outside));
-        float haze = exp(-abs(ds) * 5.0) * outside;
-        float shimmer = 0.82 + 0.18 * sin(s*6.0 - t*0.7 + ph);
-        vec3 bodyC = mix(C_BLUE, C_TEAL, smoothstep(0.1, 0.95, taper));
-        vec3 coreC = mix(C_TEAL, C_MINT, taper*0.3) + C_LIME * 0.10 * smoothstep(0.7, 1.0, taper);
-        vec3 col = C_BLUE * (halo * 1.35 + haze * 0.22) + bodyC * body * 1.0 + coreC * core * 1.5;
-        return col * taper * shimmer * gain;
+      mat2 m(float a){ float c=cos(a), s=sin(a); return mat2(c,-s,s,c); }
+      float map(vec3 p){
+        p.xz *= m(t*0.4);
+        p.xy *= m(t*0.3);
+        vec3 q = p*2. + t;
+        return length(p + vec3(sin(t*0.7))) * log(length(p)+1.0)
+             + sin(q.x + sin(q.z + sin(q.y))) * 0.5 - 1.0;
       }
 
       void main() {
         vec2 fragCoord = gl_FragCoord.xy;
-        float unit = iResolution.y;
+
+        // desplaza el punto desde donde se MUESTREA el campo, lejos del puntero: el humo se abre
+        // al pasar la mano y se cierra al irse (caida exponencial para que sea local)
+        float unit = min(iResolution.x, iResolution.y);
         vec2 rel = (fragCoord - iMouse) / unit;
-        float infl = exp(-length(rel) * 3.5) * iMouseAmt;
-        fragCoord += normalize(rel + vec2(1e-5)) * infl * unit * 0.06;
+        float infl = exp(-length(rel) * 2.6) * iMouseAmt;
+        fragCoord += normalize(rel + vec2(1e-5)) * infl * unit * 0.34;
 
-        float asp = iResolution.x / iResolution.y;
-        float k = clamp(asp * 0.62, 0.55, 1.0);
-        vec2 p = fragCoord / unit;
-        p.x += iScroll * 0.12 * asp;
-
-        vec2 dr1 = 0.014 * vec2(sin(t*0.21 + 1.0), cos(t*0.17));
-        vec2 dr2 = 0.012 * vec2(cos(t*0.19), sin(t*0.23 + 2.0));
-        float br = 1.0 + 0.03 * sin(t*0.3);
-
+        vec2 uv = fragCoord / unit - vec2(.9, .5);
+        uv.x += .4;
         vec3 col = vec3(0.0);
-        // 1) cinta principal: baja por la izquierda, recorre la base y remonta en la punta
-        col += ribbon(p, vec2(0.34*asp, 0.53) + dr1, vec2(0.52, 0.43) * k * br, 4.05, 1.75, 0.0, 0.026, 1.0);
-        // 2) media luna arriba a la derecha
-        col += ribbon(p, vec2(0.87*asp, 0.93) + dr2, vec2(0.17, 0.13) * k, 4.71, 1.0, 2.4, 0.010, 1.1);
-        // 3) cinta tenue de contrapeso, abajo a la derecha
-        col += ribbon(p, vec2(1.06*asp, 0.20) + dr1.yx, vec2(0.46, 0.52) * k, 3.14, 0.80, 4.1, 0.020, 0.5);
+        float d = 2.5;
 
-        col = 1.0 - exp(-col * 1.35);
-        float dither = fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453) / 255.0;
-        gl_FragColor = vec4(col + dither, 1.0);
+        for (int i = 0; i <= 5; i++) {
+          vec3 p = vec3(0.0, 0.0, 5.0) + normalize(vec3(uv, -1.0)) * d;
+          float rz = map(p);
+          float f = clamp((rz - map(p + 0.1)) * 0.5, -0.1, 1.0);
+          vec3 base = vec3(0.07, 0.16, 0.42) + vec3(1.5, 3.6, 5.2) * f;
+          col = col * base + smoothstep(2.5, 0.0, rz) * 0.7 * base;
+          d += min(rz, 1.0);
+        }
+
+        // oscurece el centro para que el contenido se lea sobre la nebulosa
+        float dist = distance(fragCoord, iResolution * 0.5);
+        float radius = min(iResolution.x, iResolution.y) * 0.5;
+        float dim = smoothstep(radius * 0.3, radius * 0.5, dist);
+        gl_FragColor = vec4(mix(col * 0.3, col, dim), 1.0);
       }
     `;
 
@@ -1220,6 +1207,7 @@
     }
     const vs = compile(gl.VERTEX_SHADER, VERT);
     const fs = compile(gl.FRAGMENT_SHADER, FRAG);
+    if(!vs || !fs) return null;
     const prog = gl.createProgram();
     gl.attachShader(prog, vs); gl.attachShader(prog, fs); gl.linkProgram(prog);
     if(!gl.getProgramParameter(prog, gl.LINK_STATUS)){ console.error('nebula link error:', gl.getProgramInfoLog(prog)); return null; }
@@ -1236,25 +1224,29 @@
     const uTime = gl.getUniformLocation(prog, "iTime");
     const uMouse = gl.getUniformLocation(prog, "iMouse");
     const uMouseAmt = gl.getUniformLocation(prog, "iMouseAmt");
-    const uScroll = gl.getUniformLocation(prog, "iScroll");
 
+    // el desplazamiento sigue a la mano con un poco de retraso; amt sube cerca del canvas y decae al salir
     const ptr = { x: -9999, y: -9999, amt: 0 };
-    const ptrX = fine ? gsap.quickTo(ptr, 'x', {duration:.5, ease:'power3.out'}) : (v)=>ptr.x=v;
-    const ptrY = fine ? gsap.quickTo(ptr, 'y', {duration:.5, ease:'power3.out'}) : (v)=>ptr.y=v;
-    const ptrAmt = fine ? gsap.quickTo(ptr, 'amt', {duration:.4, ease:'power3.out'}) : (v)=>ptr.amt=v;
-    window.addEventListener("mousemove", (e) => {
-      const r = canvas.getBoundingClientRect();
-      if(e.clientX < r.left-200 || e.clientX > r.right+200 || e.clientY < r.top-200 || e.clientY > r.bottom+200) return;
-      ptrX(((e.clientX - r.left) / r.width) * canvas.width);
-      ptrY(((r.bottom - e.clientY) / r.height) * canvas.height);
-      ptrAmt(1);
-    });
-
-    const DPR_CAP = 1.5;
-    let drawn = false, scrollSm = 0, onScreen = true;
-    if('IntersectionObserver' in window){
-      new IntersectionObserver((en) => { onScreen = en[0].isIntersecting; }, { rootMargin: '200px' }).observe(canvas);
+    if(fine){
+      const easeX = gsap.quickTo(ptr, 'x', { duration: .45, ease: 'power3.out' });
+      const easeY = gsap.quickTo(ptr, 'y', { duration: .45, ease: 'power3.out' });
+      window.addEventListener('mousemove', (e) => {
+        const r = canvas.getBoundingClientRect();
+        if(!r.width || !r.height) return;
+        const px = ((e.clientX - r.left) / r.width) * canvas.width;
+        const py = ((r.bottom - e.clientY) / r.height) * canvas.height;
+        const pad = .3;
+        const near = e.clientX > r.left - r.width*pad && e.clientX < r.right + r.width*pad &&
+                     e.clientY > r.top - r.height*pad && e.clientY < r.bottom + r.height*pad;
+        if(ptr.amt < .01) gsap.set(ptr, { x: px, y: py });
+        easeX(px); easeY(py);
+        gsap.to(ptr, { amt: near ? 1 : 0, duration: near ? .3 : .9, ease: 'power2.out', overwrite: 'auto' });
+      });
     }
+
+    // tope de DPR: es un ray-march por pixel, en pantallas 2x costaria el cuadruple
+    const DPR_CAP = window.matchMedia('(max-width:767px)').matches ? 1 : 1.5;
+    let drawn = false, scrollSm = 0, onScreen = true;
     function resize() {
       const dpr = Math.min(window.devicePixelRatio || 1, DPR_CAP);
       const w = Math.max(1, Math.round(canvas.clientWidth * dpr));
@@ -1267,6 +1259,9 @@
     }
     resize();
     window.addEventListener("resize", resize);
+    if('IntersectionObserver' in window){
+      new IntersectionObserver((en) => { onScreen = en[0].isIntersecting; }, { rootMargin: '200px' }).observe(canvas);
+    }
 
     const start = performance.now();
     function frame() {
@@ -1276,16 +1271,16 @@
       // con movimiento reducido se dibuja un solo cuadro estatico
       if(reduceMotion && drawn) return;
       scrollSm += ((window.asocBenefitsProgress || 0) - scrollSm) * 0.08;
-      gl.uniform1f(uTime, reduceMotion ? 4.0 : (performance.now() - start) / 1000 + timeOffset);
+      gl.uniform1f(uTime, reduceMotion ? 6.0 + timeOffset : (performance.now() - start) / 1000 + timeOffset + scrollSm * 14);
       gl.uniform2f(uMouse, ptr.x, ptr.y);
       gl.uniform1f(uMouseAmt, ptr.amt);
-      gl.uniform1f(uScroll, scrollSm);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
       drawn = true;
     }
     requestAnimationFrame(frame);
   }
   initNebula("benefitsNebulaShader");
+  initNebula("benefitsOrbCanvas", { timeOffset: 37, minWidth: 1024 });
 
   /* ---------- orbit: arco eliptico giratorio de clinicas sobre el hub ---------- */
   (function(){
