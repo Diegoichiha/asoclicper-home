@@ -1331,18 +1331,25 @@
       const stageRect = stage.getBoundingClientRect();
       const hubRect = hub.getBoundingClientRect();
       const cx = hubRect.left + hubRect.width / 2 - stageRect.left;
-      const hubTop = hubRect.top - stageRect.top;
-      const cy = hubTop + hubRect.height * 0.22;
+      // offsets en vez de rects: no les afecta la escala/translate de la animacion de entrada del stage
+      const hubTop = hub.offsetTop;
+      const cy = hubTop + hub.offsetHeight * 0.22;
       const rx = stageRect.width * 0.44;
       // el logo mide 195px (144 en movil) y su escala llega a 1.08: la separacion angular se calcula para que
       // los logos vecinos no se monten en la parte central del arco; ARC_SPAN crece con ella (siempre > 2*VISIBLE_HALF)
       const chipMax = chips[0].offsetWidth * 1.08;
       const step = Math.min(60, Math.max(14, Math.asin(Math.min(.95, chipMax * 1.16 / rx)) * 180 / Math.PI));
       ARC_SPAN = step * N;
-      // ry se deriva del espacio real sobre el hub (no de la altura del stage): asi el arco
-      // queda pegado al hub sin recortarse por arriba sin importar cuanto se achique el stage.
-      // el margen deja sitio para el propio radio del chip con su escala maxima.
-      const ry = Math.max(120, cy - (chipMax / 2 + 14));
+      // el logo central (en su tamano maximo) queda a mitad de camino entre el encabezado y el hub:
+      // misma distancia libre arriba (hasta el titulo) que abajo (hasta el logo ASOCLICPER).
+      // headBottom es negativo: el encabezado termina antes de que empiece el stage.
+      // (#asociados > * es position:relative, asi que .tag-row cuelga de .wrap y hay que sumar el offset de .wrap)
+      const head = document.querySelector('#asociados .tag-row');
+      const headWrap = head && head.closest('.wrap');
+      const headBottom = headWrap ? (headWrap.offsetTop + head.offsetTop + head.offsetHeight) - stage.offsetTop : -34;
+      const yTop = Math.max((hubTop + headBottom) / 2, chipMax / 2 + 8);
+      // ry sale de esa altura (sin recortarse por arriba aunque el stage sea bajo)
+      const ry = Math.max(120, cy - yTop);
 
       chips.forEach((chip, i)=>{
         let angle = (-ARC_SPAN / 2) + (i / N) * ARC_SPAN + rotation;
