@@ -266,17 +266,18 @@
   /* ---------- benefits ---------- */
   /* ---------- utilidad: seccion oscura ---------- */
 
-  /* ---------- beneficios: fondo degradado con los colores de marca en los costados (morado/indigo a la
-     izquierda, azul/turquesa a la derecha, toques de lima y magenta) y nebulosa WebGL encima (ver initNebula) ---------- */
-  .benefits{background:#0a0b1e;color:#fff;padding:0;overflow:hidden;}
-  .benefits-nebula{position:absolute;inset:0;pointer-events:none;background-color:#0a0b1e;
+  /* ---------- beneficios: fondo oscuro con los colores de marca en los costados: morado a la izquierda;
+     azul y verde-azulado del logo a la derecha y abajo, con un toque de lima; nebulosa WebGL encima (ver initNebula) ---------- */
+  .benefits{background:#070818;color:#fff;padding:0;overflow:hidden;}
+  .benefits-nebula{position:absolute;inset:0;pointer-events:none;background-color:#070818;
     background-image:
-      radial-gradient(58% 80% at 0% 58%, rgba(103,70,150,.78) 0%, rgba(103,70,150,0) 72%),
-      radial-gradient(46% 56% at 4% 100%, rgba(46,83,161,.72) 0%, rgba(46,83,161,0) 74%),
-      radial-gradient(34% 40% at 6% 4%, rgba(183,103,166,.34) 0%, rgba(183,103,166,0) 72%),
-      radial-gradient(56% 80% at 100% 46%, rgba(11,119,189,.62) 0%, rgba(11,119,189,0) 72%),
-      radial-gradient(46% 52% at 98% 0%, rgba(74,186,183,.40) 0%, rgba(74,186,183,0) 72%),
-      radial-gradient(38% 44% at 94% 100%, rgba(193,210,38,.20) 0%, rgba(193,210,38,0) 70%);}
+      radial-gradient(60% 88% at 0% 52%, rgba(112,64,170,.92) 0%, rgba(112,64,170,0) 74%),
+      radial-gradient(44% 58% at 0% 100%, rgba(78,44,150,.80) 0%, rgba(78,44,150,0) 76%),
+      radial-gradient(36% 42% at 4% 0%, rgba(183,103,166,.34) 0%, rgba(183,103,166,0) 72%),
+      radial-gradient(60% 84% at 100% 50%, rgba(11,119,189,.78) 0%, rgba(11,119,189,0) 74%),
+      radial-gradient(54% 60% at 94% 4%, rgba(74,186,183,.62) 0%, rgba(74,186,183,0) 72%),
+      radial-gradient(58% 52% at 72% 106%, rgba(74,186,183,.58) 0%, rgba(74,186,183,0) 72%),
+      radial-gradient(40% 46% at 100% 100%, rgba(193,210,38,.28) 0%, rgba(193,210,38,0) 70%);}
   .benefits-nebula canvas{display:block;width:100%;height:100%;mix-blend-mode:screen;}
   /* orbe: un trozo mas chico de la misma nebulosa arriba a la derecha, con mascara radial y deriva lenta */
   .benefits-orb{position:absolute;top:clamp(2rem,6vh,5rem);right:clamp(1.5rem,5vw,6rem);width:clamp(11rem,17vw,19rem);aspect-ratio:1;pointer-events:none;
@@ -1161,17 +1162,18 @@
       uniform float iHue;       // desfase de la paleta (el orbe arranca mas hacia turquesa/lima)
 
       #define t iTime
-      // Paleta de marca ASOCLICPER: morado -> azul -> turquesa -> lima segun la densidad del campo
-      #define C_PURPLE  vec3(0.470, 0.240, 0.760)
-      #define C_INDIGO  vec3(0.130, 0.300, 0.780)
+      // Paleta de marca ASOCLICPER centrada en el azul -> verde-azulado de los botones, con un poco de
+      // morado en la parte baja de la escala y lima solo como acento en los puntos mas densos
+      #define C_PURPLE  vec3(0.400, 0.260, 0.720)
       #define C_BLUE    vec3(0.043, 0.467, 0.741)
-      #define C_TEAL    vec3(0.290, 0.729, 0.678)
+      #define C_AQUA    vec3(0.140, 0.640, 0.800)
+      #define C_TEAL    vec3(0.220, 0.820, 0.700)
       #define C_LIME    vec3(0.757, 0.824, 0.149)
       vec3 brand(float x){
-        vec3 c = mix(C_PURPLE, C_INDIGO, smoothstep(0.00, 0.22, x));
-        c = mix(c, C_BLUE, smoothstep(0.18, 0.44, x));
-        c = mix(c, C_TEAL, smoothstep(0.42, 0.72, x));
-        c = mix(c, C_LIME, smoothstep(0.86, 1.02, x) * 0.9);
+        vec3 c = mix(C_PURPLE, C_BLUE, smoothstep(0.00, 0.22, x));
+        c = mix(c, C_AQUA, smoothstep(0.18, 0.42, x));
+        c = mix(c, C_TEAL, smoothstep(0.38, 0.66, x));
+        c = mix(c, C_LIME, smoothstep(0.90, 1.04, x) * 0.85);
         return c;
       }
       mat2 m(float a){ float c=cos(a), s=sin(a); return mat2(c,-s,s,c); }
@@ -1205,8 +1207,8 @@
           // el tono fluye por toda la paleta segun la posicion y el tiempo (y el desfase del canvas);
           // la densidad f solo manda la intensidad, asi la nebulosa muestra morado, azul, turquesa y lima
           float hx = 0.5 + 0.5 * sin(uv.x * 1.7 + uv.y * 1.2 + rz * 1.4 + t * 0.22 + iHue * 6.2831);
-          hx = clamp(hx * 0.98 - 0.02 + f * 0.10, 0.0, 1.0);
-          vec3 base = vec3(0.10, 0.09, 0.32) + brand(hx) * 9.5 * f;
+          hx = clamp(0.30 + hx * 0.62 + iHue * 0.4 + f * 0.10, 0.0, 1.0);
+          vec3 base = vec3(0.03, 0.15, 0.22) + brand(hx) * 9.5 * f;
           col = col * base + smoothstep(2.5, 0.0, rz) * 0.7 * base;
           d += min(rz, 1.0);
         }
@@ -1307,7 +1309,7 @@
     requestAnimationFrame(frame);
   }
   initNebula("benefitsNebulaShader");
-  initNebula("benefitsOrbCanvas", { timeOffset: 37, minWidth: 1024, hue: 0.32 });
+  initNebula("benefitsOrbCanvas", { timeOffset: 37, minWidth: 1024, hue: 0.12 });
 
   /* ---------- orbit: arco eliptico giratorio de clinicas sobre el hub ---------- */
   (function(){
