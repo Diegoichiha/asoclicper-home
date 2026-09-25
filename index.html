@@ -266,14 +266,17 @@
   /* ---------- benefits ---------- */
   /* ---------- utilidad: seccion oscura ---------- */
 
-  /* ---------- beneficios: fondo degradado indigo/violeta con nebulosa WebGL (ver initNebula).
-     Mismo campo de color que el fondo "Creemos" de test.vectorial.co. ---------- */
-  .benefits{background:#090029;color:#fff;padding:0;overflow:hidden;}
-  .benefits-nebula{position:absolute;inset:0;pointer-events:none;background-color:#090029;
+  /* ---------- beneficios: fondo degradado con los colores de marca en los costados (morado/indigo a la
+     izquierda, azul/turquesa a la derecha, toques de lima y magenta) y nebulosa WebGL encima (ver initNebula) ---------- */
+  .benefits{background:#0a0b1e;color:#fff;padding:0;overflow:hidden;}
+  .benefits-nebula{position:absolute;inset:0;pointer-events:none;background-color:#0a0b1e;
     background-image:
-      radial-gradient(68% 62% at 30% 44%, rgba(75,34,246,.46) 0%, rgba(75,34,246,0) 70%),
-      radial-gradient(52% 48% at 82% 78%, rgba(27,0,138,.78) 0%, rgba(27,0,138,0) 72%),
-      radial-gradient(44% 40% at 76% 18%, rgba(57,252,207,.14) 0%, rgba(57,252,207,0) 68%);}
+      radial-gradient(58% 80% at 0% 58%, rgba(103,70,150,.78) 0%, rgba(103,70,150,0) 72%),
+      radial-gradient(46% 56% at 4% 100%, rgba(46,83,161,.72) 0%, rgba(46,83,161,0) 74%),
+      radial-gradient(34% 40% at 6% 4%, rgba(183,103,166,.34) 0%, rgba(183,103,166,0) 72%),
+      radial-gradient(56% 80% at 100% 46%, rgba(11,119,189,.62) 0%, rgba(11,119,189,0) 72%),
+      radial-gradient(46% 52% at 98% 0%, rgba(74,186,183,.40) 0%, rgba(74,186,183,0) 72%),
+      radial-gradient(38% 44% at 94% 100%, rgba(193,210,38,.20) 0%, rgba(193,210,38,0) 70%);}
   .benefits-nebula canvas{display:block;width:100%;height:100%;mix-blend-mode:screen;}
   /* orbe: un trozo mas chico de la misma nebulosa arriba a la derecha, con mascara radial y deriva lenta */
   .benefits-orb{position:absolute;top:clamp(2rem,6vh,5rem);right:clamp(1.5rem,5vw,6rem);width:clamp(11rem,17vw,19rem);aspect-ratio:1;pointer-events:none;
@@ -1138,7 +1141,7 @@
      corre el mismo material desfasado en el tiempo. Ademas el avance del scroll horizontal
      de las cards empuja el tiempo del shader, asi la nebulosa evoluciona al recorrer la seccion. */
   function initNebula(canvasId, opts = {}) {
-    const { timeOffset = 0, minWidth = 0 } = opts;
+    const { timeOffset = 0, minWidth = 0, hue = 0 } = opts;
     const canvas = document.getElementById(canvasId);
     if(!canvas) return null;
     if(minWidth && !window.matchMedia('(min-width:' + minWidth + 'px)').matches) return null;
@@ -1155,8 +1158,22 @@
       uniform float iTime;
       uniform vec2 iMouse;      // puntero, en pixeles de este canvas
       uniform float iMouseAmt;  // 0 con el puntero lejos, 1 encima
+      uniform float iHue;       // desfase de la paleta (el orbe arranca mas hacia turquesa/lima)
 
       #define t iTime
+      // Paleta de marca ASOCLICPER: morado -> azul -> turquesa -> lima segun la densidad del campo
+      #define C_PURPLE  vec3(0.470, 0.240, 0.760)
+      #define C_INDIGO  vec3(0.130, 0.300, 0.780)
+      #define C_BLUE    vec3(0.043, 0.467, 0.741)
+      #define C_TEAL    vec3(0.290, 0.729, 0.678)
+      #define C_LIME    vec3(0.757, 0.824, 0.149)
+      vec3 brand(float x){
+        vec3 c = mix(C_PURPLE, C_INDIGO, smoothstep(0.00, 0.22, x));
+        c = mix(c, C_BLUE, smoothstep(0.18, 0.44, x));
+        c = mix(c, C_TEAL, smoothstep(0.42, 0.72, x));
+        c = mix(c, C_LIME, smoothstep(0.86, 1.02, x) * 0.9);
+        return c;
+      }
       mat2 m(float a){ float c=cos(a), s=sin(a); return mat2(c,-s,s,c); }
       float map(vec3 p){
         p.xz *= m(t*0.4);
@@ -1185,7 +1202,11 @@
           vec3 p = vec3(0.0, 0.0, 5.0) + normalize(vec3(uv, -1.0)) * d;
           float rz = map(p);
           float f = clamp((rz - map(p + 0.1)) * 0.5, -0.1, 1.0);
-          vec3 base = vec3(0.07, 0.16, 0.42) + vec3(1.5, 3.6, 5.2) * f;
+          // el tono fluye por toda la paleta segun la posicion y el tiempo (y el desfase del canvas);
+          // la densidad f solo manda la intensidad, asi la nebulosa muestra morado, azul, turquesa y lima
+          float hx = 0.5 + 0.5 * sin(uv.x * 1.7 + uv.y * 1.2 + rz * 1.4 + t * 0.22 + iHue * 6.2831);
+          hx = clamp(hx * 0.98 - 0.02 + f * 0.10, 0.0, 1.0);
+          vec3 base = vec3(0.10, 0.09, 0.32) + brand(hx) * 9.5 * f;
           col = col * base + smoothstep(2.5, 0.0, rz) * 0.7 * base;
           d += min(rz, 1.0);
         }
@@ -1194,7 +1215,11 @@
         float dist = distance(fragCoord, iResolution * 0.5);
         float radius = min(iResolution.x, iResolution.y) * 0.5;
         float dim = smoothstep(radius * 0.3, radius * 0.5, dist);
-        gl_FragColor = vec4(mix(col * 0.3, col, dim), 1.0);
+        col = mix(col * 0.3, col, dim);
+        // normaliza por el canal mas alto en vez de dejar que se recorte: conserva el tono de marca
+        // en las zonas muy brillantes (si no, el turquesa/lima se lavan a blanco amarillento)
+        col /= max(1.0, max(col.r, max(col.g, col.b)));
+        gl_FragColor = vec4(col, 1.0);
       }
     `;
 
@@ -1224,6 +1249,7 @@
     const uTime = gl.getUniformLocation(prog, "iTime");
     const uMouse = gl.getUniformLocation(prog, "iMouse");
     const uMouseAmt = gl.getUniformLocation(prog, "iMouseAmt");
+    const uHue = gl.getUniformLocation(prog, "iHue");
 
     // el desplazamiento sigue a la mano con un poco de retraso; amt sube cerca del canvas y decae al salir
     const ptr = { x: -9999, y: -9999, amt: 0 };
@@ -1274,13 +1300,14 @@
       gl.uniform1f(uTime, reduceMotion ? 6.0 + timeOffset : (performance.now() - start) / 1000 + timeOffset + scrollSm * 14);
       gl.uniform2f(uMouse, ptr.x, ptr.y);
       gl.uniform1f(uMouseAmt, ptr.amt);
+      gl.uniform1f(uHue, hue);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
       drawn = true;
     }
     requestAnimationFrame(frame);
   }
   initNebula("benefitsNebulaShader");
-  initNebula("benefitsOrbCanvas", { timeOffset: 37, minWidth: 1024 });
+  initNebula("benefitsOrbCanvas", { timeOffset: 37, minWidth: 1024, hue: 0.32 });
 
   /* ---------- orbit: arco eliptico giratorio de clinicas sobre el hub ---------- */
   (function(){
