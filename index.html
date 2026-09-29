@@ -194,8 +194,14 @@
   /* ---------- stats panel (scroll-driven light -> violet -> dark) ----------
      Panel a pantalla completa: min-height:100vh + centrado vertical (en vez del padding fijo de
      110px de una <section> generica) para que las 7 cifras siempre quepan enteras en el viewport,
-     sin cortarse arriba ni abajo. Al llegar arriba queda fijo (pin corto, ver JS) el tiempo justo
-     para leer las cifras y enseguida retoma el scroll normal. */
+     sin cortarse arriba ni abajo.
+     Nota: se probo sumar un pin corto (ScrollTrigger pin:true) para que el panel quedara fijo un
+     tramo breve al llegar arriba. Se revirtio: con el pin del hero y el scroll horizontal de
+     beneficios ya apilados (ver el comentario de safeRefresh mas abajo), un tercer pin:true
+     desincronizaba esos dos y producia un salto brusco en beneficios (se alcanzaba a ver el logo
+     del hub de "Nuestros Asociados" a mitad del scroll horizontal). Si se retoma, hacerlo sin un
+     ScrollTrigger con pin:true propio -- por ejemplo alargando el scroll con espacio extra en vez
+     de fijar el elemento -- y verificar beneficios de punta a punta antes de publicar. */
   .stats-section{
     --panel-bg:#0a0e17; --panel-fg:#f4f8f6; --panel-accent:#4abab7;
     background:var(--panel-bg);color:var(--panel-fg);overflow:hidden;transition:background .05s linear;
@@ -1499,24 +1505,6 @@
     ScrollTrigger.create({
       trigger: panel, start: "top 80%", end: "top top", scrub: true,
       onUpdate: (self) => paintPanel(self.progress, panel)
-    });
-  })();
-
-  /* ---------- stats panel: pausa corta al llegar arriba ----------
-     No es un scroll horizontal como beneficios: el panel simplemente queda fijo un tramo breve
-     (~45% del alto de pantalla) justo al tope, para que se alcancen a leer las cifras, y despues
-     el scroll sigue normal. Se salta en movil (viewport bajo, mejor dejarlo fluir) y con
-     "reducir movimiento" activado. */
-  (function(){
-    const panel = document.getElementById('statsPanel');
-    if(!panel || reduceMotion || window.matchMedia('(max-width:980px)').matches) return;
-    ScrollTrigger.create({
-      trigger: panel,
-      start: 'top top',
-      end: () => '+=' + Math.round(window.innerHeight * 0.45),
-      pin: true,
-      anticipatePin: 1,
-      invalidateOnRefresh: true
     });
   })();
 
