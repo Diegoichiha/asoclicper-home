@@ -346,6 +346,11 @@
   @keyframes wave{0%,100%{height:8px;}50%{height:36px;}}
 
   /* ---------- final cta (photographic) ---------- */
+  /* el podcast y este CTA son dos tarjetas hermanas: cada <section> generica trae 110px de
+     padding arriba y abajo, asi que entre ambas se sumaban 220px (el doble que el hueco de
+     cualquier otro par de secciones). Se quita el padding superior de esta seccion para que
+     el hueco quede en los mismos ~110px que hay en el resto de la pagina. */
+  #ctaSection{padding-top:0;}
   .cta-final{border-radius:32px;padding:90px 60px;text-align:center;position:relative;overflow:hidden;color:#fff;}
   .cta-final .bgph{position:absolute;inset:0;}
   .cta-final .bgph img{width:100%;height:100%;object-fit:cover;}
@@ -798,7 +803,7 @@
   </section>
 
   <!-- FINAL CTA -->
-  <section>
+  <section id="ctaSection">
     <div class="wrap">
       <div class="cta-final reveal-scale">
         <div class="bgph"><img src="images/doc-female1.jpg" alt="Especialista de la red Asoclicper"></div>
