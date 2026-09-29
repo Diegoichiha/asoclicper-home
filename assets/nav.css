@@ -63,10 +63,12 @@ footer#siteFooter{background:var(--dark);color:rgba(255,255,255,.7);padding:70px
    de bordes redondeados, separados entre si por lineas verticales; logos mas grandes que antes */
 .foot-allies{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center;padding:28px 0;border-bottom:1px solid var(--dark-line);}
 .foot-allies>span{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);flex:none;}
-.foot-allies-track{display:flex;flex-wrap:wrap;align-items:center;flex:1;background:#fff;border-radius:18px;overflow:hidden;}
-.foot-ally{display:flex;align-items:center;padding:12px 26px;border-left:1px solid var(--line);}
+/* modo estirado: cada logo ocupa una porcion igual del ancho (flex:1), asi las celdas quedan
+   parejas y la ultima llega justo al borde derecho, sin dejar hueco vacio despues del logo */
+.foot-allies-track{display:flex;align-items:stretch;flex:1;background:#fff;border-radius:18px;overflow:hidden;}
+.foot-ally{display:flex;flex:1;align-items:center;justify-content:center;padding:14px 22px;border-left:1px solid var(--line);}
 .foot-ally:first-child{border-left:none;}
-.foot-allies img{height:46px;width:auto;object-fit:contain;}
+.foot-allies img{height:46px;width:auto;max-width:100%;object-fit:contain;}
 
 
 .logo{flex:none;}
