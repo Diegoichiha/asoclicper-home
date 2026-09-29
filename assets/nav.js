@@ -131,10 +131,10 @@
     const C = (window.ASOC && window.ASOC.contact) || {address:'Carrera 50 # 9B - 20, Edif. Torres de la 50, Ofic. 216, Santiago de Cali, Colombia', phone:'(+57) 315 307 54 63', tel:'+573153075463', mail:'info@asoclicper.com.co', fb:'http://facebook.com/asoclicper/', ig:'https://www.instagram.com/asoclicper/', li:'https://www.linkedin.com/company/asoclicper/'};
     const allies = [['aliado-2.jpeg','Alcaldía de Santiago de Cali'],['aliado-sec-salud.png','Alcaldía de Cali · Salud'],['aliado-sec-turismo.jpg','Alcaldía de Cali · Turismo'],['aliado-gobernacion.png','Gobernación del Valle del Cauca'],['aliado-sociedad-turismo.jpg','Sociedad Colombiana de Turismo en Salud y Bienestar'],['aliado-ccc.svg','Cámara de Comercio de Cali']];
     footer.innerHTML =
-      '<div class="foot-allies-band"><div class="wrap foot-allies"><span>Aliados estratégicos</span>' +
-        '<div class="foot-allies-track">' + allies.map(a => '<div class="foot-ally"><img src="images/site/' + a[0] + '" alt="' + a[1] + '" title="' + a[1] + '" loading="lazy"></div>').join('') + '</div>' +
-      '</div></div>' +
       '<div class="wrap">' +
+        '<div class="foot-allies"><span>Aliados estratégicos</span>' +
+          '<div class="foot-allies-track">' + allies.map(a => '<div class="foot-ally"><img src="images/site/' + a[0] + '" alt="' + a[1] + '" title="' + a[1] + '" loading="lazy"></div>').join('') + '</div>' +
+        '</div>' +
         '<div class="foot-grid" style="padding-top:44px;">' +
           '<div><img src="images/logo-blanco.svg" alt="Asoclicper"><p>Unidos por la excelencia en cirugía plástica y la seguridad del paciente. Asociación Colombiana de Clínicas de Cirugía Plástica, Estética y Reconstructiva.</p>' +
             '<div class="social"><a href="' + C.fb + '" target="_blank" rel="noopener" aria-label="Facebook">' + svg('facebook') + '</a><a href="' + C.ig + '" target="_blank" rel="noopener" aria-label="Instagram">' + svg('instagram') + '</a><a href="' + C.li + '" target="_blank" rel="noopener" aria-label="LinkedIn">' + svg('linkedin') + '</a></div></div>' +
