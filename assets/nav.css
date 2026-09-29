@@ -63,7 +63,7 @@ footer#siteFooter{background:var(--dark);color:rgba(255,255,255,.7);padding:70px
    de bordes redondeados, separados entre si por lineas verticales; logos mas grandes que antes */
 .foot-allies{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center;padding:28px 0;border-bottom:1px solid var(--dark-line);}
 .foot-allies>span{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);flex:none;}
-.foot-allies-track{display:flex;flex-wrap:wrap;align-items:center;background:#fff;border-radius:18px;overflow:hidden;}
+.foot-allies-track{display:flex;flex-wrap:wrap;align-items:center;flex:1;background:#fff;border-radius:18px;overflow:hidden;}
 .foot-ally{display:flex;align-items:center;padding:12px 26px;border-left:1px solid var(--line);}
 .foot-ally:first-child{border-left:none;}
 .foot-allies img{height:46px;width:auto;object-fit:contain;}
@@ -85,6 +85,7 @@ footer#siteFooter{background:var(--dark);color:rgba(255,255,255,.7);padding:70px
   .foot-grid{grid-template-columns:1fr;}
   .foot-allies{padding:22px 0;}
   .foot-allies>span{width:100%;margin:0 0 4px;}
+  .foot-allies-track{width:100%;flex:none;}
   .foot-ally{padding:9px 16px;}
   .foot-allies img{height:34px;}
 }
