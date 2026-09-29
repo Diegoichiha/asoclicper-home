@@ -191,10 +191,15 @@
   .about-points b{display:block;font-size:14.5px;}
   .about-points span{font-size:13.5px;color:var(--ink-dim);}
 
-  /* ---------- stats panel (scroll-driven light -> violet -> dark) ---------- */
+  /* ---------- stats panel (scroll-driven light -> violet -> dark) ----------
+     Panel a pantalla completa: min-height:100vh + centrado vertical (en vez del padding fijo de
+     110px de una <section> generica) para que las 7 cifras siempre quepan enteras en el viewport,
+     sin cortarse arriba ni abajo. Al llegar arriba queda fijo (pin corto, ver JS) el tiempo justo
+     para leer las cifras y enseguida retoma el scroll normal. */
   .stats-section{
     --panel-bg:#0a0e17; --panel-fg:#f4f8f6; --panel-accent:#4abab7;
     background:var(--panel-bg);color:var(--panel-fg);overflow:hidden;transition:background .05s linear;
+    padding:0;min-height:100vh;display:flex;flex-direction:column;justify-content:center;
   }
   .stats-section h2{color:var(--panel-fg);}
   .stats-section .eyebrow{color:var(--panel-accent);}
@@ -441,6 +446,8 @@
     .cx-layout{grid-template-columns:1fr;}
     .cx-photo{aspect-ratio:16/9;}
     .benefits-sticky{min-height:auto;padding:80px 0;gap:30px;}
+    /* sin pin en movil (ver JS): que el panel vuelva a ser una seccion normal sin forzar el alto */
+    .stats-section{min-height:auto;padding:80px 0;}
     .benefits-viewport{overflow-x:auto;-webkit-overflow-scrolling:touch;}
     .benefits-track{padding:4px 24px 18px;}
     .bcard{width:264px;height:310px;}
@@ -1492,6 +1499,24 @@
     ScrollTrigger.create({
       trigger: panel, start: "top 80%", end: "top top", scrub: true,
       onUpdate: (self) => paintPanel(self.progress, panel)
+    });
+  })();
+
+  /* ---------- stats panel: pausa corta al llegar arriba ----------
+     No es un scroll horizontal como beneficios: el panel simplemente queda fijo un tramo breve
+     (~45% del alto de pantalla) justo al tope, para que se alcancen a leer las cifras, y despues
+     el scroll sigue normal. Se salta en movil (viewport bajo, mejor dejarlo fluir) y con
+     "reducir movimiento" activado. */
+  (function(){
+    const panel = document.getElementById('statsPanel');
+    if(!panel || reduceMotion || window.matchMedia('(max-width:980px)').matches) return;
+    ScrollTrigger.create({
+      trigger: panel,
+      start: 'top top',
+      end: () => '+=' + Math.round(window.innerHeight * 0.45),
+      pin: true,
+      anticipatePin: 1,
+      invalidateOnRefresh: true
     });
   })();
 
