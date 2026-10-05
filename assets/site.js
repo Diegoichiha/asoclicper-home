@@ -140,7 +140,7 @@
     document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeModal(); });
     return modal;
   }
-  function closeModal(){ if(modal){ modal.classList.remove('is-open'); document.documentElement.style.overflow = ''; if(/^#clinica-/.test(location.hash)) history.replaceState(null, '', location.pathname + location.search); } }
+  function closeModal(){ if(modal){ modal.classList.remove('is-open'); document.documentElement.style.overflow = ''; $('.modal-in', modal).innerHTML = ''; if(/^#clinica-/.test(location.hash)) history.replaceState(null, '', location.pathname + location.search); } }
   function openClinic(id){
     const c = window.ASOC.clinics.find(x => x.id === id); if(!c) return;
     const m = getModal();
@@ -150,13 +150,20 @@
     $('.modal-in', m).innerHTML =
       '<div class="md-head"><div class="lg"><img src="' + c.logo + '" alt="' + esc(c.name) + '"></div><div><h3>' + esc(c.name) + '</h3><div class="where">' + ic('map-pin') + esc(c.city) + ', ' + esc(c.dept) + '</div>' +
       '<div class="cc-badges" style="position:static;margin-top:12px;">' + (c.iso ? '<span class="badge iso">' + ic('award') + ' ISO 9001</span>' : '') + (c.intl ? '<span class="badge intl">' + ic('globe') + ' Pacientes internacionales</span>' : '') + '<span class="badge">' + ic('shield-check') + ' Clínica asociada</span></div></div></div>' +
-      '<div class="md-body"><p class="desc">' + esc(c.desc) + '</p><div class="md-facts">' +
+      '<div class="md-body">' + (c.video ? '<div class="md-video" data-id="' + c.video + '" role="button" tabindex="0" aria-label="Reproducir video: ' + esc(c.videoTitle || c.name) + '"><img src="https://img.youtube.com/vi/' + c.video + '/hqdefault.jpg" alt="" loading="lazy"><span class="play">' + ic('play') + '</span><div class="cap">' + esc(c.videoTitle || c.name) + '<small>Video · YouTube</small></div></div>' : '') +
+      '<p class="desc">' + esc(c.desc) + '</p><div class="md-facts">' +
         fact('map-pin', 'Dirección', '<b>' + esc(c.addr) + '</b>') + fact('phone', 'Teléfono', '<b>' + esc(c.phone) + '</b>') +
         fact('mail', 'Correo', c.mail ? link('mailto:' + c.mail, c.mail) : '') + fact('globe', 'Sitio web', c.web ? link(c.web) : '') + fact('users', 'Dirección / gerencia', c.mgr ? '<b>' + esc(c.mgr) + '</b>' : '') +
       '</div>' + (c.services ? '<div class="md-services"><h4>Servicios y capacidad</h4><div class="chips">' + c.services.map(s => '<span class="chip" style="cursor:default">' + esc(s) + '</span>').join('') + '</div></div>' : '') +
       '<div class="md-actions">' + (c.web ? '<a class="btn btn-primary" href="' + esc(c.web) + '" target="_blank" rel="noopener">Visitar sitio web ' + ic('external') + '</a>' : '') +
         (c.wa ? '<a class="btn btn-ghost-dark" href="' + esc(c.wa) + '" target="_blank" rel="noopener">' + ic('whatsapp') + ' WhatsApp internacional</a>' : '') +
         '<a class="btn btn-ghost-dark" href="' + maps + '" target="_blank" rel="noopener">' + ic('map-pin') + ' Cómo llegar</a></div></div>';
+    const mv = $('.md-video', m);
+    if(mv){
+      const play = () => { if(mv.querySelector('iframe')) return; mv.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + mv.dataset.id + '?autoplay=1&rel=0" title="' + esc(c.videoTitle || c.name) + '" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>'; };
+      mv.addEventListener('click', play);
+      mv.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); play(); } });
+    }
     m.classList.add('is-open'); document.documentElement.style.overflow = 'hidden';
     if(location.hash !== '#clinica-' + id) history.replaceState(null, '', '#clinica-' + id);
   }
@@ -179,7 +186,7 @@
     dChips.innerHTML = '<button class="chip is-on" data-v="">Todas <span class="n">' + all.length + '</span></button>' + depts.map(d => '<button class="chip" data-v="' + esc(d) + '">' + esc(d) + ' <span class="n">' + all.filter(c => c.dept === d).length + '</span></button>').join('');
     if(fChips) fChips.innerHTML = '<button class="chip is-on" data-v="">Todas las clínicas</button><button class="chip" data-v="iso">' + ic('award') + ' Certificadas ISO 9001 <span class="n">' + all.filter(c => c.iso).length + '</span></button><button class="chip" data-v="intl">' + ic('globe') + ' Atienden pacientes internacionales <span class="n">' + all.filter(c => c.intl).length + '</span></button>';
     grid.innerHTML = all.map(c =>
-      '<button class="clinic-card rv" data-id="' + c.id + '" data-s="' + esc(norm([c.name, c.city, c.dept].join(' '))) + '"><div class="cc-logo"><img src="' + c.logo + '" alt="' + esc(c.name) + '" loading="lazy"><div class="cc-badges">' + (c.iso ? '<span class="badge iso">ISO 9001</span>' : '') + (c.intl ? '<span class="badge intl">Internacional</span>' : '') + '</div></div>' +
+      '<button class="clinic-card rv" data-id="' + c.id + '" data-s="' + esc(norm([c.name, c.city, c.dept].join(' '))) + '"><div class="cc-logo"><img src="' + c.logo + '" alt="' + esc(c.name) + '" loading="lazy"><div class="cc-badges">' + (c.iso ? '<span class="badge iso">ISO 9001</span>' : '') + (c.intl ? '<span class="badge intl">Internacional</span>' : '') + (c.video ? '<span class="badge vid">' + ic('play') + ' Video</span>' : '') + '</div></div>' +
       '<div class="cc-body"><h3>' + esc(c.name) + '</h3><div class="where">' + ic('map-pin') + esc(c.city) + ', ' + esc(c.dept) + '</div><p>' + esc(c.blurb) + '</p><span class="cc-more">Ver ficha completa ' + ic('arrow-right') + '</span></div></button>').join('') +
       '<div class="empty" hidden>No encontramos clínicas con ese criterio. Prueba con otra ciudad o escríbenos por WhatsApp.</div>';
     const cards = $$('.clinic-card', grid), empty = $('.empty', grid);
