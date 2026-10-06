@@ -74,7 +74,11 @@
   .hero{position:relative;overflow:hidden;height:100vh;min-height:660px;padding:0;background:linear-gradient(180deg,#ffffff 0%,#ffffff 32%,#e6eff8 100%);}
   .hero-mood{position:absolute;inset:0;pointer-events:none;background:radial-gradient(54% 40% at 50% 44%, var(--blue) 0%, transparent 70%);opacity:.12;}
 
-  .hero-field{position:absolute;inset:-12% -6%;filter:blur(48px);opacity:.95;pointer-events:none;}
+  .hero-field{position:absolute;inset:-12% -6%;opacity:.95;pointer-events:none;}
+  /* el desenfoque de 48px sobre toda la capa era lo mas caro de pintar del home (el campo se anima sin parar y
+     el mouse lo desplaza): se dibuja a la mitad de tamano con blur(24px) y se escala x2, que se ve igual
+     pero procesa 1/4 de los pixeles. El GSAP (entrada, giro, parallax) sigue actuando sobre .hero-field. */
+  .hero-field-in{position:absolute;left:25%;top:25%;width:50%;height:50%;transform:scale(2);filter:blur(24px);}
   .hero-blob{position:absolute;display:block;border-radius:50%;mix-blend-mode:multiply;will-change:transform,opacity;}
   .hb1{width:62%;height:108%;top:-14%;left:-16%;background:radial-gradient(58% 100% at 46% 56%, #0b77bd 0%, transparent 70%);animation:auroraA 9s ease-in-out infinite;}
   .hb2{width:66%;height:118%;top:-16%;left:20%;background:radial-gradient(100% 66% at 52% 48%, #2e53a1 0%, transparent 68%);animation:auroraB 11.5s ease-in-out infinite;}
@@ -86,9 +90,12 @@
   @keyframes auroraC{0%{transform:rotate(0) scale(.78) translate3d(0,0,0);opacity:.5}30%{transform:rotate(-24deg) scale(1.52) translate3d(-6%,-4%,0);opacity:.95}65%{transform:rotate(27deg) scale(.86) translate3d(5%,4%,0);opacity:.45}100%{transform:rotate(0) scale(.78) translate3d(0,0,0);opacity:.5}}
   @keyframes auroraD{0%{transform:rotate(0) scale(1.2) translate3d(0,0,0);opacity:.8}45%{transform:rotate(21deg) scale(.66) translate3d(4%,5%,0);opacity:.34}75%{transform:rotate(-26deg) scale(1.32) translate3d(-5%,-3%,0);opacity:.95}100%{transform:rotate(0) scale(1.2) translate3d(0,0,0);opacity:.8}}
 
-  .hero-ripples{position:absolute;inset:0;filter:blur(26px);mix-blend-mode:multiply;pointer-events:none;z-index:1;}
+  /* ondas: misma tecnica a media resolucion (JS divide las coordenadas entre 2); el glow que sigue al
+     mouse va en su propia capa SIN blur (ya es un degradado suave) para no re-pintar el blur en cada movimiento */
+  .hero-ripples{position:absolute;left:0;top:0;width:50%;height:50%;transform:scale(2);transform-origin:0 0;filter:blur(13px);mix-blend-mode:multiply;pointer-events:none;z-index:1;}
+  .hero-glow-layer{position:absolute;inset:0;mix-blend-mode:multiply;pointer-events:none;z-index:1;}
   .hero-cursor-glow{position:absolute;width:540px;height:540px;border-radius:50%;left:0;top:0;opacity:0;background:radial-gradient(circle, rgba(11,119,189,.40) 0%, rgba(74,186,183,.22) 44%, transparent 72%);}
-  .hero-ripple{position:absolute;width:460px;height:460px;border-radius:50%;left:0;top:0;opacity:0;background:radial-gradient(circle, transparent 0%, transparent 36%, rgba(74,186,183,.46) 58%, transparent 80%);}
+  .hero-ripple{position:absolute;width:230px;height:230px;border-radius:50%;left:0;top:0;opacity:0;background:radial-gradient(circle, transparent 0%, transparent 36%, rgba(74,186,183,.46) 58%, transparent 80%);}
 
   /* velo de legibilidad: mantiene el texto legible sobre el campo de color */
   .hero-scrim{position:absolute;inset:0;pointer-events:none;z-index:1;
@@ -423,15 +430,19 @@
   /* color solido de marca + halo blanco en vez de mix-blend-mode:difference: con un color
      casi negro, "difference" sobre fondos claros da un resultado casi blanco y el cursor
      desaparecia justo donde mas se necesitaba verlo. */
+  /* la posicion la escribe JS en cada frame con transform:translate3d (compuesta en GPU, sin layout);
+     por eso no hay transition de posicion ni left/top. Ocultos hasta el primer movimiento del mouse
+     (en pantallas tactiles nunca se muestran: antes quedaba el aro suelto en la esquina). */
   .cursor-dot{position:fixed;top:0;left:0;width:9px;height:9px;border-radius:50%;
     background:linear-gradient(135deg,var(--blue),var(--teal));
     box-shadow:0 0 0 2px rgba(255,255,255,.9),0 2px 10px rgba(11,119,189,.4);
-    z-index:300;pointer-events:none;transform:translate(-50%,-50%);}
+    z-index:300;pointer-events:none;will-change:transform;opacity:0;transition:opacity .2s;}
   .cursor-ring{position:fixed;top:0;left:0;width:36px;height:36px;border-radius:50%;
     border:1.5px solid var(--blue);
     box-shadow:0 0 0 1px rgba(255,255,255,.85);
-    z-index:300;pointer-events:none;transform:translate(-50%,-50%);
+    z-index:300;pointer-events:none;will-change:transform;opacity:0;
     transition:width .3s cubic-bezier(.16,1,.3,1),height .3s cubic-bezier(.16,1,.3,1),opacity .3s,border-color .3s,background .3s;}
+  html.cursor-live .cursor-dot,html.cursor-live .cursor-ring{opacity:1;}
   .cursor-ring.is-hover{width:66px;height:66px;border-color:var(--teal);background:rgba(11,119,189,.1);}
   .cursor-ring.is-down{width:26px;height:26px;}
 
@@ -477,16 +488,15 @@
   <!-- HERO -->
   <section class="hero" id="heroSection">
     <div class="hero-mood"></div>
-    <div class="hero-field">
+    <div class="hero-field"><div class="hero-field-in">
       <span class="hero-blob hb1"></span>
       <span class="hero-blob hb2"></span>
       <span class="hero-blob hb3"></span>
       <span class="hero-blob hb4"></span>
       <span class="hero-blob hb5"></span>
-    </div>
-    <div class="hero-ripples" id="heroRipples">
-      <span class="hero-cursor-glow" id="heroCursorGlow"></span>
-    </div>
+    </div></div>
+    <div class="hero-glow-layer"><span class="hero-cursor-glow" id="heroCursorGlow"></span></div>
+    <div class="hero-ripples" id="heroRipples"></div>
     <div class="hero-scrim"></div>
     <div class="hero-gridlines"></div>
     <div class="hero-portal"></div>
@@ -1083,14 +1093,27 @@
     document.documentElement.classList.add('has-cursor');
     const dot = document.getElementById('cursorDot');
     const ring = document.getElementById('cursorRing');
-    const ringX = gsap.quickTo(ring, 'x', {duration:.5, ease:'power3.out'});
-    const ringY = gsap.quickTo(ring, 'y', {duration:.5, ease:'power3.out'});
-    const dotX = gsap.quickTo(dot, 'x', {duration:.08, ease:'none'});
-    const dotY = gsap.quickTo(dot, 'y', {duration:.08, ease:'none'});
+    /* Sin GSAP en el cursor: quickTo metia una curva de tiempo (.08s en el punto y .5s en el aro) mas un
+       cuadro de retraso, y eso se sentia como input lag. Ahora el punto se coloca en el mismo evento del
+       mouse (queda pegado al puntero) y el aro lo sigue con un suavizado corto calculado por tiempo
+       (45ms: independiente de los fps). Solo transform; el bucle se apaga cuando el aro ya alcanzo al punto. */
+    let tx = 0, ty = 0, rx = 0, ry = 0, live = false, running = false, last = 0;
+    const place = (el, x, y) => { el.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) translate(-50%,-50%)'; };
+    function tick(now){
+      const dt = Math.max(1, Math.min(50, now - last)); last = now;
+      const k = 1 - Math.exp(-dt / 45);
+      rx += (tx - rx) * k; ry += (ty - ry) * k;
+      if(Math.abs(tx - rx) < .15 && Math.abs(ty - ry) < .15){ rx = tx; ry = ty; running = false; }
+      place(ring, rx, ry);
+      if(running) requestAnimationFrame(tick);
+    }
     window.addEventListener('mousemove', (e)=>{
-      dotX(e.clientX); dotY(e.clientY);
-      ringX(e.clientX); ringY(e.clientY);
-    });
+      tx = e.clientX; ty = e.clientY;
+      place(dot, tx, ty);
+      if(!live){ live = true; rx = tx; ry = ty; place(ring, rx, ry); document.documentElement.classList.add('cursor-live'); }
+      if(!running){ running = true; last = performance.now(); requestAnimationFrame(tick); }
+    }, {passive:true});
+    document.documentElement.addEventListener('mouseleave', ()=>{ live = false; document.documentElement.classList.remove('cursor-live'); });
     document.addEventListener('mousedown', ()=> ring.classList.add('is-down'));
     document.addEventListener('mouseup', ()=> ring.classList.remove('is-down'));
     document.querySelectorAll('a, button, .spec-card, .orbit-chip, .bcard, .cx-row').forEach(el=>{
@@ -1108,29 +1131,36 @@
     const fieldX = gsap.quickTo('.hero-field', 'x', {duration:1.4, ease:'power3.out'});
     const fieldY = gsap.quickTo('.hero-field', 'y', {duration:1.4, ease:'power3.out'});
 
-    let lastRipple = 0;
-    heroSection.addEventListener('mousemove', (e)=>{
+    /* el evento solo guarda la posicion; el calculo (rect, glow, parallax, ondas) se hace una vez por frame.
+       Antes cada mousemove leia el rect (layout) y creaba un tween de opacidad nuevo. */
+    let lastRipple = 0, hx = 0, hy = 0, hPending = false, glowOn = false;
+    function heroMove(){
+      hPending = false;
       const r = heroSection.getBoundingClientRect();
-      const x = e.clientX - r.left, y = e.clientY - r.top;
+      const x = hx - r.left, y = hy - r.top;
       glowX(x); glowY(y);
-      gsap.to(glow, {opacity:1, duration:.45, overwrite:'auto'});
 
       // el campo de color se desplaza con el mouse
       fieldX(((x / r.width) - .5) * 70);
       fieldY(((y / r.height) - .5) * 45);
 
-      // ondas que se expanden desde el cursor
+      // ondas que se expanden desde el cursor (la capa esta a media resolucion: coordenadas / 2)
       const now = performance.now();
       if(now - lastRipple > 430){
         lastRipple = now;
         const rip = document.createElement('span');
         rip.className = 'hero-ripple';
         ripplesLayer.appendChild(rip);
-        gsap.set(rip, {x, y, xPercent:-50, yPercent:-50, scale:.16, opacity:.9});
+        gsap.set(rip, {x:x / 2, y:y / 2, xPercent:-50, yPercent:-50, scale:.16, opacity:.9});
         gsap.to(rip, {scale:1.55, opacity:0, duration:2.3, ease:'power2.out', onComplete:()=>rip.remove()});
       }
-    });
-    heroSection.addEventListener('mouseleave', ()=> gsap.to(glow, {opacity:0, duration:.7}));
+    }
+    heroSection.addEventListener('mousemove', (e)=>{
+      hx = e.clientX; hy = e.clientY;
+      if(!glowOn){ glowOn = true; gsap.to(glow, {opacity:1, duration:.45, overwrite:'auto'}); }
+      if(!hPending){ hPending = true; requestAnimationFrame(heroMove); }
+    }, {passive:true});
+    heroSection.addEventListener('mouseleave', ()=>{ glowOn = false; gsap.to(glow, {opacity:0, duration:.7, overwrite:'auto'}); });
 
     /* magnetic buttons */
     document.querySelectorAll('.btn-primary, .btn-dark').forEach(btn=>{
@@ -1139,9 +1169,9 @@
         const r = btn.getBoundingClientRect();
         const mx = e.clientX - r.left - r.width/2;
         const my = e.clientY - r.top - r.height/2;
-        gsap.to(btn, {x:mx*.35, y:my*.5, duration:.4, ease:'power3.out'});
+        gsap.to(btn, {x:mx*.35, y:my*.5, duration:.4, ease:'power3.out', overwrite:'auto'});
       });
-      btn.addEventListener('mouseleave', ()=> gsap.to(btn, {x:0, y:0, duration:.5, ease:'elastic.out(1,.4)'}));
+      btn.addEventListener('mouseleave', ()=> gsap.to(btn, {x:0, y:0, duration:.5, ease:'elastic.out(1,.4)', overwrite:'auto'}));
     });
 
     /* tilt en la foto de cada slide */
@@ -1152,7 +1182,7 @@
         const r = wrap.getBoundingClientRect();
         const px = (e.clientX - r.left)/r.width - .5;
         const py = (e.clientY - r.top)/r.height - .5;
-        gsap.to(photo, {rotateY: px*10, rotateX: -py*10, duration:.5, ease:'power3.out', transformPerspective:900});
+        gsap.to(photo, {rotateY: px*10, rotateX: -py*10, duration:.5, ease:'power3.out', transformPerspective:900, overwrite:'auto'});
       });
       wrap.addEventListener('mouseleave', ()=> gsap.to(photo, {rotateY:0, rotateX:0, duration:.6, ease:'power3.out'}));
     });
@@ -1164,7 +1194,7 @@
      corre el mismo material desfasado en el tiempo. Ademas el avance del scroll horizontal
      de las cards empuja el tiempo del shader, asi la nebulosa evoluciona al recorrer la seccion. */
   function initNebula(canvasId, opts = {}) {
-    const { timeOffset = 0, minWidth = 0, hue = 0 } = opts;
+    const { timeOffset = 0, minWidth = 0, hue = 0, scale = 1 } = opts;
     const canvas = document.getElementById(canvasId);
     if(!canvas) return null;
     if(minWidth && !window.matchMedia('(min-width:' + minWidth + 'px)').matches) return null;
@@ -1276,29 +1306,38 @@
     const uHue = gl.getUniformLocation(prog, "iHue");
 
     // el desplazamiento sigue a la mano con un poco de retraso; amt sube cerca del canvas y decae al salir
-    const ptr = { x: -9999, y: -9999, amt: 0 };
+    // Antes cada mousemove de TODA la pagina leia el rect del canvas (layout) y creaba tweens de GSAP, incluso con la
+    // seccion fuera de pantalla. Ahora el evento solo guarda la posicion y el suavizado se calcula dentro de frame(),
+    // que solo corre cuando el canvas esta a la vista.
+    const ptr = { x: -9999, y: -9999, amt: 0 }, tgt = { x: -9999, y: -9999, amt: 0 };
+    let mouseX = 0, mouseY = 0, mouseMoved = false;
     if(fine){
-      const easeX = gsap.quickTo(ptr, 'x', { duration: .45, ease: 'power3.out' });
-      const easeY = gsap.quickTo(ptr, 'y', { duration: .45, ease: 'power3.out' });
-      window.addEventListener('mousemove', (e) => {
+      window.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; mouseMoved = true; }, { passive: true });
+    }
+    function updatePointer(){
+      if(mouseMoved){
+        mouseMoved = false;
         const r = canvas.getBoundingClientRect();
-        if(!r.width || !r.height) return;
-        const px = ((e.clientX - r.left) / r.width) * canvas.width;
-        const py = ((r.bottom - e.clientY) / r.height) * canvas.height;
-        const pad = .3;
-        const near = e.clientX > r.left - r.width*pad && e.clientX < r.right + r.width*pad &&
-                     e.clientY > r.top - r.height*pad && e.clientY < r.bottom + r.height*pad;
-        if(ptr.amt < .01) gsap.set(ptr, { x: px, y: py });
-        easeX(px); easeY(py);
-        gsap.to(ptr, { amt: near ? 1 : 0, duration: near ? .3 : .9, ease: 'power2.out', overwrite: 'auto' });
-      });
+        if(r.width && r.height){
+          tgt.x = ((mouseX - r.left) / r.width) * canvas.width;
+          tgt.y = ((r.bottom - mouseY) / r.height) * canvas.height;
+          const pad = .3;
+          const near = mouseX > r.left - r.width*pad && mouseX < r.right + r.width*pad &&
+                       mouseY > r.top - r.height*pad && mouseY < r.bottom + r.height*pad;
+          if(ptr.amt < .01){ ptr.x = tgt.x; ptr.y = tgt.y; }
+          tgt.amt = near ? 1 : 0;
+        }
+      }
+      ptr.x += (tgt.x - ptr.x) * .14; ptr.y += (tgt.y - ptr.y) * .14;
+      ptr.amt += (tgt.amt - ptr.amt) * (tgt.amt > ptr.amt ? .2 : .07);
     }
 
-    // tope de DPR: es un ray-march por pixel, en pantallas 2x costaria el cuadruple
-    const DPR_CAP = window.matchMedia('(max-width:767px)').matches ? 1 : 1.5;
+    // es un ray-march por pixel: se limita el DPR y, ademas, el canvas grande se dibuja a una fraccion de la
+    // resolucion (la nebulosa es suave, el escalado no se nota) -> ~2-3x menos trabajo de GPU por frame
+    const DPR_CAP = window.matchMedia('(max-width:767px)').matches ? 1 : 1.25;
     let drawn = false, scrollSm = 0, onScreen = true;
     function resize() {
-      const dpr = Math.min(window.devicePixelRatio || 1, DPR_CAP);
+      const dpr = Math.min(window.devicePixelRatio || 1, DPR_CAP) * scale;
       const w = Math.max(1, Math.round(canvas.clientWidth * dpr));
       const h = Math.max(1, Math.round(canvas.clientHeight * dpr));
       if (canvas.width === w && canvas.height === h) return;
@@ -1316,10 +1355,11 @@
     const start = performance.now();
     function frame() {
       requestAnimationFrame(frame);
-      if(!onScreen) return;
+      if(!onScreen || document.hidden) return;
       resize();
       // con movimiento reducido se dibuja un solo cuadro estatico
       if(reduceMotion && drawn) return;
+      updatePointer();
       scrollSm += ((window.asocBenefitsProgress || 0) - scrollSm) * 0.08;
       gl.uniform1f(uTime, reduceMotion ? 6.0 + timeOffset : (performance.now() - start) / 1000 + timeOffset + scrollSm * 14);
       gl.uniform2f(uMouse, ptr.x, ptr.y);
@@ -1330,7 +1370,7 @@
     }
     requestAnimationFrame(frame);
   }
-  initNebula("benefitsNebulaShader");
+  initNebula("benefitsNebulaShader", { scale: .7 });
   initNebula("benefitsOrbCanvas", { timeOffset: 37, minWidth: 1024, hue: 0.12 });
 
   /* ---------- orbit: arco eliptico giratorio de clinicas sobre el hub ---------- */

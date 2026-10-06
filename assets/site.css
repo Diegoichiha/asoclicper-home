@@ -327,8 +327,9 @@ section{position:relative;padding:110px 0;}
 
 /* cursor */
 html.has-cursor,html.has-cursor a,html.has-cursor button{cursor:none;}
-.cursor-dot{position:fixed;top:0;left:0;width:9px;height:9px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--teal));box-shadow:0 0 0 2px rgba(255,255,255,.9),0 2px 10px rgba(11,119,189,.4);z-index:300;pointer-events:none;transform:translate(-50%,-50%);}
-.cursor-ring{position:fixed;top:0;left:0;width:36px;height:36px;border-radius:50%;border:1.5px solid var(--blue);box-shadow:0 0 0 1px rgba(255,255,255,.85);z-index:300;pointer-events:none;transform:translate(-50%,-50%);transition:width .3s var(--ease),height .3s var(--ease),border-color .3s,background .3s;}
+.cursor-dot{position:fixed;top:0;left:0;width:9px;height:9px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--teal));box-shadow:0 0 0 2px rgba(255,255,255,.9),0 2px 10px rgba(11,119,189,.4);z-index:300;pointer-events:none;will-change:transform;opacity:0;transition:opacity .2s;}
+.cursor-ring{position:fixed;top:0;left:0;width:36px;height:36px;border-radius:50%;border:1.5px solid var(--blue);box-shadow:0 0 0 1px rgba(255,255,255,.85);z-index:300;pointer-events:none;will-change:transform;opacity:0;transition:width .3s var(--ease),height .3s var(--ease),opacity .3s,border-color .3s,background .3s;}
+html.cursor-live .cursor-dot,html.cursor-live .cursor-ring{opacity:1;}
 .cursor-ring.is-hover{width:66px;height:66px;border-color:var(--teal);background:rgba(11,119,189,.1);}
 .cursor-ring.is-down{width:26px;height:26px;}
 

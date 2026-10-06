@@ -50,9 +50,25 @@
     const dot = document.createElement('div'); dot.className = 'cursor-dot';
     const ring = document.createElement('div'); ring.className = 'cursor-ring';
     document.body.append(dot, ring);
-    let mx = -100, my = -100, rx = -100, ry = -100;
-    window.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; dot.style.left = mx + 'px'; dot.style.top = my + 'px'; }, {passive:true});
-    (function loop(){ rx += (mx - rx) * .2; ry += (my - ry) * .2; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(loop); })();
+    /* el punto se coloca en el mismo evento del mouse y el aro lo sigue con un suavizado corto por tiempo (45ms);
+       antes se movian con left/top (layout en cada frame) y el aro con un lerp por frame que no paraba nunca */
+    let tx = 0, ty = 0, rx = 0, ry = 0, live = false, running = false, last = 0;
+    const place = (el, x, y) => { el.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) translate(-50%,-50%)'; };
+    function tick(now){
+      const dt = Math.max(1, Math.min(50, now - last)); last = now;
+      const k = 1 - Math.exp(-dt / 45);
+      rx += (tx - rx) * k; ry += (ty - ry) * k;
+      if(Math.abs(tx - rx) < .15 && Math.abs(ty - ry) < .15){ rx = tx; ry = ty; running = false; }
+      place(ring, rx, ry);
+      if(running) requestAnimationFrame(tick);
+    }
+    window.addEventListener('mousemove', (e) => {
+      tx = e.clientX; ty = e.clientY;
+      place(dot, tx, ty);
+      if(!live){ live = true; rx = tx; ry = ty; place(ring, rx, ry); document.documentElement.classList.add('cursor-live'); }
+      if(!running){ running = true; last = performance.now(); requestAnimationFrame(tick); }
+    }, {passive:true});
+    document.documentElement.addEventListener('mouseleave', () => { live = false; document.documentElement.classList.remove('cursor-live'); });
     document.addEventListener('mousedown', () => ring.classList.add('is-down'));
     document.addEventListener('mouseup', () => ring.classList.remove('is-down'));
     const HOVER = 'a,button,input,select,textarea,label.check,.chip,.tab,.clinic-card,.acc-head,.vf-opt,.card,.spot';
