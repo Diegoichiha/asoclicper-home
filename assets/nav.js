@@ -72,6 +72,42 @@
     { k:'noticias', t:'Noticias', href:'noticias.html' }
   ];
   window.ASOC_NAV = NAV;
+  /* ---------- selector de idioma (solo la interfaz por ahora) ----------
+     Espanol (Colombia) es el unico idioma activo. "English (US)" ya esta en el menu pero todavia no hay version en ingles:
+     al elegirlo se muestra un aviso. Cuando exista, basta con poner la ruta real en href de cada [data-lang]. */
+  const LANGS = [
+    { code:'ES', lang:'es-CO', name:'Español', sub:'Colombia', on:true },
+    { code:'EN', lang:'en-US', name:'English', sub:'United States · Próximamente', on:false }
+  ];
+  const langMenu = () => LANGS.map(l =>
+    '<a role="menuitem" class="lang-opt' + (l.on ? ' is-on' : '') + '" href="#" data-lang="' + l.lang + '" lang="' + l.lang + '" hreflang="' + l.lang + '"' + (l.on ? ' aria-current="true"' : '') + '>' +
+      '<span class="lc">' + l.code + '</span><span class="lt"><b>' + l.name + '</b><small>' + l.sub + '</small></span>' +
+      (l.on ? '<svg class="lk" viewBox="0 0 24 24">' + ICONS.check + '</svg>' : '') + '</a>').join('');
+  const langHTML = (cls) =>
+    '<div class="lang ' + (cls || '') + '">' +
+      '<button class="lang-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Cambiar idioma. Idioma actual: Español">' +
+        '<span class="lg-ico">' + svg('globe') + '</span><span class="lg-code">ES</span><svg class="caret" viewBox="0 0 24 24">' + ICONS.chevron + '</svg></button>' +
+      '<div class="lang-menu" role="menu" aria-label="Idioma">' + langMenu() + '</div>' +
+    '</div>';
+  let langToast, langToastT;
+  function showLangNotice(){
+    if(!langToast){
+      langToast = document.createElement('div'); langToast.className = 'lang-toast'; langToast.setAttribute('role', 'status'); langToast.setAttribute('aria-live', 'polite');
+      langToast.innerHTML = '<span class="lt-ico">' + svg('globe') + '</span><span><b>English (US)</b> · La versión en inglés estará disponible próximamente.</span>';
+      document.body.appendChild(langToast);
+    }
+    langToast.classList.add('is-on'); clearTimeout(langToastT); langToastT = setTimeout(() => langToast.classList.remove('is-on'), 4200);
+  }
+  const closeLangs = (except) => document.querySelectorAll('.lang.is-open').forEach(el => { if(el !== except){ el.classList.remove('is-open'); const b = el.querySelector('.lang-btn'); if(b) b.setAttribute('aria-expanded', 'false'); } });
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.lang-btn');
+    if(btn){ const box = btn.closest('.lang'), on = !box.classList.contains('is-open'); closeLangs(box); box.classList.toggle('is-open', on); btn.setAttribute('aria-expanded', on ? 'true' : 'false'); return; }
+    const opt = e.target.closest('[data-lang]');
+    if(opt){ e.preventDefault(); closeLangs(); if(opt.dataset.lang === 'en-US') showLangNotice(); return; }
+    closeLangs();
+  });
+  document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeLangs(); });
+
   const page = document.body.dataset.page || 'index';
   const isActive = (it) => it.k === page || (it.keys && it.keys.indexOf(page) > -1);
 
@@ -86,10 +122,11 @@
             (it.sub ? '<div class="nav-drop">' + it.sub.map(s => '<a href="' + s.href + '"><span class="di">' + ni(s.i) + '</span><span><b>' + s.t + '</b><small>' + s.d + '</small></span></a>').join('') + '</div>' : '') +
           '</div>').join('') + '</nav>' +
         '<div class="navcta">' +
+          langHTML() +
           '<a class="btn btn-ghost-dark" href="contacto.html">Contacto</a>' +
           '<a class="btn btn-primary" href="ser-asociado.html">Ser Asociado</a>' +
         '</div>' +
-        '<button class="burger" id="burger" aria-label="Abrir menú"><span></span></button>' +
+        '<div class="hdr-m">' + langHTML('lang--m') + '<button class="burger" id="burger" aria-label="Abrir menú"><span></span></button></div>' +
       '</div>';
   }
 
@@ -105,6 +142,7 @@
         ? '<details><summary>' + it.t + '<svg class="caret" viewBox="0 0 24 24">' + ICONS.chevron + '</svg></summary><div class="d-sub"><a href="' + it.href + '">Ver sección</a>' + it.sub.map(s => '<a href="' + s.href + '">' + s.t + '</a>').join('') + '</div></details>'
         : '<a class="d-link" href="' + it.href + '">' + it.t + '</a>').join('') +
       '<a class="d-link" href="contacto.html">Contacto</a>' +
+      '<div class="d-lang"><span>Idioma</span><div>' + LANGS.map(l => '<a href="#" data-lang="' + l.lang + '" lang="' + l.lang + '" hreflang="' + l.lang + '"' + (l.on ? ' class="is-on" aria-current="true"' : '') + '>' + l.code + ' · ' + l.name + (l.on ? '' : ' (US)') + '</a>').join('') + '</div></div>' +
       '<div class="d-cta"><a class="btn btn-primary" href="ser-asociado.html">Ser Asociado</a></div>';
     document.body.appendChild(drawer);
     drawer.querySelector('.drawer-close').addEventListener('click', () => drawer.classList.remove('is-open'));

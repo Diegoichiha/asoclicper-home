@@ -40,6 +40,14 @@ html.mega-lock{overflow:hidden;}
 .mega-top .mega-logo img{height:52px;width:auto;display:block;}
 .mega-top-r{display:flex;align-items:center;gap:12px;}
 .mega-top-r .btn{padding:11px 20px;font-size:13px;}
+/* selector de idioma del mega menu: ES activo; EN muestra el aviso de "proximamente" (ver nav.js) */
+.m-lang{display:flex;align-items:center;gap:4px;padding:4px 4px 4px 12px;border-radius:100px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.07);}
+.m-lang .gl{display:inline-flex;width:16px;height:16px;color:var(--teal);margin-right:4px;}
+.m-lang .gl svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.m-lang a{padding:8px 14px;border-radius:100px;font:700 12px 'Inter',sans-serif;letter-spacing:.07em;color:rgba(255,255,255,.72);transition:background .3s,color .3s;}
+.m-lang a:hover{background:rgba(255,255,255,.14);color:#fff;}
+.m-lang a.is-on{background:#fff;color:var(--ink);}
+.m-lang a:focus-visible{outline:2px solid var(--teal);outline-offset:2px;}
 .mega-top-r .btn-ghost{background:rgba(255,255,255,.07);}
 .mega-close{width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .5s var(--ease),background .3s,border-color .3s;}
 .mega-close svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;}

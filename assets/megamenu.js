@@ -62,7 +62,11 @@
     '<div class="mega-bg" aria-hidden="true"><span class="mb1"></span><span class="mb2"></span><span class="mb3"></span><span class="mb4"></span><span class="mg"></span></div>' +
     '<div class="wrap mega-top">' +
       '<a class="mega-logo" href="index.html"><img src="images/logo-blanco.svg" alt="Asoclicper"></a>' +
-      '<div class="mega-top-r"><a class="btn btn-ghost" href="contacto.html">Contacto</a><a class="btn btn-primary" href="ser-asociado.html">Ser Asociado</a>' +
+      '<div class="mega-top-r">' +
+        '<div class="m-lang" role="group" aria-label="Idioma"><span class="gl" aria-hidden="true">' + svg('globe') + '</span>' +
+          '<a class="is-on" href="#" data-lang="es-CO" lang="es-CO" hreflang="es-CO" aria-current="true" title="Español (Colombia)">ES</a>' +
+          '<a href="#" data-lang="en-US" lang="en-US" hreflang="en-US" title="English (US) · próximamente">EN</a></div>' +
+        '<a class="btn btn-ghost" href="contacto.html">Contacto</a><a class="btn btn-primary" href="ser-asociado.html">Ser Asociado</a>' +
         '<button class="mega-close" id="megaClose" type="button" aria-label="Cerrar menú"><svg viewBox="0 0 24 24">' + ICONS.x + '</svg></button></div>' +
     '</div>' +
     '<div class="wrap mega-body">' +
@@ -124,7 +128,7 @@
   toggle.addEventListener('click', openMenu);
   closeBtn.addEventListener('click', closeMenu);
   // al elegir un enlace de la misma pagina (ancla) se cierra; los demas navegan
-  mega.addEventListener('click', (e) => { const a = e.target.closest('a[href]'); if(a && !e.defaultPrevented){ const h = a.getAttribute('href'); if(h.charAt(0) === '#' || /^(mailto|tel):/.test(h)) closeMenu(); } });
+  mega.addEventListener('click', (e) => { const a = e.target.closest('a[href]'); if(a && !a.dataset.lang && !e.defaultPrevented){ const h = a.getAttribute('href'); if(h.charAt(0) === '#' || /^(mailto|tel):/.test(h)) closeMenu(); } });
   document.addEventListener('keydown', (e) => {
     if(!open) return;
     if(e.key === 'Escape'){ closeMenu(); return; }
