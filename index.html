@@ -384,7 +384,7 @@
   .bcard.is-flipped .bcard-inner,.bcard:focus-visible .bcard-inner{transform:rotateY(180deg);}
   .bcard-face{position:absolute;inset:0;border-radius:26px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;}
   .bcard-front{border:1px solid rgba(255,255,255,.16);box-shadow:0 34px 60px -34px rgba(0,0,0,.65);background:#1a1230;}
-  .bcard-bg{position:absolute;inset:0;background-image:var(--bimg);background-size:cover;background-position:center;}
+  .bcard-bg{position:absolute;inset:0;background-image:var(--bimg);background-size:cover;background-position:var(--bpos,center);}
   .bcard-shade{position:absolute;left:0;right:0;bottom:0;height:36%;
     background:linear-gradient(0deg, color-mix(in srgb, var(--btint) 34%, #05070c) 0%, rgba(6,8,13,.8) 46%, rgba(6,8,13,0) 100%);}
   .bcard-body{position:absolute;left:0;right:0;bottom:0;padding:0 26px 24px;display:flex;flex-direction:column;align-items:flex-start;gap:9px;}
@@ -788,63 +788,63 @@
       </div>
       <div class="benefits-viewport">
         <div class="benefits-track" id="benefitsTrack">
-          <article class="bcard" tabindex="0" style="--bimg:url('images/clinic-interior.jpg');--btint:var(--blue)">
+          <article class="bcard" tabindex="0" style="--bimg:url('images/benef-1.webp');--bpos:50% 75%;--btint:var(--blue)">
             <div class="bcard-inner">
               <div class="bcard-face bcard-front"><div class="bcard-bg"></div><div class="bcard-shade"></div>
                 <div class="bcard-body"><div class="bcard-icon-wrap"><img src="images/b-economia.png" alt=""></div><h3>Economía conjunta</h3></div></div>
               <div class="bcard-face bcard-back"><div class="bcard-icon-wrap"><img src="images/b-economia.png" alt=""></div><h3>Economía conjunta</h3><p>Accede a programas de ahorro en costos aprovechando el poder de la asociación.</p></div>
             </div>
           </article>
-          <article class="bcard" tabindex="0" style="--bimg:url('images/doc-hero.jpg');--btint:var(--teal)">
+          <article class="bcard" tabindex="0" style="--bimg:url('images/benef-2.webp');--bpos:50% 18%;--btint:var(--teal)">
             <div class="bcard-inner">
               <div class="bcard-face bcard-front"><div class="bcard-bg"></div><div class="bcard-shade"></div>
                 <div class="bcard-body"><div class="bcard-icon-wrap"><img src="images/b-confianza.png" alt=""></div><h3>Reputación y confianza</h3></div></div>
               <div class="bcard-face bcard-back"><div class="bcard-icon-wrap"><img src="images/b-confianza.png" alt=""></div><h3>Reputación y confianza</h3><p>Aumenta la reputación de tu clínica y genera confianza en tus pacientes al ser parte de una asociación reconocida.</p></div>
             </div>
           </article>
-          <article class="bcard" tabindex="0" style="--bimg:url('images/doc-female1.jpg');--btint:var(--indigo)">
+          <article class="bcard" tabindex="0" style="--bimg:url('images/benef-3.webp');--bpos:48% 50%;--btint:var(--indigo)">
             <div class="bcard-inner">
               <div class="bcard-face bcard-front"><div class="bcard-bg"></div><div class="bcard-shade"></div>
                 <div class="bcard-body"><div class="bcard-icon-wrap"><img src="images/b-networking.png" alt=""></div><h3>Networking</h3></div></div>
               <div class="bcard-face bcard-back"><div class="bcard-icon-wrap"><img src="images/b-networking.png" alt=""></div><h3>Networking</h3><p>Establece relaciones con profesionales y directivos del sector para colaborar y crecer juntos.</p></div>
             </div>
           </article>
-          <article class="bcard" tabindex="0" style="--bimg:url('images/doc-male2.jpg');--btint:var(--magenta)">
+          <article class="bcard" tabindex="0" style="--bimg:url('images/benef-4.webp');--bpos:50% 20%;--btint:var(--magenta)">
             <div class="bcard-inner">
               <div class="bcard-face bcard-front"><div class="bcard-bg"></div><div class="bcard-shade"></div>
                 <div class="bcard-body"><div class="bcard-icon-wrap"><img src="images/b-crisis.png" alt=""></div><h3>Crisis del sector</h3></div></div>
               <div class="bcard-face bcard-back"><div class="bcard-icon-wrap"><img src="images/b-crisis.png" alt=""></div><h3>Crisis del sector</h3><p>Ten una voz oficial que te represente ante las autoridades, entes de control y demás participantes del sector.</p></div>
             </div>
           </article>
-          <article class="bcard" tabindex="0" style="--bimg:url('images/doc-female2.jpg');--btint:var(--purple)">
+          <article class="bcard" tabindex="0" style="--bimg:url('images/benef-5.webp');--bpos:62% 20%;--btint:var(--purple)">
             <div class="bcard-inner">
               <div class="bcard-face bcard-front"><div class="bcard-bg"></div><div class="bcard-shade"></div>
                 <div class="bcard-body"><div class="bcard-icon-wrap"><img src="images/b-gobierno.png" alt=""></div><h3>Gobierno corporativo</h3></div></div>
               <div class="bcard-face bcard-back"><div class="bcard-icon-wrap"><img src="images/b-gobierno.png" alt=""></div><h3>Gobierno corporativo</h3><p>Adhiérete a normativas de conducta y buenas prácticas que rigen la asociación.</p></div>
             </div>
           </article>
-          <article class="bcard" tabindex="0" style="--bimg:url('images/patient-glow.jpg');--btint:var(--lime)">
+          <article class="bcard" tabindex="0" style="--bimg:url('images/benef-6.webp');--bpos:30% 25%;--btint:var(--lime)">
             <div class="bcard-inner">
               <div class="bcard-face bcard-front"><div class="bcard-bg"></div><div class="bcard-shade"></div>
                 <div class="bcard-body"><div class="bcard-icon-wrap"><img src="images/b-asociado.png" alt=""></div><h3>Acompañamiento al asociado</h3></div></div>
               <div class="bcard-face bcard-back"><div class="bcard-icon-wrap"><img src="images/b-asociado.png" alt=""></div><h3>Acompañamiento al asociado</h3><p>Conexión cercana para atender tus necesidades y experiencias.</p></div>
             </div>
           </article>
-          <article class="bcard" tabindex="0" style="--bimg:url('images/serum-closeup.jpg');--btint:var(--blue)">
+          <article class="bcard" tabindex="0" style="--bimg:url('images/benef-7.webp');--bpos:50% 30%;--btint:var(--blue)">
             <div class="bcard-inner">
               <div class="bcard-face bcard-front"><div class="bcard-bg"></div><div class="bcard-shade"></div>
                 <div class="bcard-body"><div class="bcard-icon-wrap"><img src="images/b-asesoria.png" alt=""></div><h3>Asesoría técnica en calidad</h3></div></div>
               <div class="bcard-face bcard-back"><div class="bcard-icon-wrap"><img src="images/b-asesoria.png" alt=""></div><h3>Asesoría técnica en calidad</h3><p>Acceso a programas de auditoría, sistemas de información y un sistema único de habilitación para garantizar la seguridad que brindas a tus pacientes.</p></div>
             </div>
           </article>
-          <article class="bcard" tabindex="0" style="--bimg:url('images/clinic-interior.jpg');--btint:var(--indigo)">
+          <article class="bcard" tabindex="0" style="--bimg:url('images/benef-8.webp');--bpos:40% 25%;--btint:var(--indigo)">
             <div class="bcard-inner">
               <div class="bcard-face bcard-front"><div class="bcard-bg"></div><div class="bcard-shade"></div>
                 <div class="bcard-body"><div class="bcard-icon-wrap"><img src="images/b-juridica.png" alt=""></div><h3>Asesoría jurídica</h3></div></div>
               <div class="bcard-face bcard-back"><div class="bcard-icon-wrap"><img src="images/b-juridica.png" alt=""></div><h3>Asesoría jurídica</h3><p>Cuenta con asesoría legal para fortalecer tu clínica.</p></div>
             </div>
           </article>
-          <article class="bcard" tabindex="0" style="--bimg:url('images/doc-hero.jpg');--btint:var(--teal)">
+          <article class="bcard" tabindex="0" style="--bimg:url('images/benef-9.webp');--bpos:50% 18%;--btint:var(--teal)">
             <div class="bcard-inner">
               <div class="bcard-face bcard-front"><div class="bcard-bg"></div><div class="bcard-shade"></div>
                 <div class="bcard-body"><div class="bcard-icon-wrap"><img src="images/b-comunicaciones.png" alt=""></div><h3>Mercadeo y comunicaciones</h3></div></div>
@@ -1584,10 +1584,19 @@
     window.addEventListener('resize', syncInset);
     if(document.fonts && document.fonts.ready){ document.fonts.ready.then(syncInset); }
 
-    // sin margen extra: el track ya trae el mismo padding que .wrap a cada lado, asi que al
-    // terminar el scroll el borde derecho del track queda pegado al borde del viewport y la
-    // ultima card se detiene exactamente a ese padding del titulo (simetrico con el arranque).
-    const scrollLen = () => Math.max(0, track.scrollWidth - window.innerWidth);
+    // el recorrido termina cuando la card verde del CTA queda alineada (borde izquierdo) con el texto de la derecha del
+    // encabezado ("Unete a Asoclicper..."): asi la ultima card no se pega al borde de la pantalla. offsetLeft no cambia con
+    // las transformaciones 3D de las cards ni con el desplazamiento del track.
+    const ctaCard = track.querySelector('.bcard-cta');
+    const headP = document.querySelector('.benefits-head p');
+    // (en pantallas angostas el texto baja debajo del titulo y queda pegado a la izquierda: ahi no hay "columna derecha" a la
+    // que alinearse y se mantiene el final de siempre, con la ultima card contra el borde derecho de la pantalla)
+    const scrollLen = () => {
+      const pl = headP ? headP.getBoundingClientRect().left : 0;
+      return (ctaCard && pl > window.innerWidth * .4)
+        ? Math.max(0, Math.round(ctaCard.offsetLeft - pl))
+        : Math.max(0, track.scrollWidth - window.innerWidth);
+    };
     const horizontal = gsap.to(track, {
       x: () => -scrollLen(),
       ease: 'none',
