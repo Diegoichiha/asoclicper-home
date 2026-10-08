@@ -115,7 +115,7 @@
   if(header){
     header.innerHTML =
       '<div class="wrap">' +
-        '<a class="logo" href="index.html"><img src="images/logo-color.svg" alt="Asoclicper"></a>' +
+        '<a class="logo" href="index.html"><img src="images/logo-asoclicper.png" alt="Asoclicper"></a>' +
         '<nav class="mainnav" aria-label="Principal">' + NAV.map(it =>
           '<div class="nav-item' + (it.sub ? ' has-drop' : '') + (isActive(it) ? ' is-active' : '') + '">' +
             '<a class="nav-link" href="' + it.href + '">' + it.t + (it.sub ? '<svg class="caret" viewBox="0 0 24 24">' + ICONS.chevron + '</svg>' : '') + '</a>' +

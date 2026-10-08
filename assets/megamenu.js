@@ -31,7 +31,7 @@
   /* ---------- barra superior (logo + boton de menu) ---------- */
   bar.innerHTML =
     '<div class="wrap">' +
-      '<a class="logo" href="index.html"><img src="images/logo-color.svg" alt="Asoclicper"></a>' +
+      '<a class="logo" href="index.html"><img src="images/logo-asoclicper.png" alt="Asoclicper"></a>' +
       '<button class="mega-toggle" id="megaToggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mega" data-magnetic>' +
         '<span class="mt-label">Menú</span><span class="mt-icon" aria-hidden="true"><i></i><i></i><i></i></span>' +
       '</button>' +

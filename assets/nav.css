@@ -105,13 +105,13 @@ footer#siteFooter{background:var(--dark);color:rgba(255,255,255,.7);padding:70px
 .logo{flex:none;}
 .logo img{flex:none;max-width:none;}
 .navcta .btn{white-space:nowrap;}
-@media (max-width:1400px){
+@media (max-width:1420px){
   .logo img{height:54px;}
   header#siteHeader.scrolled .logo img{height:42px;}
   nav.mainnav{gap:16px;}
   .navcta .btn-ghost-dark{display:none;}
 }
-@media (max-width:1252px){
+@media (max-width:1270px){
   nav.mainnav,.navcta{display:none;}
   .hdr-m{display:flex;}
   .burger{display:flex;}
