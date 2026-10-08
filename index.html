@@ -110,7 +110,9 @@
 
   /* ---------- profundidad 3D: las escenas llegan desde el fondo ---------- */
   #specialistsSection .tag-row{perspective:1400px;}
-  .spec-grid{perspective:1700px;transform-style:preserve-3d;}
+  /* pointer-events:none en el grid: al estar en el mismo contexto 3D, el plano del propio grid (z=0) tapaba la mitad de
+     cada card lateral (la que se inclina hacia atras con rotateY) y solo esa mitad recibia el hover (parpadeo). Las cards si reciben eventos. */
+  .spec-grid{perspective:1700px;transform-style:preserve-3d;pointer-events:none;}
   .about-grid{perspective:1600px;transform-style:preserve-3d;}
   .hero-copy .eyebrow{margin-bottom:16px;color:var(--indigo);}
   .hero h1{font-size:clamp(32px,4.6vw,52px);line-height:1.1;margin:0 0 20px;font-weight:700;letter-spacing:-.5px;color:var(--ink);}
@@ -172,8 +174,11 @@
   /* Las cards entran con GSAP (transform/filter inline y scrub por scroll), asi que el efecto hover NO usa
      transform en la card: el levantado va con la propiedad individual `translate` (con !important porque GSAP
      escribe `translate:none` inline) y todo lo demas ocurre dentro de la card (foto, brillo, borde, textos). */
-  .spec-card{position:relative;border-radius:22px;overflow:hidden;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);transition:box-shadow .7s var(--ease),translate .7s var(--ease),border-color .5s;will-change:transform,opacity,filter;--mx:50%;--my:50%;}
-  .spec-card .ph{aspect-ratio:4/4.4;overflow:hidden;position:relative;isolation:isolate;}
+  .spec-card{position:relative;pointer-events:auto;border-radius:22px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);transition:box-shadow .7s var(--ease),translate .7s var(--ease),border-color .5s;will-change:transform,opacity,filter;--mx:50%;--my:50%;}
+  .spec-card .ph{aspect-ratio:4/4.4;overflow:hidden;position:relative;isolation:isolate;border-radius:21px 21px 0 0;}
+  /* zona de hover invisible bajo la card: al levantarse 12px el puntero que estaba en el borde inferior seguia "dentro" y la card
+     entraba y salia del hover en bucle (parpadeo). Por eso la card ya no recorta con overflow:hidden (la foto se recorta sola) */
+  .spec-card::after{content:"";position:absolute;left:0;right:0;top:100%;height:18px;}
   .spec-card .ph img{width:100%;height:100%;object-fit:cover;transform:scale(1.001);transition:transform 1.3s var(--ease),translate .5s cubic-bezier(.2,.8,.2,1);}
   /* capas sobre la foto: tinte de marca + degradado inferior, foco de luz que sigue al mouse y destello diagonal */
   .spec-card .ph::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;transition:opacity .7s var(--ease);
@@ -717,7 +722,7 @@
       </div>
       <div class="cx-layout">
         <div class="cx-photo reveal-l">
-          <img src="images/serum-closeup.jpg" alt="Tratamiento estético en clínica asociada a Asoclicper">
+          <img src="images/procedimientos.webp" alt="Cirujano con bisturí durante un procedimiento en una clínica asociada a Asoclicper" style="object-position:50% 30%" loading="lazy" decoding="async">
         </div>
         <div class="cx-list stagger">
           <div class="cx-row reveal" style="--i:0"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#06202b" stroke-width="2" stroke-linecap="round"><path d="M12 2v20M2 12h20"/></svg></div><p>Reducción de tejido adiposo en muslos, pelvis, glúteos o brazos por liposucción o lipectomía</p></div>
