@@ -169,15 +169,43 @@
 
   /* ---------- specialists photo row ---------- */
   .spec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
-  .spec-card{border-radius:22px;overflow:hidden;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);transition:box-shadow .4s;will-change:transform,opacity,filter;}
-  .spec-card:hover{box-shadow:0 40px 80px -24px rgba(20,40,70,.34);}
-  .spec-card .ph{aspect-ratio:4/4.4;overflow:hidden;position:relative;}
-  .spec-card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .6s;}
-  .spec-card:hover .ph img{transform:scale(1.05);}
-  .spec-card .ph .badge{position:absolute;top:14px;left:14px;padding:6px 12px;border-radius:100px;background:rgba(255,255,255,.92);font-size:11px;font-weight:700;color:var(--blue);}
-  .spec-card .body{padding:18px 20px 22px;}
-  .spec-card .body b{font-size:15px;display:block;margin-bottom:4px;}
-  .spec-card .body span{font-size:13px;color:var(--ink-dim);}
+  /* Las cards entran con GSAP (transform/filter inline y scrub por scroll), asi que el efecto hover NO usa
+     transform en la card: el levantado va con la propiedad individual `translate` (con !important porque GSAP
+     escribe `translate:none` inline) y todo lo demas ocurre dentro de la card (foto, brillo, borde, textos). */
+  .spec-card{position:relative;border-radius:22px;overflow:hidden;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);transition:box-shadow .7s var(--ease),translate .7s var(--ease),border-color .5s;will-change:transform,opacity,filter;--mx:50%;--my:50%;}
+  .spec-card .ph{aspect-ratio:4/4.4;overflow:hidden;position:relative;isolation:isolate;}
+  .spec-card .ph img{width:100%;height:100%;object-fit:cover;transform:scale(1.001);transition:transform 1.3s var(--ease),translate .5s cubic-bezier(.2,.8,.2,1);}
+  /* capas sobre la foto: tinte de marca + degradado inferior, foco de luz que sigue al mouse y destello diagonal */
+  .spec-card .ph::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;transition:opacity .7s var(--ease);
+    background:linear-gradient(0deg,rgba(8,12,40,.62) 0%,rgba(46,83,161,.22) 42%,rgba(74,186,183,.0) 72%),linear-gradient(135deg,rgba(11,119,189,.16),rgba(103,70,150,.18));}
+  .spec-card .ph::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;opacity:0;transition:opacity .6s var(--ease);mix-blend-mode:soft-light;
+    background:radial-gradient(260px circle at var(--mx) var(--my),rgba(255,255,255,.75),rgba(255,255,255,0) 62%);}
+  .spec-card .ph .sheen{position:absolute;top:-25%;bottom:-25%;left:-60%;width:38%;z-index:2;pointer-events:none;opacity:0;transform:skewX(-18deg);
+    background:linear-gradient(100deg,transparent,rgba(255,255,255,.42),transparent);}
+  .spec-card .ph .badge{position:absolute;z-index:3;top:14px;left:14px;padding:6px 12px;border-radius:100px;background:rgba(255,255,255,.92);font-size:11px;font-weight:700;color:var(--blue);transition:transform .6s var(--ease),background .4s,color .4s,box-shadow .5s;}
+  .spec-card .body{padding:18px 20px 22px;position:relative;}
+  .spec-card .body b{font-size:15px;display:inline-block;margin-bottom:4px;padding-bottom:3px;
+    background:linear-gradient(90deg,var(--blue),var(--teal),var(--lime)) no-repeat 0 100%/0 2px;transition:color .4s,background-size .9s var(--ease);}
+  .spec-card .body span{font-size:13px;color:var(--ink-dim);display:block;transition:transform .7s var(--ease),color .4s;}
+  /* borde de degradado de marca que aparece al pasar el mouse */
+  .spec-card .edge{position:absolute;inset:0;z-index:4;border-radius:inherit;padding:1.5px;pointer-events:none;opacity:0;transition:opacity .6s var(--ease);
+    background:linear-gradient(135deg,var(--blue),var(--teal) 55%,var(--lime));
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;}
+  @media (hover:hover) and (pointer:fine){
+    .spec-card:hover{translate:0 -12px !important;box-shadow:0 50px 90px -28px rgba(20,40,70,.42),0 18px 40px -22px rgba(11,119,189,.35);border-color:transparent;}
+    .spec-card:hover .ph img{transform:scale(1.1);translate:calc(var(--px,0) * -16px) calc(var(--py,0) * -16px);}
+    .spec-card:hover .ph::after,.spec-card:hover .ph::before,.spec-card:hover .edge{opacity:1;}
+    .spec-card:hover .ph .sheen{animation:specSheen 1.1s var(--ease) 1;}
+    .spec-card:hover .ph .badge{transform:translateY(-3px);background:var(--grad-a);color:#fff;box-shadow:0 14px 28px -10px rgba(11,119,189,.7);}
+    .spec-card:hover .body b{color:var(--blue);background-size:100% 2px;}
+    .spec-card:hover .body span{transform:translateY(2px);color:var(--ink);}
+  }
+  @keyframes specSheen{0%{opacity:0;transform:translateX(0) skewX(-18deg);}18%{opacity:1;}100%{opacity:0;transform:translateX(700%) skewX(-18deg);}}
+  @media (prefers-reduced-motion:reduce){
+    .spec-card,.spec-card .ph img,.spec-card .ph::after,.spec-card .ph::before,.spec-card .edge,.spec-card .badge,.spec-card .body b,.spec-card .body span{transition:none;}
+    .spec-card:hover{translate:none !important;}
+    .spec-card:hover .ph .sheen{animation:none;}
+  }
 
   /* ---------- about (photographic) ---------- */
   .about-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:70px;align-items:center;}
@@ -585,15 +613,18 @@
       </div>
       <div class="spec-grid stagger">
         <div class="spec-card reveal" style="--i:0">
-          <div class="ph"><span class="badge">Cirugía Estética</span><img src="images/doc-male2.jpg" alt="Especialista en cirugía estética"></div>
+          <span class="edge" aria-hidden="true"></span>
+          <div class="ph"><span class="badge">Cirugía Estética</span><img src="images/spec-1.webp" alt="Cirujano marcando con un lápiz el rostro de una paciente antes de una cirugía estética" style="object-position:50% 40%" loading="lazy" decoding="async"><span class="sheen" aria-hidden="true"></span></div>
           <div class="body"><b>Cirugía Plástica y Estética</b><span>Procedimientos con los más altos estándares de calidad y seguridad.</span></div>
         </div>
         <div class="spec-card reveal" style="--i:1">
-          <div class="ph"><span class="badge">Cirugía Reconstructiva</span><img src="images/doc-female1.jpg" alt="Especialista en cirugía reconstructiva"></div>
+          <span class="edge" aria-hidden="true"></span>
+          <div class="ph"><span class="badge">Cirugía Reconstructiva</span><img src="images/spec-2.webp" alt="Equipo quirúrgico evaluando a una paciente antes de un procedimiento" style="object-position:50% 30%" loading="lazy" decoding="async"><span class="sheen" aria-hidden="true"></span></div>
           <div class="body"><b>Cirugía Reconstructiva</b><span>Acompañamiento integral antes, durante y después del procedimiento.</span></div>
         </div>
         <div class="spec-card reveal" style="--i:2">
-          <div class="ph"><span class="badge">Medicina Estética</span><img src="images/doc-female2.jpg" alt="Especialista en medicina estética"></div>
+          <span class="edge" aria-hidden="true"></span>
+          <div class="ph"><span class="badge">Medicina Estética</span><img src="images/spec-3.webp" alt="Especialista con guantes azules evaluando el rostro de una paciente en medicina estética" style="object-position:50% 50%" loading="lazy" decoding="async"><span class="sheen" aria-hidden="true"></span></div>
           <div class="body"><b>Medicina Estética</b><span>Resultados naturales respaldados por clínicas certificadas.</span></div>
         </div>
       </div>
@@ -1161,6 +1192,26 @@
       if(!hPending){ hPending = true; requestAnimationFrame(heroMove); }
     }, {passive:true});
     heroSection.addEventListener('mouseleave', ()=>{ glowOn = false; gsap.to(glow, {opacity:0, duration:.7, overwrite:'auto'}); });
+
+    /* cards de especialidades: el foco de luz y el paralaje de la foto siguen al mouse (una escritura por frame) */
+    document.querySelectorAll('#specialistsSection .spec-card').forEach(card=>{
+      const ph = card.querySelector('.ph');
+      let sx = 0, sy = 0, sRaf = 0;
+      card.addEventListener('mousemove', (e)=>{
+        sx = e.clientX; sy = e.clientY;
+        if(sRaf) return;
+        sRaf = requestAnimationFrame(()=>{
+          sRaf = 0;
+          const r = ph.getBoundingClientRect();
+          const x = Math.max(0, Math.min(1, (sx - r.left) / r.width)), y = Math.max(0, Math.min(1, (sy - r.top) / r.height));
+          card.style.setProperty('--mx', (x * 100).toFixed(1) + '%');
+          card.style.setProperty('--my', (y * 100).toFixed(1) + '%');
+          card.style.setProperty('--px', (x - .5).toFixed(3));
+          card.style.setProperty('--py', (y - .5).toFixed(3));
+        });
+      }, {passive:true});
+      card.addEventListener('mouseleave', ()=>{ ['--px','--py'].forEach(k => card.style.removeProperty(k)); });
+    });
 
     /* magnetic buttons */
     document.querySelectorAll('.btn-primary, .btn-dark').forEach(btn=>{
