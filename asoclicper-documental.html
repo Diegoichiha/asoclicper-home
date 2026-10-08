@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Asoclicper Documental | ASOCLICPER</title>
+<meta name="description" content="Asoclicper Documental: documentos legales, de gobierno corporativo, protección de datos, estados financieros e informes de la Asociación Colombiana de Clínicas de Cirugía Plástica, Estética y Reconstructiva, para consulta.">
+<link rel="icon" href="images/icon-color.svg">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/nav.css">
+<style>
+  .hero-stats{display:flex;flex-wrap:wrap;gap:16px;margin-top:30px;}
+  .hs{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px 22px;min-width:140px;box-shadow:0 14px 30px -20px rgba(20,40,60,.25);}
+  .hs b{display:block;font:700 30px 'Poppins';line-height:1.1;}
+  .hs span{font-size:12.5px;color:var(--ink-dim);}
+
+  /* biblioteca */
+  .lib-bar{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-bottom:22px;}
+  .lib-bar .search{flex:1;min-width:260px;}
+  .lib-count{font-size:13.5px;color:var(--ink-dim);white-space:nowrap;}
+  .lib-count b{color:var(--ink);}
+  .dgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+  .doc{position:relative;display:flex;gap:18px;align-items:flex-start;padding:22px 24px;border-radius:22px;background:#fff;border:1px solid var(--line);transition:transform .35s var(--ease),box-shadow .3s,border-color .3s,opacity .3s;}
+  .doc:hover{transform:translateY(-4px);border-color:rgba(11,119,189,.4);box-shadow:0 26px 50px -30px rgba(20,40,70,.35);}
+  .doc.is-hidden{display:none;}
+  .doc .fi{width:54px;height:54px;border-radius:16px;background:var(--grad-a);color:#fff;font-size:25px;flex:none;box-shadow:0 14px 24px -12px rgba(11,119,189,.6);}
+  .doc .fi.c1{background:var(--grad-b);box-shadow:0 14px 24px -12px rgba(103,70,150,.6);}
+  .doc .fi.c2{background:linear-gradient(135deg,var(--indigo),var(--blue));}
+  .doc .fi.c3{background:linear-gradient(135deg,var(--teal),var(--lime));box-shadow:0 14px 24px -12px rgba(74,186,183,.6);}
+  .doc .tx{min-width:0;flex:1;}
+  .doc .tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;}
+  .doc .tag{font:700 10.5px 'Inter';letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:100px;background:var(--surface-2);color:var(--ink-dim);}
+  .doc .tag.y{background:rgba(11,119,189,.1);color:var(--blue);}
+  .doc b{display:block;font:600 15.5px 'Poppins';line-height:1.35;margin-bottom:6px;}
+  .doc p{font-size:13.5px;line-height:1.6;color:var(--ink-dim);margin:0 0 12px;}
+  .doc .open{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--blue);}
+  .doc .open .ico{font-size:15px;transition:transform .3s;}
+  .doc:hover .open .ico{transform:translate(3px,-3px);}
+  .empty-lib{padding:50px 20px;text-align:center;color:var(--ink-dim);border:1.5px dashed var(--line);border-radius:22px;}
+  .rte-note{display:flex;gap:16px;align-items:flex-start;margin-top:26px;padding:20px 24px;border-radius:20px;background:linear-gradient(160deg,#eef8f8,#e8f1fb);border:1px solid #cfe6ea;font-size:14px;line-height:1.65;color:#2b3346;}
+  .rte-note .ico{font-size:22px;color:var(--blue);flex:none;margin-top:2px;}
+
+  /* area de asociados */
+  .locked{display:grid;grid-template-columns:auto 1fr auto;gap:34px;align-items:center;padding:46px 50px;border-radius:30px;background:linear-gradient(160deg,var(--bf-purple-1),var(--bf-purple-2));color:#fff;position:relative;overflow:hidden;}
+  .locked::before{content:"";position:absolute;inset:0;background:radial-gradient(40% 70% at 90% 0%,rgba(74,186,183,.4),transparent 70%),radial-gradient(34% 60% at 8% 100%,rgba(193,210,38,.18),transparent 70%);}
+  .locked>*{position:relative;}
+  .locked .lk{width:96px;height:96px;border-radius:28px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);font-size:42px;}
+  .locked h3{font-size:26px;margin-bottom:10px;}
+  .locked p{color:rgba(255,255,255,.8);max-width:560px;line-height:1.65;margin:0;}
+  .locked .btn-primary{background:#fff;color:var(--purple);}
+  .locked .acts{display:flex;flex-direction:column;gap:12px;align-items:stretch;}
+  .locked .btn-ghost{white-space:nowrap;}
+  @media (max-width:1040px){.dgrid{grid-template-columns:1fr;}.locked{grid-template-columns:1fr;padding:34px 28px;gap:24px;}.locked .acts{flex-direction:row;flex-wrap:wrap;}}
+  @media (max-width:640px){.doc{padding:18px;gap:14px;}.doc .fi{width:46px;height:46px;font-size:21px;border-radius:14px;}}
+</style>
+</head>
+<body data-page="documental">
+<header id="siteHeader"></header>
+
+<main id="top">
+  <section class="page-hero" style="padding-bottom:70px;">
+    <div class="ph-field"><span class="ph-blob pb1"></span><span class="ph-blob pb2"></span><span class="ph-blob pb3"></span><span class="ph-blob pb4"></span></div>
+    <div class="ph-grid"></div><div class="ph-scrim"></div>
+    <div class="wrap ph-inner solo">
+      <div>
+        <div class="crumbs rv"><a href="index.html">Inicio</a><span class="sep">/</span><span>Asoclicper Documental</span></div>
+        <span class="eyebrow rv" data-d=".05">Asoclicper Documental</span>
+        <h1 class="rv" data-d=".1">Documentos legales para tu <span class="grad-text">consulta</span></h1>
+        <p class="lead rv" data-d=".18">Reunimos en un solo lugar los documentos legales, de gobierno corporativo, de protección de datos, financieros y de gestión de la Asociación, para que asociados, pacientes, aliados y entidades puedan consultarlos cuando lo necesiten.</p>
+        <div class="hero-stats rv" data-d=".26">
+          <div class="hs"><b data-count="16">0</b><span>Documentos</span></div>
+          <div class="hs"><b data-count="5">0</b><span>Categorías</span></div>
+          <div class="hs"><b>PDF</b><span>Consulta y descarga</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BIBLIOTECA -->
+  <section style="padding-top:50px;" id="biblioteca">
+    <div class="wrap">
+      <div class="tag-row rv">
+        <div><span class="eyebrow">Biblioteca</span><h2 class="sec-title">Consulta los documentos de la Asociación</h2></div>
+        <p>Busca por nombre o filtra por categoría. Cada documento se abre en una pestaña nueva.</p>
+      </div>
+      <div class="lib-bar rv">
+        <label class="search"><span data-i="search"></span><input type="search" id="q" placeholder="Busca un documento: estatutos, estados financieros, privacidad…" aria-label="Buscar documento" autocomplete="off"></label>
+        <span class="lib-count" id="count"></span>
+      </div>
+      <div class="chips" id="cats" style="margin-bottom:30px;"></div>
+      <div class="dgrid stagger" id="docs"></div>
+      <div class="empty-lib" id="empty" hidden>No encontramos documentos con ese criterio. Prueba con otra palabra o escríbenos y te ayudamos a encontrarlo.</div>
+      <div class="rte-note rv" id="rteNote" hidden><span data-i="alert"></span><div><b>Régimen Tributario Especial.</b> Dando cumplimiento al parágrafo 4 del artículo 364-5 del Estatuto Tributario, aquí se publican los documentos solicitados por la DIAN para la solicitud de permanencia en el Régimen Tributario Especial. El resto de documentos de ese trámite (acta de constitución, estatutos, certificados y estados financieros) están en las categorías de Gobierno corporativo y Estados financieros.</div></div>
+    </div>
+  </section>
+
+  <!-- AREA DE ASOCIADOS -->
+  <section class="section--alt section--tight">
+    <div class="wrap">
+      <div class="locked rv rv-s">
+        <span class="lk ico" data-i="lock"></span>
+        <div>
+          <h3>Área exclusiva para asociados</h3>
+          <p>Algunos documentos internos de la red de clínicas están disponibles únicamente para usuarios registrados. Inicia sesión con tu cuenta de asociado para acceder a ellos.</p>
+        </div>
+        <div class="acts">
+          <a class="btn btn-primary" target="_blank" rel="noopener" href="https://asoclicper.com/login/">Iniciar sesión <span data-i="arrow-right"></span></a>
+          <a class="btn btn-ghost" href="ser-asociado.html">Quiero ser asociado</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section>
+    <div class="wrap">
+      <div class="cta-band rv rv-s">
+        <span class="eyebrow">¿Necesitas otro documento?</span>
+        <h2>Escríbenos y te ayudamos a encontrarlo</h2>
+        <p>Si buscas un certificado o un documento que no aparece en esta biblioteca, nuestro equipo te orienta por WhatsApp o por correo.</p>
+        <div class="row"><a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=573153075463&text=Hola%2C%20necesito%20un%20documento%20de%20Asoclicper" target="_blank" rel="noopener">Escribir por WhatsApp</a><a class="btn btn-ghost" href="contacto.html">Ir a contacto</a></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="siteFooter"></footer>
+<script src="assets/data.js"></script>
+<script src="assets/nav.js"></script>
+<script src="assets/site.js"></script>
+<script>
+(function(){
+  const A = window.ASOC, docs = A.docs, cats = A.docCats;
+  const esc = (s) => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const norm = (s) => String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  const catOf = (k) => cats.find(c => c.k === k);
+  const grid = document.getElementById('docs'), chipsEl = document.getElementById('cats');
+  const input = document.getElementById('q'), count = document.getElementById('count'), empty = document.getElementById('empty'), rteNote = document.getElementById('rteNote');
+  const state = {q:'', cat:''};
+
+  chipsEl.innerHTML = '<button class="chip is-on" data-v="">Todos <span class="n">' + docs.length + '</span></button>' +
+    cats.map(c => '<button class="chip" data-v="' + c.k + '">' + c.t + ' <span class="n">' + docs.filter(d => d.cat === c.k).length + '</span></button>').join('');
+
+  grid.innerHTML = docs.map((d, i) => {
+    const c = catOf(d.cat);
+    return '<a class="doc rv" style="--i:' + (i % 8) + '" target="_blank" rel="noopener" href="' + A.docBase + d.f + '" data-c="' + d.cat + '" data-s="' + esc(norm([d.t, d.d, c.t, d.year].join(' '))) + '">' +
+      '<span class="fi ico c' + (['gobierno','datos','financieros','informes','rte'].indexOf(d.cat) % 4) + '">' + '<svg viewBox="0 0 24 24">' + window.ASOC_ICONS[c.i] + '</svg></span>' +
+      '<div class="tx"><div class="tags"><span class="tag">' + esc(c.t) + '</span><span class="tag y">' + d.year + '</span><span class="tag">PDF</span></div>' +
+      '<b>' + esc(d.t) + '</b><p>' + esc(d.d) + '</p><span class="open">Abrir documento <span class="ico"><svg viewBox="0 0 24 24">' + window.ASOC_ICONS['arrow-up-right'] + '</svg></span></span></div></a>';
+  }).join('');
+  const cards = Array.from(grid.children);
+
+  function apply(){
+    let n = 0;
+    cards.forEach(el => {
+      const ok = (!state.q || el.dataset.s.indexOf(norm(state.q)) > -1) && (!state.cat || el.dataset.c === state.cat);
+      el.classList.toggle('is-hidden', !ok); if(ok) n++;
+    });
+    count.innerHTML = '<b>' + n + '</b> de ' + docs.length + ' documentos';
+    empty.hidden = n > 0;
+    rteNote.hidden = state.cat !== 'rte';
+  }
+  input.addEventListener('input', () => { state.q = input.value.trim(); apply(); });
+  chipsEl.addEventListener('click', (e) => {
+    const b = e.target.closest('.chip'); if(!b) return;
+    state.cat = b.dataset.v; Array.from(chipsEl.children).forEach(x => x.classList.toggle('is-on', x === b)); apply();
+  });
+  // enlace directo a una categoria: asoclicper-documental.html#financieros
+  const h = location.hash.slice(1), hb = h && chipsEl.querySelector('.chip[data-v="' + h + '"]'); if(hb) hb.click();
+  apply();
+  window.asocBoot(document);
+})();
+</script>
+</body>
+</html>

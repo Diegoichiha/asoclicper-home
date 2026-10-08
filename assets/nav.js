@@ -71,6 +71,7 @@
       { i:'mic', t:'Podcast «Bajo el Bisturí»', d:'Conversaciones sobre cirugía segura', href:'seguridad-del-paciente.html#podcast' } ] },
     { k:'noticias', t:'Noticias', href:'noticias.html' }
   ];
+  window.ASOC_NAV = NAV;
   const page = document.body.dataset.page || 'index';
   const isActive = (it) => it.k === page || (it.keys && it.keys.indexOf(page) > -1);
 
@@ -138,13 +139,13 @@
         '<div class="foot-grid" style="padding-top:44px;">' +
           '<div><img src="images/logo-blanco.svg" alt="Asoclicper"><p>Unidos por la excelencia en cirugía plástica y la seguridad del paciente. Asociación Colombiana de Clínicas de Cirugía Plástica, Estética y Reconstructiva.</p>' +
             '<div class="social"><a href="' + C.fb + '" target="_blank" rel="noopener" aria-label="Facebook">' + svg('facebook') + '</a><a href="' + C.ig + '" target="_blank" rel="noopener" aria-label="Instagram">' + svg('instagram') + '</a><a href="' + C.li + '" target="_blank" rel="noopener" aria-label="LinkedIn">' + svg('linkedin') + '</a></div></div>' +
-          '<div class="foot-col"><h4>Portal</h4><a href="index.html">Inicio</a><a href="nosotros.html">Nosotros</a><a href="noticias.html">Noticias</a><a href="contacto.html">Contacto</a></div>' +
+          '<div class="foot-col"><h4>Portal</h4><a href="index.html">Inicio</a><a href="nosotros.html">Nosotros</a><a href="noticias.html">Noticias</a><a href="contacto.html">Contacto</a><a href="asoclicper-documental.html">Asoclicper Documental</a></div>' +
           '<div class="foot-col"><h4>Clínicas y aliados</h4><a href="clinicas-asociadas.html">Directorio de clínicas</a><a href="beneficios.html">Beneficios y calculadora</a><a href="ser-asociado.html">Ser Asociado</a><a href="aliados.html">Aliados comerciales</a></div>' +
           '<div class="foot-col"><h4>Pacientes</h4><a href="turismo-medico.html">Turismo médico</a><a href="seguridad-del-paciente.html">Seguridad del paciente</a><a href="seguridad-del-paciente.html#verifica">Verifica tu clínica</a><a href="seguridad-del-paciente.html#podcast">Podcast «Bajo el Bisturí»</a></div>' +
           '<div class="foot-col"><h4>Contacto</h4><a href="https://www.google.com/maps/search/?api=1&query=Carrera+50+%23+9B-20+Cali" target="_blank" rel="noopener">' + C.address + '</a><a href="tel:' + C.tel + '">' + C.phone + '</a><a href="mailto:' + C.mail + '">' + C.mail + '</a></div>' +
         '</div>' +
         '<div class="foot-bottom"><span>© 2026 ASOCLICPER — Asociación Colombiana de Clínicas de Cirugía Plástica, Estética y Reconstructiva.</span>' +
-          '<span><a href="transparencia.html#aviso" style="color:inherit">Aviso de privacidad</a> · <a href="transparencia.html#politica" style="color:inherit">Protección de datos</a> · <a href="transparencia.html#financieros" style="color:inherit">Estados financieros</a> · <a href="transparencia.html#rte" style="color:inherit">Régimen Tributario Especial</a> · <a href="transparencia.html#documental" style="color:inherit">Asoclicper Documental</a></span></div>' +
+          '<span><a href="transparencia.html#aviso" style="color:inherit">Aviso de privacidad</a> · <a href="transparencia.html#politica" style="color:inherit">Protección de datos</a> · <a href="transparencia.html#financieros" style="color:inherit">Estados financieros</a> · <a href="transparencia.html#rte" style="color:inherit">Régimen Tributario Especial</a> · <a href="asoclicper-documental.html" style="color:inherit">Asoclicper Documental</a></span></div>' +
         '<div class="foot-bottom" style="padding-top:10px;"><span>Propuesta de rediseño del portal — prototipo navegable con contenido de asoclicper.com.</span></div>' +
       '</div>';
   }

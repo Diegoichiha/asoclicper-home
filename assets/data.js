@@ -93,6 +93,34 @@ window.ASOC = {
     { t:'Asesoría jurídica', d:'Cuenta con asesoría legal para fortalecer tu clínica.', icon:'scale', img:'images/b-juridica.png' },
     { t:'Gestión comercial, mercadeo y comunicaciones', d:'Participación en turismo de salud, eventos comerciales, organización de eventos académicos y campañas publicitarias que promuevan tu clínica.', icon:'megaphone', img:'images/b-comunicaciones.png' }
   ],
+  /* Asoclicper Documental: documentos de consulta publica (PDF alojados en asoclicper.com). Fuente: paginas de aviso de
+     privacidad, politica de seguridad, estados financieros y permanencia en el Regimen Tributario Especial del sitio actual. */
+  docBase: 'https://asoclicper.com/wp-content/uploads/',
+  docCats: [
+    { k:'gobierno', t:'Gobierno corporativo y legal', i:'scale' },
+    { k:'datos', t:'Protección de datos', i:'lock' },
+    { k:'financieros', t:'Estados financieros', i:'chart' },
+    { k:'informes', t:'Informes', i:'news' },
+    { k:'rte', t:'Régimen Tributario Especial', i:'clipboard' }
+  ],
+  docs: [
+    { t:'Estatutos ASOCLICPER', cat:'gobierno', year:'2025', f:'2025/03/8.-ESTATUTOS-ASOCLICPER.pdf', d:'Normas que rigen la organización, los órganos de gobierno y el funcionamiento de la Asociación.' },
+    { t:'Acta de constitución y estatutos', cat:'gobierno', year:'2025', f:'2025/03/4.-ACTA-DE-CONSTITUCION-Y-ESTATUTOS.pdf', d:'Acta con la que se constituyó la Asociación y los estatutos fundacionales.' },
+    { t:'Certificado de existencia y representación legal', cat:'gobierno', year:'2026', f:'2026/06/CAMARA-2026.pdf', d:'Expedido por la Cámara de Comercio de Cali.' },
+    { t:'Certificación de cargos directivos', cat:'gobierno', year:'2026', f:'2026/06/CERTIFICACION-CARGOS-DIRECTIVOS-2026.pdf', d:'Relación vigente de los cargos directivos de la Asociación.' },
+    { t:'Certificación de antecedentes judiciales', cat:'gobierno', year:'2026', f:'2026/06/CERTIFICADO-DE-ANTECEDENTES-ASOCLICPER-2026.pdf', d:'Antecedentes judiciales de los directivos y del representante legal.' },
+    { t:'Extracto de Asamblea General Ordinaria · 5 de marzo de 2026', cat:'gobierno', year:'2026', f:'2026/06/EXTRACTO-ASAMBLEA-GENERAL-ORDINARIA-MARZO-5-2026-No.-09.pdf', d:'Extracto del acta No. 09 de la Asamblea General Ordinaria.' },
+    { t:'Aviso de privacidad', cat:'datos', year:'2022', f:'2022/09/AVISO-DE-PRIVACIDAD-ASOCLICPER-2022.pdf', d:'Cómo se tratan los datos personales, con qué finalidad se recolectan y cuáles son los derechos del titular.' },
+    { t:'Política de seguridad de la información, uso y protección de datos', cat:'datos', year:'2022', f:'2022/08/POLITICA-DE-SEGURIDAD-DE-LA-INFORMACION-ASOCLICPER-1.pdf', d:'Lineamientos para proteger la información de asociados, pacientes y aliados.' },
+    { t:'Estados financieros 2025', cat:'financieros', year:'2025', f:'2026/06/NOTAS-ESTADOS-FINANCIEROS-ASOCLICPER-2025-RV2.docx.pdf', d:'Estados financieros con sus notas, vigencia 2025.' },
+    { t:'Estados financieros 2024 – 2023', cat:'financieros', year:'2024', f:'2025/03/ESTADOS-FINANCIEROS-ASOCLICPER-2024-2023.pdf', d:'Estados financieros comparativos 2024 frente a 2023.' },
+    { t:'Notas a los estados financieros · diciembre de 2023', cat:'financieros', year:'2023', f:'2024/03/NOTAS-ESTADOS-FINANCIEROS-ASOCLICPER-DICIEMBRE-2023.pdf', d:'Notas a los estados financieros con corte a diciembre de 2023.' },
+    { t:'Estados financieros comparativos 2022 vs. 2021', cat:'financieros', year:'2022', f:'2024/03/NOTAS-ESTADOS-FINANCIEROS-COMPRATIVOS-2022-Vs-2021.pdf', d:'Notas a los estados financieros comparativos 2022 frente a 2021.' },
+    { t:'Estado de situación financiera a diciembre de 2021', cat:'financieros', year:'2021', f:'2024/03/ESTADO-DE-SITUACION-FINANCIERA-A-DIC-2021.pdf', d:'Estado de situación financiera con corte a 31 de diciembre de 2021.' },
+    { t:'Informe de gestión ASOCLICPER 2025', cat:'informes', year:'2025', f:'2026/06/1-INFORME-GESTION-ASOCLICPER-2025.pdf', d:'Resultados y actividades de la Asociación durante 2025.' },
+    { t:'Informe de atención de pacientes 2020 – 2023', cat:'informes', year:'2023', f:'2023/12/Informe_Atencion-Pacientes_2020-ISEM2023-3.pdf', d:'Detalle de los pacientes atendidos en las clínicas asociadas.' },
+    { t:'Certificado de requisitos · Régimen Tributario Especial (RTE)', cat:'rte', year:'2026', f:'2026/06/CERTIFICADO-REQUISITOS-ASOCLICPER-2.pdf', d:'Documento de la solicitud de permanencia en el RTE ante la DIAN (parágrafo 4, art. 364-5 del Estatuto Tributario).' }
+  ],
   countries: ['España','Países Bajos','Francia','Italia','Estados Unidos','Canadá','Rep. Dominicana','Puerto Rico','México','Aruba','Venezuela','Ecuador','Perú','Chile','Uruguay'],
   topCx: ['Reducción de tejido adiposo en muslos, pelvis, glúteos o brazos por liposucción o lipectomía','Mastopexia','Blefaroplastia superior e inferior','Lipoinyección glútea','Explantación mamaria']
 };

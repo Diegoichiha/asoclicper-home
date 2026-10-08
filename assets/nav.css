@@ -5,14 +5,17 @@
 .nav-ico svg{width:1em;height:1em;}
 .nav-ico svg.fill{fill:currentColor;stroke:none;}
 /* header */
-header#siteHeader{position:fixed;top:0;left:0;right:0;z-index:90;padding:22px 0;transition:padding .4s ease,background .4s ease,box-shadow .4s ease;}
-header#siteHeader .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;}
-header#siteHeader.scrolled{padding:12px 0;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);box-shadow:0 8px 24px -16px rgba(20,40,60,.25);}
+header#siteHeader{position:fixed;top:0;left:0;right:0;z-index:90;padding:16px 0;transition:padding .4s ease,background .4s ease,box-shadow .4s ease;}
+/* el header usa un contenedor mas ancho que el resto de la pagina (1400px): con el logo grande, el menu y los dos botones no caben en 1240px */
+header#siteHeader .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;max-width:1400px;}
+header#siteHeader.scrolled{padding:10px 0;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);box-shadow:0 8px 24px -16px rgba(20,40,60,.25);}
 .logo{display:flex;align-items:center;gap:10px;}
-.logo img{height:34px;width:auto;}
-nav.mainnav{display:flex;align-items:center;gap:22px;}
+/* logo grande para que se lea tambien la leyenda "Asociacion Colombiana de Clinicas..."; al hacer scroll se compacta */
+.logo img{height:60px;width:auto;transition:height .4s ease;}
+header#siteHeader.scrolled .logo img{height:46px;}
+nav.mainnav{display:flex;align-items:center;gap:20px;}
 .nav-item{position:relative;}
-.nav-link{display:inline-flex;align-items:center;gap:5px;font-size:14px;font-weight:600;color:var(--ink);opacity:.78;transition:opacity .25s,color .25s;padding:10px 0;white-space:nowrap;}
+.nav-link{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:600;color:var(--ink);opacity:.78;transition:opacity .25s,color .25s;padding:10px 0;white-space:nowrap;}
 .nav-link:hover,.nav-item:focus-within .nav-link,.nav-item.is-active .nav-link{opacity:1;}
 .nav-item.is-active .nav-link{color:var(--blue);}
 .nav-link .caret{width:11px;height:11px;transition:transform .3s;}
@@ -23,10 +26,10 @@ nav.mainnav{display:flex;align-items:center;gap:22px;}
 .nav-drop a{display:flex;gap:13px;align-items:flex-start;padding:12px 13px;border-radius:14px;transition:background .2s;}
 .nav-drop a:hover{background:var(--surface-2);}
 .nav-drop .di{width:36px;height:36px;border-radius:11px;background:var(--grad-a);color:#fff;font-size:17px;display:flex;align-items:center;justify-content:center;flex:none;}
-.nav-drop b{display:block;font-size:13.5px;font-weight:600;line-height:1.3;}
-.nav-drop small{display:block;font-size:12px;color:var(--ink-dim);margin-top:2px;line-height:1.4;}
+.nav-drop b{display:block;font-size:13px;font-weight:600;line-height:1.3;}
+.nav-drop small{display:block;font-size:11.5px;color:var(--ink-dim);margin-top:2px;line-height:1.4;}
 .navcta{display:flex;align-items:center;gap:10px;}
-.navcta .btn{padding:12px 20px;font-size:14px;}
+.navcta .btn{padding:11px 18px;font-size:13px;}
 .burger{display:none;width:42px;height:42px;border-radius:12px;background:#fff;border:1px solid var(--line);align-items:center;justify-content:center;cursor:pointer;}
 .burger span{display:block;width:18px;height:2px;background:var(--ink);position:relative;}
 .burger span::before,.burger span::after{content:"";position:absolute;left:0;width:18px;height:2px;background:inherit;}
@@ -36,7 +39,7 @@ nav.mainnav{display:flex;align-items:center;gap:22px;}
 .drawer{position:fixed;inset:0;z-index:120;background:rgba(6,10,18,.97);color:#fff;padding:26px 24px 40px;overflow-y:auto;display:none;}
 .drawer.is-open{display:block;}
 .drawer-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:26px;}
-.drawer-top img{height:32px;}
+.drawer-top img{height:44px;}
 .drawer-close{background:none;border:none;color:#fff;font-size:26px;cursor:pointer;}
 .drawer a.d-link,.drawer summary{display:flex;justify-content:space-between;align-items:center;padding:16px 4px;border-bottom:1px solid rgba(255,255,255,.1);font-family:'Poppins';font-size:19px;font-weight:600;color:#fff;cursor:pointer;list-style:none;}
 .drawer summary::-webkit-details-marker{display:none;}
@@ -74,13 +77,19 @@ footer#siteFooter{background:var(--dark);color:rgba(255,255,255,.7);padding:70px
 .logo{flex:none;}
 .logo img{flex:none;max-width:none;}
 .navcta .btn{white-space:nowrap;}
-@media (max-width:1180px){
-  .navcta .btn-ghost-dark{display:none;}
-  nav.mainnav{gap:18px;}
+@media (max-width:1340px){
+  .logo img{height:54px;}
+  header#siteHeader.scrolled .logo img{height:42px;}
+  nav.mainnav{gap:16px;}
 }
-@media (max-width:1040px){
+@media (max-width:1280px){
+  .navcta .btn-ghost-dark{display:none;}
+}
+@media (max-width:1180px){
   nav.mainnav,.navcta{display:none;}
   .burger{display:flex;}
+}
+@media (max-width:1040px){
   .foot-grid{grid-template-columns:1fr 1fr;}
 }
 @media (max-width:640px){
