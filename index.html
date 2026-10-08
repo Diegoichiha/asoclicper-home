@@ -212,9 +212,30 @@
   .about-media{position:relative;}
   .about-media .frame{border-radius:26px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow);aspect-ratio:4/5;background:var(--surface-2);}
   .about-media img{width:100%;height:100%;object-fit:cover;}
-  .play-btn{position:absolute;inset:0;margin:auto;width:76px;height:76px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;box-shadow:0 20px 40px -12px rgba(0,0,0,.35);transition:transform .3s;}
-  .play-btn:hover{transform:scale(1.08);}
+  /* imagen superpuesta = fotograma del video (mapa de Colombia); el video se reproduce en una ventana 16:9 al dar clic */
+  .about-media .frame{position:relative;isolation:isolate;cursor:pointer;}
+  .about-media .frame img{transition:transform 1.3s var(--ease);}
+  .about-media:hover .frame img{transform:scale(1.045);}
+  .about-media .frame::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(0deg,rgba(8,12,40,.5) 0%,rgba(8,12,40,0) 48%),linear-gradient(135deg,rgba(11,119,189,.14),rgba(103,70,150,.16));}
+  .about-media .vlabel{position:absolute;z-index:2;left:20px;bottom:20px;display:flex;align-items:center;gap:10px;padding:9px 16px 9px 10px;border-radius:100px;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);font:600 13px 'Inter',sans-serif;color:var(--ink);pointer-events:none;box-shadow:0 14px 30px -14px rgba(0,0,0,.45);}
+  .about-media .vlabel i{width:26px;height:26px;border-radius:50%;background:var(--grad-a);display:flex;align-items:center;justify-content:center;flex:none;}
+  .about-media .vlabel i svg{width:11px;height:11px;fill:#fff;margin-left:1px;}
+  .play-btn{position:absolute;inset:0;margin:auto;width:76px;height:76px;border-radius:50%;border:0;padding:0;cursor:pointer;z-index:3;background:rgba(255,255,255,.94);display:flex;align-items:center;justify-content:center;box-shadow:0 20px 40px -12px rgba(0,0,0,.4);transition:transform .4s var(--ease),box-shadow .4s;}
+  .play-btn::before{content:"";position:absolute;inset:-10px;border-radius:50%;border:2px solid rgba(255,255,255,.7);animation:playPulse 2.4s ease-out infinite;pointer-events:none;}
+  .play-btn:hover{transform:scale(1.1);box-shadow:0 26px 50px -12px rgba(11,119,189,.6);}
+  .play-btn:focus-visible{outline:3px solid var(--teal);outline-offset:4px;}
   .play-btn svg{width:22px;height:22px;fill:var(--blue);margin-left:3px;}
+  @keyframes playPulse{0%{transform:scale(.86);opacity:.9;}100%{transform:scale(1.5);opacity:0;}}
+  @media (prefers-reduced-motion:reduce){.play-btn::before{animation:none;opacity:0;}.about-media .frame img{transition:none;}}
+  /* ventana del video */
+  .vbox{position:fixed;inset:0;z-index:250;display:none;align-items:center;justify-content:center;padding:clamp(14px,4vw,48px);background:rgba(5,8,22,.86);backdrop-filter:blur(8px);}
+  .vbox.is-open{display:flex;animation:vboxIn .35s var(--ease);}
+  @keyframes vboxIn{from{opacity:0}to{opacity:1}}
+  .vbox-in{position:relative;width:min(1080px,100%);aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:#000;box-shadow:0 60px 120px -30px rgba(0,0,0,.8);}
+  .vbox-in iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+  .vbox-close{position:absolute;top:clamp(12px,2.4vw,28px);right:clamp(12px,2.4vw,28px);width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .3s,transform .4s var(--ease);}
+  .vbox-close:hover{background:#fff;color:var(--ink);transform:rotate(90deg);}
+  .vbox-close svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;}
   .about-badge{position:absolute;bottom:-24px;right:-24px;background:var(--dark);color:#fff;border-radius:18px;padding:20px 22px;box-shadow:var(--shadow);width:190px;}
   .about-badge .n{font-family:'Poppins';font-weight:700;font-size:26px;background:var(--grad-a);-webkit-background-clip:text;background-clip:text;color:transparent;}
   .about-badge .l{font-size:12px;color:rgba(255,255,255,.65);margin-top:4px;}
@@ -635,10 +656,10 @@
   <section id="nosotros" style="background:var(--bg-alt);">
     <div class="wrap about-grid">
       <div class="about-media reveal-l">
-        <div class="frame" id="portalFrame"><img src="images/clinic-interior.jpg" alt="Instalaciones de una clínica asociada a Asoclicper"></div>
-        <a class="play-btn" href="nosotros.html" aria-label="Ver video de Asoclicper">
+        <div class="frame" id="portalFrame" data-video="69SkxbtfKB4"><img src="images/quienes-video.webp" alt="Fotograma del video de Asoclicper: mapa de Colombia con las clínicas asociadas" loading="lazy" decoding="async"><span class="vlabel"><i><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></i>Conoce a nuestras clínicas asociadas</span></div>
+        <button type="button" class="play-btn" data-video="69SkxbtfKB4" aria-label="Reproducir video: Conoce a nuestras Clínicas Asociadas" aria-haspopup="dialog">
           <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-        </a>
+        </button>
         <div class="about-badge">
           <div class="n">186,653</div>
           <div class="l">Pacientes atendidos 2020–2025</div>
@@ -1492,6 +1513,37 @@
     });
     window.addEventListener('resize', layout);
     layout();
+  })();
+
+  /* ---------- quienes somos: el fotograma abre el video de Asoclicper en una ventana 16:9 ---------- */
+  (function(){
+    const trigger = document.querySelector('#nosotros .play-btn[data-video]');
+    if(!trigger) return;
+    const id = trigger.dataset.video;
+    let box = null, last = null;
+    function build(){
+      box = document.createElement('div');
+      box.className = 'vbox'; box.setAttribute('role', 'dialog'); box.setAttribute('aria-modal', 'true'); box.setAttribute('aria-label', 'Video: Conoce a nuestras Clínicas Asociadas');
+      box.innerHTML = '<button type="button" class="vbox-close" aria-label="Cerrar video"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button><div class="vbox-in"></div>';
+      document.body.appendChild(box);
+      box.addEventListener('click', (e)=>{ if(e.target === box || e.target.closest('.vbox-close')) close(); });
+    }
+    function open(){
+      if(!box) build();
+      last = document.activeElement;
+      // el iframe se crea al abrir (y se elimina al cerrar): asi el video no sigue sonando en segundo plano
+      box.querySelector('.vbox-in').innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1" title="Conoce a nuestras Clínicas Asociadas" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
+      box.classList.add('is-open'); document.documentElement.style.overflow = 'hidden';
+      box.querySelector('.vbox-close').focus({preventScroll:true});
+    }
+    function close(){
+      if(!box || !box.classList.contains('is-open')) return;
+      box.classList.remove('is-open'); box.querySelector('.vbox-in').innerHTML = ''; document.documentElement.style.overflow = '';
+      if(last) last.focus({preventScroll:true});
+    }
+    trigger.addEventListener('click', open);
+    document.getElementById('portalFrame').addEventListener('click', open);
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') close(); });
   })();
 
   /* tarjetas de beneficios en pantallas tactiles (sin hover): tocar la tarjeta la voltea */
