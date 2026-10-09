@@ -8,40 +8,38 @@
 <link rel="icon" href="images/icon-color.svg">
 <link rel="stylesheet" href="assets/site.css">
 <link rel="stylesheet" href="assets/nav.css">
+<link rel="stylesheet" href="assets/news.css">
 <style>
-  .feat{display:grid;grid-template-columns:1.1fr .9fr;border-radius:32px;overflow:hidden;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);}
+  .feat{display:grid;grid-template-columns:1.1fr .9fr;border-radius:32px;overflow:hidden;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);transition:box-shadow .5s var(--ease),transform .5s var(--ease);}
+  .feat:hover{box-shadow:0 50px 90px -40px rgba(20,40,70,.45);}
+  .feat[hidden]{display:none;}
   .feat .im{position:relative;min-height:380px;overflow:hidden;background:var(--surface-2);}
-  .feat .im img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease);}
+  .feat .im img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 22%;transition:transform .9s var(--ease);}
   .feat:hover .im img{transform:scale(1.06);}
   .feat .bd{padding:46px 44px;display:flex;flex-direction:column;justify-content:center;gap:16px;}
   .feat h2{font-size:clamp(24px,2.8vw,32px);line-height:1.2;letter-spacing:-.3px;}
-  .cat{display:inline-flex;align-items:center;gap:8px;font:700 11.5px 'Inter';letter-spacing:.1em;text-transform:uppercase;color:var(--blue);}
-  .cat::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--grad-a);}
-  .cat.c2{color:var(--purple);}.cat.c3{color:#5f7a10;}
-  .date{font-size:13px;color:var(--ink-dim);}
-  .posts{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
-  .post{display:flex;flex-direction:column;border-radius:24px;background:#fff;border:1px solid var(--line);overflow:hidden;box-shadow:0 18px 40px -28px rgba(20,40,60,.25);transition:transform .45s var(--ease),box-shadow .35s;}
-  .post:hover{transform:translateY(-8px);box-shadow:0 40px 70px -34px rgba(20,40,70,.4);}
-  .post.is-hidden{display:none;}
-  .post .im{aspect-ratio:16/10;overflow:hidden;background:var(--surface-2);position:relative;}
-  .post .im img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease);}
-  .post:hover .im img{transform:scale(1.08);}
-  .post .bd{padding:22px 24px 26px;display:flex;flex-direction:column;gap:10px;flex:1;}
-  .post h3{font-size:17px;line-height:1.3;}
-  .post .more{margin-top:auto;padding-top:6px;font-size:13.5px;font-weight:600;color:var(--blue);display:flex;align-items:center;gap:6px;}
+  .feat .ex{font-size:15.5px;line-height:1.65;color:var(--ink-dim);}
+  .feat .flag{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:100px;background:var(--surface-2);font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);}
+  .list-top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:52px 0 30px;}
+  .list-top .chips{margin:0;}
+  .count{font-size:13.5px;color:var(--ink-dim);margin:-6px 0 22px;}
+  .more-wrap{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:46px;}
+  .more-wrap[hidden]{display:none;}
+  .chip .ico{font-size:15px;}
   .learn{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
   .lp{display:flex;gap:16px;align-items:center;padding:14px;border-radius:20px;background:#fff;border:1px solid var(--line);transition:transform .35s var(--ease),box-shadow .3s;}
   .lp:hover{transform:translateY(-5px);box-shadow:0 26px 50px -30px rgba(20,40,70,.35);}
-  .lp img{width:84px;height:84px;border-radius:14px;object-fit:cover;flex:none;background:var(--surface-2);}
+  .lp img{width:84px;height:84px;border-radius:14px;object-fit:cover;object-position:50% 24%;flex:none;background:var(--surface-2);}
   .lp b{font:600 14.5px/1.35 'Poppins';display:block;}
   .lp small{font-size:12px;color:var(--ink-dim);}
+  .learn-more{margin-top:30px;display:flex;justify-content:center;}
   .promo{display:grid;grid-template-columns:1fr auto;gap:30px;align-items:center;border-radius:28px;padding:44px 48px;background:linear-gradient(160deg,var(--bf-purple-1),var(--bf-purple-2));color:#fff;position:relative;overflow:hidden;}
   .promo::before{content:"";position:absolute;inset:0;background:radial-gradient(40% 80% at 90% 10%,rgba(74,186,183,.4),transparent 70%);}
   .promo>*{position:relative;}
   .promo h3{font-size:clamp(22px,2.6vw,30px);margin:12px 0 8px;}
   .promo p{color:rgba(255,255,255,.75);max-width:520px;}
-  @media (max-width:1040px){.feat{grid-template-columns:1fr;}.feat .im{min-height:260px;}.posts,.learn{grid-template-columns:repeat(2,1fr);}.promo{grid-template-columns:1fr;padding:34px 28px;}}
-  @media (max-width:640px){.posts,.learn{grid-template-columns:1fr;}.feat .bd{padding:30px 24px;}}
+  @media (max-width:1040px){.feat{grid-template-columns:1fr;}.feat .im{min-height:260px;}.learn{grid-template-columns:repeat(2,1fr);}.promo{grid-template-columns:1fr;padding:34px 28px;}}
+  @media (max-width:640px){.learn{grid-template-columns:1fr;}.feat .bd{padding:30px 24px;}}
 </style>
 </head>
 <body data-page="noticias">
@@ -63,19 +61,22 @@
     </div>
   </section>
 
-  <section style="padding-top:60px;">
+  <section style="padding-top:60px;" id="listado">
     <div class="wrap">
-      <a class="feat rv rv-s" id="feat" target="_blank" rel="noopener"></a>
-      <div class="chips rv" id="cats" style="margin:52px 0 30px;"></div>
+      <a class="feat rv rv-s" id="feat"></a>
+      <div class="list-top rv"><div class="chips" id="cats" role="group" aria-label="Categorías de noticias"></div></div>
+      <p class="count" id="count" aria-live="polite"></p>
       <div class="posts" id="posts"></div>
       <div class="empty" id="none" hidden>No encontramos noticias con ese criterio.</div>
+      <div class="more-wrap" id="moreWrap" hidden><button type="button" class="btn btn-ghost-dark" id="more">Cargar más noticias</button></div>
     </div>
   </section>
 
-  <section class="section--alt">
+  <section class="section--alt" id="aprende">
     <div class="wrap">
       <div class="tag-row rv"><div><span class="eyebrow">Interés general</span><h2 class="sec-title">Aprende sobre cirugías plásticas</h2></div><p>Respuestas claras a las dudas más frecuentes sobre procedimientos, para que decidas con información.</p></div>
       <div class="learn stagger" id="learn"></div>
+      <div class="learn-more rv"><a class="link-arrow" href="#cat-general" id="learnAll">Ver todos los contenidos de interés general <span class="ico" data-i="arrow-right"></span></a></div>
     </div>
   </section>
 
@@ -91,57 +92,103 @@
 
 <footer id="siteFooter"></footer>
 <script src="assets/data.js"></script>
+<script src="assets/news-data.js"></script>
 <script src="assets/nav.js"></script>
 <script src="assets/site.js"></script>
 <script>
 (function(){
-  const U = 'https://asoclicper.com/';
-  const P = [
-    ['Medicina de Precisión en la Cirugía Plástica: el rol transformador del monitoreo digital postoperatorio','Cirujanos en Acción','mayo 9, 2025','n07.jpg','medicina-de-precision-en-la-cirugia-plastica-el-roltransformador-del-monitoreo-digital-postoperatorio/'],
-    ['Medidas de prevención y control del hematoma en procedimientos de abdominoplastia','Cirujanos en Acción','noviembre 25, 2024','n08.jpg','medidas-de-prevencion-y-control-del-hematoma-en-procedimientos-de-abdominoplastia/'],
-    ['Clínica San Fernando S.A.: más de 70 años dedicados al bienestar','Cirujanos en Acción','octubre 9, 2024','n09.jpg','clinica-san-fernando-s-a-mas-de-70-anos-dedicados-al-bienestar/'],
-    ['Juntos avanzamos: formación para la excelencia','Enfocados en la Excelencia','septiembre 3, 2024','n01.jpg','clinicas-se-destacan-en-excelencia-y-seguridad-2/'],
-    ['Clínicas se destacan en excelencia y seguridad','Enfocados en la Excelencia','septiembre 3, 2024','n02.jpg','clinicas-se-destacan-en-excelencia-y-seguridad/'],
-    ['Workshop 2024: un encuentro exitoso sobre seguridad del paciente en cirugía plástica','Eventos y Oportunidades','septiembre 3, 2024','n13.jpg','workshop-2024-un-encuentro-exitoso-sobre-seguridad-del-paciente-en-cirugia-plastica/'],
-    ['Colombia, «Número Uno» en turismo médico según las estadísticas mundiales de cirugía plástica estética','Cirujanos en Acción','agosto 9, 2024','n10.jpg','colombia-numero-uno-en-turismo-medicosegun-las-estadisticas-mundiales-de-cirugia-plastica-estetica/'],
-    ['La interdependencia en cirugía plástica como herramienta en la seguridad del paciente','Cirujanos en Acción','mayo 20, 2024','n11.jpg','la-interdependencia-en-cirugia-plastica-como-una-herramienta-en-la-seguridad-del-paciente/'],
-    ['Reuniones administrativas: compromiso con la excelencia y seguridad','Enfocados en la Excelencia','abril 2, 2024','n03.jpg','reuniones-administrativas-compromiso-con-la-excelencia-y-seguridad/'],
-    ['Junta Directiva y jornada de referenciación en Clínica Bellatriz','Eventos y Oportunidades','abril 2, 2024','n14.jpg','junta-directiva-y-jornada-de-referenciacion-en-clinica-bellatriz/'],
-    ['VII Asamblea General Ordinaria de Asociados 2024','Eventos y Oportunidades','abril 2, 2024','n15.jpg','vii-asamblea-general-ordinaria-de-asociados-2024/'],
-    ['Impulsando el turismo de salud en el Valle del Cauca y Cali','Eventos y Oportunidades','abril 2, 2024','n16.jpg','impulsando-el-turismo-de-salud-en-el-valle-del-cauca-y-cali/'],
-    ['¡Asoclicper en los medios!','Eventos y Oportunidades','marzo 11, 2024','n17.jpg','asoclicper-en-los-medios/'],
-    ['Excelencia e innovación en cirugía plástica: Clínica El Pinar a la vanguardia','Cirujanos en Acción','marzo 8, 2024','n12.jpg','excelencia-e-innovacion-en-cirugia-plastica-clinica-el-pinar-a-la-vanguardia/'],
-    ['¡Celebramos el reconocimiento de IQ InterQuirófanos «Medellín Me Cuida con Amor»!','Enfocados en la Excelencia','diciembre 18, 2023','n04.jpg','celebramos-el-reconocimiento-de-iq-quirofanos-medellin-me-cuida-con-amor/'],
-    ['Clínica El Pinar: ¡nuevo miembro de nuestra comunidad!','Eventos y Oportunidades','diciembre 7, 2023','n18.jpg','clinica-el-pinar-nuevo-miembro-de-nuestra-comunidad/'],
-    ['Comprometidos con la humanización en la cirugía plástica: Asoclicper','Enfocados en la Excelencia','','n05.jpg','comprometidos-con-la-humanizacion-en-la-cirugia-plastica-asoclicper/'],
-    ['Fortaleciendo las capacidades de nuestras clínicas para garantizar la seguridad del paciente','Enfocados en la Excelencia','noviembre 17, 2023','n06.jpg','fortaleciendo-las-capacidades-de-nuestras-clinicas-para-garantizar-la-seguridad-del-paciente/']
-  ];
-  const L = [
-    ['Lifting facial: el secreto para una apariencia juvenil y radiante','n19.png','lifting-facial-el-secreto-para-una-apariencia-juvenil-y-radiante/'],
-    ['Retiro de biopolímeros en glúteos: recuperando la salud y la estética','n20.png','retiro-de-biopolimeros-en-gluteos-recuperando-la-salud-y-la-estetica/'],
-    ['Beneficios de la lipólisis láser no invasiva','n21.png','beneficios-de-la-lipolisis-laser-no-invasiva/'],
-    ['Bichectomía: ¿qué es?','n22.png','bichectomia-que-es/'],
-    ['¿Para qué sirve la cirugía capilar?','n23.png','para-que-sirve-la-cirugia-capilar/'],
-    ['¿A qué edad se puede hacer una rinoplastia?','n24.png','a-que-edad-se-puede-hacer-una-rinoplastia/']
-  ];
-  const cls = {'Enfocados en la Excelencia':'', 'Cirujanos en Acción':'c2', 'Eventos y Oportunidades':'c3'};
-  const f = P[0], feat = document.getElementById('feat');
-  feat.href = U + f[4];
-  feat.innerHTML = '<div class="im"><img src="images/site/news/' + f[3] + '" alt=""></div><div class="bd"><span class="cat c2">' + f[1] + '</span><h2>' + f[0] + '</h2><span class="date">' + f[2] + '</span><span class="link-arrow">Leer en asoclicper.com ' + window.asocIcon('external') + '</span></div>';
-  const rest = P.slice(1), grid = document.getElementById('posts');
-  grid.innerHTML = rest.map((p, i) => '<a class="post rv" style="--d:' + (i % 3) * .08 + 's" href="' + U + p[4] + '" target="_blank" rel="noopener" data-c="' + p[1] + '" data-s="' + window.ASOC_UI.norm(p[0] + ' ' + p[1]) + '"><div class="im"><img src="images/site/news/' + p[3] + '" alt="" loading="lazy"></div><div class="bd"><span class="cat ' + cls[p[1]] + '">' + p[1] + '</span><h3>' + p[0] + '</h3>' + (p[2] ? '<span class="date">' + p[2] + '</span>' : '') + '<span class="more">Leer más ' + window.asocIcon('arrow-right') + '</span></div></a>').join('');
-  const cats = ['Todas'].concat(Object.keys(cls));
-  const cw = document.getElementById('cats');
-  cw.innerHTML = cats.map((c, i) => '<button class="chip' + (i ? '' : ' is-on') + '" data-v="' + (i ? c : '') + '">' + c + '</button>').join('');
-  let cat = '', q = '';
-  function apply(){
-    let n = 0;
-    grid.querySelectorAll('.post').forEach(el => { const ok = (!cat || el.dataset.c === cat) && (!q || el.dataset.s.indexOf(q) > -1); el.classList.toggle('is-hidden', !ok); if(ok) n++; });
-    document.getElementById('none').hidden = n > 0;
+  const ALL = window.ASOC_NEWS || [], CATN = window.ASOC_NEWS_CATS;
+  const ES = ALL.filter(n => n.l === 'es'), EN = ALL.filter(n => n.l === 'en');
+  const ic = window.asocIcon, norm = window.ASOC_UI.norm, esc = window.ASOC_UI.esc;
+  const CLS = {excelencia:'', accion:'c2', eventos:'c3', general:'c4'};
+  const ORDER = ['excelencia', 'accion', 'eventos', 'general'];
+  const PAGE = 12;
+  [ES, EN].forEach(arr => arr.forEach(n => { n.sx = norm(n.t + ' ' + n.x + ' ' + CATN[n.l][n.c]); }));
+
+  const feat = document.getElementById('feat'), grid = document.getElementById('posts'), cw = document.getElementById('cats');
+  const count = document.getElementById('count'), none = document.getElementById('none');
+  const moreWrap = document.getElementById('moreWrap'), more = document.getElementById('more');
+  let cat = '', q = '', shown = 0, list = [];
+  const sameLang = (n) => n.l === 'en' ? 'en' : 'es';
+
+  const meta = (n) => esc(n.dl) + '<i class="meta-dot"></i>' + n.m + ' min';
+  const card = (n, i) => '<a class="post rv" style="--d:' + (i % 3) * .08 + 's" href="noticias/' + n.s + '.html"' + (n.l === 'en' ? ' lang="en" hreflang="en"' : '') + '>' +
+    '<div class="im' + (n.po ? ' is-poster' : '') + '"><img src="' + n.th + '" alt="" width="640" height="400" loading="lazy" decoding="async"></div>' +
+    '<div class="bd"><span class="cat ' + CLS[n.c] + '">' + esc(CATN[n.l][n.c]) + '</span><h3>' + esc(n.t) + '</h3><span class="when">' + meta(n) + '</span>' +
+    '<span class="more">' + (n.l === 'en' ? 'Read more' : 'Leer más') + ' ' + ic('arrow-right') + '</span></div></a>';
+
+  /* destacada: la noticia mas reciente (solo se ve sin filtros) */
+  const f = ES[0];
+  feat.href = 'noticias/' + f.s + '.html';
+  feat.innerHTML = '<div class="im"><img src="' + f.th + '" alt="" width="640" height="400" decoding="async" fetchpriority="high"></div>' +
+    '<div class="bd"><span class="flag">' + ic('news') + ' Lo más reciente</span><span class="cat c2">' + esc(CATN.es[f.c]) + '</span><h2>' + esc(f.t) + '</h2>' +
+    '<p class="ex">' + esc(f.x) + '</p><span class="date">' + meta(f) + '</span><span class="link-arrow">Leer artículo ' + ic('arrow-right') + '</span></div>';
+
+  /* chips de categoria */
+  const chips = [['', 'Todas', ES.length]].concat(ORDER.map(c => [c, CATN.es[c], ES.filter(n => n.c === c).length])).concat([['en', 'English', EN.length]]);
+  cw.innerHTML = chips.map(c => '<button type="button" class="chip' + (c[0] === '' ? ' is-on' : '') + '" aria-pressed="' + (c[0] === '') + '" data-v="' + c[0] + '" id="cat-' + (c[0] || 'todas') + '">' +
+    (c[0] === 'en' ? ic('globe') + ' ' : '') + esc(c[1]) + ' <span class="n">' + c[2] + '</span></button>').join('');
+
+  function source(){
+    if(cat === 'en') return EN;
+    return cat ? ES.filter(n => n.c === cat) : ES;
   }
-  cw.addEventListener('click', (e) => { const b = e.target.closest('.chip'); if(!b) return; cat = b.dataset.v; cw.querySelectorAll('.chip').forEach(x => x.classList.toggle('is-on', x === b)); apply(); });
-  document.getElementById('q').addEventListener('input', (e) => { q = window.ASOC_UI.norm(e.target.value.trim()); apply(); });
-  document.getElementById('learn').innerHTML = L.map(l => '<a class="lp" href="' + U + l[2] + '" target="_blank" rel="noopener"><img src="images/site/news/' + l[1] + '" alt="" loading="lazy"><div><b>' + l[0] + '</b><small>Interés general</small></div></a>').join('');
+  function render(){
+    const base = source();
+    const hits = base.filter(n => !q || n.sx.indexOf(q) > -1);
+    const defaultView = !cat && !q;
+    feat.hidden = !defaultView;
+    list = defaultView ? hits.slice(1) : hits;
+    shown = Math.min(PAGE, list.length);
+    grid.innerHTML = list.slice(0, shown).map(card).join('');
+    update();
+    window.asocBoot(grid);
+  }
+  function update(){
+    none.hidden = list.length > 0 || (!cat && !q);
+    const total = list.length + ((!cat && !q) ? 1 : 0);
+    const seen = shown + ((!cat && !q) ? 1 : 0);
+    count.textContent = total ? ('Mostrando ' + seen + ' de ' + total + (cat === 'en' ? ' artículos en inglés' : ' noticias')) : '';
+    moreWrap.hidden = shown >= list.length;
+    more.textContent = 'Cargar más noticias (' + (list.length - shown) + ' restantes)';
+  }
+  more.addEventListener('click', () => {
+    const next = Math.min(shown + PAGE, list.length);
+    const start = shown;
+    grid.insertAdjacentHTML('beforeend', list.slice(start, next).map((n, i) => card(n, i)).join(''));
+    shown = next;
+    update();
+    window.asocBoot(grid);
+  });
+  function setCat(c, noScroll){
+    cat = c;
+    cw.querySelectorAll('.chip').forEach(x => { const on = x.dataset.v === c; x.classList.toggle('is-on', on); x.setAttribute('aria-pressed', on); });
+    render();
+    history.replaceState(null, '', c ? (c === 'en' ? '#en' : '#cat-' + c) : location.pathname + location.search);
+    if(!noScroll){
+      const t = document.getElementById('cats');
+      if(window.scrollY > t.getBoundingClientRect().top + window.scrollY - 140) window.scrollTo({top: t.getBoundingClientRect().top + window.scrollY - 140, behavior: 'smooth'});
+    }
+  }
+  cw.addEventListener('click', (e) => { const b = e.target.closest('.chip'); if(b) setCat(b.dataset.v); });
+  document.getElementById('q').addEventListener('input', (e) => { q = norm(e.target.value.trim()); render(); });
+  document.getElementById('learnAll').addEventListener('click', (e) => { e.preventDefault(); setCat('general'); });
+
+  /* aprende sobre cirugias: los 6 mas recientes de interes general */
+  document.getElementById('learn').innerHTML = ES.filter(n => n.c === 'general').slice(0, 6).map(n =>
+    '<a class="lp" href="noticias/' + n.s + '.html"><img src="' + n.th + '" alt="" width="84" height="84" loading="lazy"><div><b>' + esc(n.t) + '</b><small>' + esc(n.dl) + '</small></div></a>').join('');
+
+  /* entrada por hash: #cat-accion, #en */
+  const h = location.hash.replace('#', '');
+  const start = h === 'en' ? 'en' : (/^cat-/.test(h) ? h.slice(4) : '');
+  cat = ORDER.indexOf(start) > -1 || start === 'en' ? start : '';
+  setCat(cat, true);
+  if(cat) setTimeout(() => { const t = document.getElementById('listado'); window.scrollTo({top: t.getBoundingClientRect().top + window.scrollY - 40, behavior: 'smooth'}); }, 80);
+  window.addEventListener('hashchange', () => {
+    const k = location.hash.replace('#', '');
+    const c = k === 'en' ? 'en' : (/^cat-/.test(k) ? k.slice(4) : null);
+    if(c !== null && (c === 'en' || ORDER.indexOf(c) > -1) && c !== cat) setCat(c);
+  });
   window.asocBoot(document);
 })();
 </script>
