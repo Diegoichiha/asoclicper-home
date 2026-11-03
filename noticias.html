@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="assets/site.css">
 <link rel="stylesheet" href="assets/nav.css">
 <link rel="stylesheet" href="assets/news.css">
+<link rel="stylesheet" href="assets/instagram.css">
 <style>
   .feat{display:grid;grid-template-columns:1.1fr .9fr;border-radius:32px;overflow:hidden;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);transition:box-shadow .5s var(--ease),transform .5s var(--ease);}
   .feat:hover{box-shadow:0 50px 90px -40px rgba(20,40,70,.45);}
@@ -72,6 +73,28 @@
     </div>
   </section>
 
+  <section class="section--tint section--tight" id="instagram" aria-labelledby="igTitle">
+    <div class="wrap">
+      <div class="tag-row rv">
+        <div><span class="eyebrow">Instagram</span><h2 class="sec-title" id="igTitle">Síguenos en <span class="grad-text">@asoclicper</span></h2></div>
+        <div class="ig-side">
+          <p>Lo último de nuestra red de clínicas asociadas: eventos, alianzas y contenidos para cuidar tu seguridad.</p>
+          <div class="ig-nav">
+            <button type="button" class="ig-btn prev" data-ig="prev" aria-label="Publicaciones anteriores" disabled><span class="ico" data-i="arrow-right"></span></button>
+            <button type="button" class="ig-btn next" data-ig="next" aria-label="Publicaciones siguientes"><span class="ico" data-i="arrow-right"></span></button>
+          </div>
+        </div>
+      </div>
+      <div class="ig" data-ig-feed data-src="assets/instagram.json" data-profile="https://www.instagram.com/asoclicper/" data-limit="10">
+        <div class="ig-track" tabindex="0" role="region" aria-label="Publicaciones recientes de Instagram (usa las flechas del teclado para recorrerlas)">
+          <div class="ig-skel"></div><div class="ig-skel"></div><div class="ig-skel"></div><div class="ig-skel"></div><div class="ig-skel"></div>
+        </div>
+        <div class="ig-bar" aria-hidden="true"><span></span></div>
+      </div>
+      <div class="ig-cta rv"><a class="btn btn-primary" href="https://www.instagram.com/asoclicper/" target="_blank" rel="noopener"><span data-i="instagram"></span> Seguir a @asoclicper</a></div>
+    </div>
+  </section>
+
   <section class="section--alt" id="aprende">
     <div class="wrap">
       <div class="tag-row rv"><div><span class="eyebrow">Interés general</span><h2 class="sec-title">Aprende sobre cirugías plásticas</h2></div><p>Respuestas claras a las dudas más frecuentes sobre procedimientos, para que decidas con información.</p></div>
@@ -95,6 +118,7 @@
 <script src="assets/news-data.js"></script>
 <script src="assets/nav.js"></script>
 <script src="assets/site.js"></script>
+<script src="assets/instagram.js"></script>
 <script>
 (function(){
   const ALL = window.ASOC_NEWS || [], CATN = window.ASOC_NEWS_CATS;
