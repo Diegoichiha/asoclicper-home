@@ -227,7 +227,7 @@
   function initVerify(root){
     const all = window.ASOC.clinics;
     root.innerHTML =
-      '<div><span class="eyebrow">Verifica tu clínica</span><h3>¿Tu clínica hace parte de ASOCLICPER?</h3><p class="sub">Escribe el nombre de la clínica o la ciudad. Solo las clínicas habilitadas y con cirujanos plásticos acreditados hacen parte de nuestra red de 17 asociadas.</p></div>' +
+      '<div><span class="eyebrow">Verifica tu clínica</span><h3>¿Tu clínica hace parte de ASOCLICPER?</h3><p class="sub">Escribe el nombre de la clínica o la ciudad. Solo las clínicas habilitadas y con cirujanos plásticos acreditados hacen parte de nuestra red de 16 asociadas.</p></div>' +
       '<div class="vf-box"><div class="vf-input">' + ic('search') + '<input type="search" placeholder="Ej: Corpus, San Fernando, Medellín…" aria-label="Nombre de la clínica" autocomplete="off"></div><div class="vf-list"></div><div class="vf-result"></div></div>';
     const input = $('input', root), list = $('.vf-list', root), res = $('.vf-result', root);
     function show(kind, html, iconName){ res.className = 'vf-result ' + kind; res.innerHTML = ic(iconName) + '<div>' + html + '</div>'; }
@@ -240,7 +240,7 @@
       if(q.length < 2){ list.innerHTML = ''; return; }
       const hits = all.filter(c => norm([c.name, c.city, c.dept].join(' ')).indexOf(q) > -1).slice(0, 5);
       list.innerHTML = hits.map(c => '<button class="vf-opt" data-id="' + c.id + '"><img src="' + c.logo + '" alt=""><span><b>' + esc(c.name) + '</b><small>' + esc(c.city) + ', ' + esc(c.dept) + '</small></span></button>').join('');
-      if(!hits.length) show('no', '<b>No encontramos «' + esc(input.value.trim()) + '» entre las 17 clínicas asociadas</b><span>Eso no la descalifica ni la valida: verifica su habilitación y que el cirujano esté adscrito a la Sociedad Colombiana de Cirugía Plástica, y consúltanos por WhatsApp antes de decidir.</span>', 'alert');
+      if(!hits.length) show('no', '<b>No encontramos «' + esc(input.value.trim()) + '» entre las 16 clínicas asociadas</b><span>Eso no la descalifica ni la valida: verifica su habilitación y que el cirujano esté adscrito a la Sociedad Colombiana de Cirugía Plástica, y consúltanos por WhatsApp antes de decidir.</span>', 'alert');
     });
     list.addEventListener('click', (e) => { const b = e.target.closest('.vf-opt'); if(b) choose(all.find(c => c.id === b.dataset.id)); });
     asocFillIcons(root);

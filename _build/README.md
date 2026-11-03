@@ -28,3 +28,7 @@ Requisitos: Python 3, `pillow`, `lxml` y `ffmpeg` (solo para el audio).
 - Para cambiar el diseño del artículo se edita `build_news_pages.py` (marcado) + `assets/post.css`, y se vuelve a ejecutar el paso 2.
 - Los títulos limpios (sentence case) y las parejas de traducción ES/EN están en `build_news_data.py` (`TITLES`, `PAIRS`).
 - Las páginas usan `<base href="../">` porque viven en `noticias/`; por eso los enlaces del encabezado y el pie funcionan igual que en la raíz.
+
+## Artículos retirados
+
+`EXCLUDE` en `build_news_data.py` lista los artículos que el importador no trae (hoy: el 6743, nota firmada por una clínica que dejó la asociación; copia en `_archivo/clinicas-retiradas/`). Para reincorporar uno: quitar su id de `EXCLUDE`, agregar su entrada a `news.json` y volver a ejecutar `build_news_pages.py`.

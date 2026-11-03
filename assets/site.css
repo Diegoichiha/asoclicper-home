@@ -190,7 +190,7 @@ section{position:relative;padding:110px 0;}
 .md-video .cap{position:absolute;left:20px;right:20px;bottom:16px;z-index:2;color:#fff;font:600 14px 'Poppins';}
 .md-video .cap small{display:block;font:500 12px 'Inter';opacity:.75;margin-top:2px;}
 .md-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:3;}
-/* bloque "Celebramos 17 clinicas": texto + video de la asociacion */
+/* bloque "Celebramos las clinicas asociadas": texto + video de la asociacion */
 .celebra{display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:center;}
 .celebra .eyebrow{margin-bottom:14px;}
 .celebra h2{font-size:clamp(26px,3.2vw,38px);line-height:1.15;margin:0 0 18px;}

@@ -55,7 +55,7 @@
   const NAV = [
     { k:'nosotros', t:'Nosotros', href:'nosotros.html' },
     { k:'clinicas', t:'Clínicas Asociadas', href:'clinicas-asociadas.html', keys:['clinicas','beneficios','ser-asociado'], sub:[
-      { i:'map-pin', t:'Directorio de las 17 clínicas', d:'Encuentra y verifica tu clínica', href:'clinicas-asociadas.html' },
+      { i:'map-pin', t:'Directorio de las 16 clínicas', d:'Encuentra y verifica tu clínica', href:'clinicas-asociadas.html' },
       { i:'star', t:'Beneficios de asociarte', d:'Incluye calculadora de ahorro', href:'beneficios.html' },
       { i:'clipboard', t:'Ser Asociado', d:'Requisitos y pre-solicitud de afiliación', href:'ser-asociado.html' } ] },
     { k:'aliados', t:'Aliados Comerciales', href:'aliados.html', sub:[

@@ -1,0 +1,1 @@
+        <div class="orbit-chip"><a href="https://www.clinicacemein.com/" target="_blank" rel="noopener" title="Clínica Integrativa María del Pilar Díaz" aria-label="Visitar el sitio de Clínica Integrativa María del Pilar Díaz"><img src="images/clinics/mariadelpilar.png" alt="Clínica Integrativa María del Pilar"></a></div>

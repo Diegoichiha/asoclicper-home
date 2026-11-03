@@ -101,6 +101,10 @@ TITLES = {
  5777: 'Important meeting between ASOCLICPER and ANDI',
 }
 
+# articulos retirados del sitio (no se importan). 6743: nota firmada por la Clinica Integrativa Maria del Pilar Diaz (CEMEIN),
+# que dejo la asociacion; copia en _archivo/clinicas-retiradas/maria-del-pilar-diaz/noticia/. Para reincorporarla, quitar el id de aqui.
+EXCLUDE = {6743}
+
 # traduccion EN -> ES (mismo contenido en el otro idioma)
 PAIRS = {6029:5409, 6027:4492, 6024:4547, 6022:4551, 6020:4656, 6017:5426, 6015:5431, 5837:3799, 5833:4046, 5831:4161,
          5829:4049, 5827:4052, 5824:4165, 5822:4523, 5809:4543, 5806:4821, 5800:4532, 5797:4528, 5793:4525,
@@ -748,6 +752,8 @@ def main():
     mp3 = {}
     for p in sorted(posts, key=lambda x: (x['date'], x['id']), reverse=True):
         pid = p['id']
+        if pid in EXCLUDE:
+            print('   (retirado)', pid); continue
         terms = [c for c in p['_embedded']['wp:term'][0] if c['slug'] in CATS]
         if not terms:
             print('SIN CATEGORIA', pid); continue

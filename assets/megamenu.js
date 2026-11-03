@@ -12,7 +12,7 @@
   const META = {
     inicio:    {i:'home',        blurb:'Conoce ASOCLICPER: unimos a las clínicas de cirugía plástica, estética y reconstructiva de Colombia en torno a la excelencia y la seguridad del paciente.'},
     nosotros:  {i:'users',       blurb:'Nuestro propósito, meta, política de calidad y valores, y la Junta Directiva que lidera la Asociación.'},
-    clinicas:  {i:'map-pin',     blurb:'Una red de 17 clínicas habilitadas y con cirujanos plásticos acreditados, en 8 departamentos del país.'},
+    clinicas:  {i:'map-pin',     blurb:'Una red de 16 clínicas habilitadas y con cirujanos plásticos acreditados, en 7 departamentos del país.'},
     aliados:   {i:'briefcase',   blurb:'Conecta tu marca con la red de clínicas: patrocinios, eventos, podcast y alianzas comerciales.'},
     turismo:   {i:'plane',       blurb:'Clínicas certificadas y una guía paso a paso para operarte en Colombia con seguridad.'},
     seguridad: {i:'shield-check',blurb:'Verifica tu clínica, aprende a reconocer señales de alerta y escucha nuestro podcast sobre cirugía segura.'},
