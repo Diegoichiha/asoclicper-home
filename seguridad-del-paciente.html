@@ -22,6 +22,19 @@
   .pillar.end h3{color:#fff;font-size:22px;}
   .pillar.end p{color:rgba(255,255,255,.8);margin-bottom:22px;}
   .pillar.end .btn-primary{background:#fff;color:var(--purple);align-self:flex-start;}
+  /* fuentes oficiales (REPS / ReTHUS) */
+  .card.of{display:flex;flex-direction:column;padding:34px;}
+  .of .top{display:flex;align-items:center;justify-content:space-between;gap:16px;}
+  .of .tag{font:700 11.5px 'Poppins';letter-spacing:.12em;text-transform:uppercase;color:var(--ink-dim);background:var(--surface-2);padding:7px 13px;border-radius:100px;}
+  .card.of h3{font-size:clamp(26px,3vw,32px);margin:24px 0 6px;letter-spacing:-.3px;}
+  .of .full{font:600 14px 'Poppins';color:var(--blue);line-height:1.4;}
+  .card.of p{margin-top:16px;flex:1;}
+  .of p b{color:var(--ink);font-weight:600;}
+  .of .use{display:flex;gap:12px;align-items:flex-start;margin-top:22px;padding:16px 18px;border-radius:16px;background:linear-gradient(160deg,#eef8f8,#e8f1fb);border:1px solid #cfe6ea;font-size:14px;line-height:1.55;color:#2b3346;}
+  .of .use .ico{width:24px;height:24px;border-radius:50%;background:var(--grad-a);color:#fff;font-size:14px;margin-top:1px;}
+  .of .use b{font-weight:700;}
+  .of .go{margin-top:auto;padding-top:28px;display:flex;align-items:center;justify-content:space-between;gap:14px 20px;flex-wrap:wrap;}
+  .of .host{font-size:12.5px;color:var(--ink-dim);}
   /* alertas */
   .alerts{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:start;}
   .flag{display:flex;gap:16px;align-items:flex-start;padding:18px 20px;border-radius:18px;background:#fff;border:1.5px solid var(--line);cursor:pointer;transition:all .3s var(--ease);margin-bottom:10px;}
@@ -89,6 +102,31 @@
   <!-- VERIFICA -->
   <section id="verifica" class="section--alt section--tight">
     <div class="wrap"><div class="verify rv rv-s" data-verify></div></div>
+  </section>
+
+  <!-- FUENTES OFICIALES -->
+  <section id="fuentes-oficiales">
+    <div class="wrap">
+      <div class="tag-row rv"><div><span class="eyebrow">Verifica en fuentes oficiales</span><h2 class="sec-title">Confirma la habilitación de la clínica y el registro de tu cirujano</h2></div><p>Además de nuestro verificador, consulta las dos bases de datos oficiales del Ministerio de Salud y Protección Social antes de tomar una decisión.</p></div>
+      <div class="grid g2">
+        <article class="card spot of rv">
+          <div class="top"><div class="tile"><span data-i="building"></span></div><span class="tag">Para la clínica</span></div>
+          <h3>REPS</h3>
+          <span class="full">Registro Especial de Prestadores de Servicios de Salud</span>
+          <p>Es la base de datos oficial en Colombia donde se encuentran inscritos los prestadores de servicios de salud habilitados para operar: IPS, profesionales independientes, transporte asistencial y entidades con objeto social diferente. Lo administran las secretarías departamentales y distritales de salud y lo consolida el Ministerio de Salud y Protección Social.</p>
+          <div class="use"><span class="ico" data-i="check"></span><span><b>Te sirve para</b> confirmar que la clínica donde te vas a operar está habilitada.</span></div>
+          <div class="go"><a class="btn btn-primary btn-sm" href="https://prestadores.minsalud.gov.co/habilitacion/" target="_blank" rel="noopener" aria-label="Consultar el REPS en el sitio del Ministerio de Salud (se abre en una pestaña nueva)">Consultar el REPS <span data-i="external"></span></a><span class="host">prestadores.minsalud.gov.co</span></div>
+        </article>
+        <article class="card spot of rv" data-d=".1">
+          <div class="top"><div class="tile b"><span data-i="award"></span></div><span class="tag">Para el cirujano</span></div>
+          <h3>ReTHUS</h3>
+          <span class="full">Registro Único Nacional del Talento Humano en Salud</span>
+          <p>Es la inscripción en el <b>sistema de información definido por el Ministerio de Salud y Protección Social, del talento humano en salud</b> que cumple con los requisitos establecidos en la Ley 1164 de 2007: con ella se entiende que el profesional está autorizado para ejercer una profesión u ocupación del área de la salud. También señala las sanciones que reportan los Tribunales ético-disciplinarios del área de la salud, las autoridades competentes o los particulares a quienes se les deleguen funciones públicas.</p>
+          <div class="use"><span class="ico" data-i="check"></span><span><b>Te sirve para</b> comprobar que tu cirujano está autorizado para ejercer y si tiene sanciones.</span></div>
+          <div class="go"><a class="btn btn-primary btn-sm" href="https://www.minsalud.gov.co/salud/PO/paginas/registro-unico-nacional-del-talento-humano-en-salud-rethus.aspx" target="_blank" rel="noopener" aria-label="Consultar el ReTHUS en el sitio del Ministerio de Salud (se abre en una pestaña nueva)">Consultar el ReTHUS <span data-i="external"></span></a><span class="host">minsalud.gov.co</span></div>
+        </article>
+      </div>
+    </div>
   </section>
 
   <!-- ALERTAS -->
